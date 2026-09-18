@@ -1,0 +1,173 @@
+# MISC
+itemGroup.magianaturalis=Magia Naturalis
+
+enum.magianaturalis.none=None
+enum.magianaturalis.unknown=Unknown
+enum.magianaturalis.mode.uniform=Uniform
+enum.magianaturalis.shape.cube=Cube
+enum.magianaturalis.shape.plane=Plane
+enum.magianaturalis.shape.plane.extend=Plane Extend
+enum.magianaturalis.shape.sphere=Sphere
+
+# KEY BINDINGS
+key.categories.magianaturalis=Magia Naturalis
+key.magianaturalis.increase_size=Increase Area Size
+key.magianaturalis.decrease_size=Decrease Area Size
+key.magianaturalis.misc=Toggle Shape/Mode
+key.magianaturalis.pick_block=Pick Block
+
+# CHAT MSG
+chat.magianaturalis.key.access.door=The Arcane Door has been linked to your Soul.
+chat.magianaturalis.key.access.chest=The Arcane Chest seems to like You.
+chat.magianaturalis.key.access.misc=The Arcane Device is now bound to your Soul.
+chat.magianaturalis.key.boundplayer=The Key was bound to the Soul of %s.
+chat.magianaturalis.key.boundplayer.1=You bound the Key to your Soul.
+chat.magianaturalis.key.owner=You are now the Forger of the Key.
+chat.magianaturalis.key.accesslist=%s was added to the Keys Access List.
+chat.magianaturalis.chest.access.denied=The Arcane Chest doesn't seem to like You.
+chat.magianaturalis.chest.resist=The Chest resists Your Attempt of Miniaturization.
+
+# Flavor Text & Tool Hint & Misc 
+flavor.magianaturalis.key.0=One to Open Them All...
+flavor.magianaturalis.key.1=One to Grant Access for Others...
+flavor.magianaturalis.banner=A Banner to mark our Presence.
+hint.magianaturalis.ctrl=<Press Ctrl>
+hint.magianaturalis.empty=Empty
+hint.magianaturalis.chest.items=Contains Treasure
+hint.magianaturalis.chest.access=Has Access List
+
+# ITEM NAMES
+item.magianaturalis.research_log.name=Research Log
+item.magianaturalis.biome_sampler.name=Biome Report
+item.magianaturalis.alchemical_stone.1.name=Quicksilver Alchemist Stone
+item.magianaturalis.alchemical_stone.0.name=Phenomorphous Catalyst Stone
+item.magianaturalis.dev_tool.name=Misc Dev Tool
+item.magianaturalis.biome_dev_tool.name=Biome Dev Tool
+item.magianaturalis.thaumium_key.0.name=Key of Unraveling
+item.magianaturalis.thaumium_key.1.name=Key of Endorsing
+item.magianaturalis.dark_crystal_goggles.name=Dark Crystal Goggles
+item.magianaturalis.spectacles.name=Spectacles
+item.magianaturalis.builder_focus.name=Wand Focus: Construction
+item.magianaturalis.revenant_focus.name=Wand Focus: Baby Revenant
+item.magianaturalis.evil_trunk.tainted.name=Tainted Trunk
+item.magianaturalis.evil_trunk.demonic.name=Demonic Trunk
+item.magianaturalis.evil_trunk.sinister.name=Sinister Trunk
+item.magianaturalis.evil_trunk.corrupted.name=Corrupted Trunk
+item.magianaturalis.focus_ender_pouch.name=Focus Enderpouch
+item.magianaturalis.thaumium_sickle.name=Thaumium Sickle
+item.magianaturalis.void_sickle.name=Void Sickle
+item.magianaturalis.elemental_sickle.name=Sickle of Abundance
+
+# TILE NAMES
+tile.magianaturalis.transcribing_table.name=Transcribing Table
+tile.magianaturalis.arcane_chest.gw.name=Greatwood Chest
+tile.magianaturalis.arcane_chest.sw.name=Silverwood Chest
+tile.magianaturalis.prison_jar.name=Mob in a Jar
+tile.magianaturalis.arcane_wood.gw_planks.name=Horizontal Greatwood Planks
+tile.magianaturalis.arcane_wood.gw_orn.name=Greatwood Ornament
+tile.magianaturalis.arcane_wood.sw_planks.0.name=Horizontal Silverwood Planks
+tile.magianaturalis.arcane_wood.sw_planks.1.name=Vertical Silverwood Planks
+tile.magianaturalis.arcane_wood.gw_gold_orn.0.name=Greatwood Gold Ornament
+tile.magianaturalis.arcane_wood.gw_gold_orn.1.name=Greatwood Gold Ornament
+tile.magianaturalis.arcane_wood.gw_gold_trim.name=Greatwood Gold Trim
+tile.magianaturalis.banner.name=Magia Naturalis Banner
+tile.magianaturalis.geo_pylon.name=Geo-Pylon
+
+# ENTITY NAMES
+entity.magianaturalis.taint_breeder.name=Taint Breeder
+entity.magianaturalis.evil_trunk.name=Evil Trunk
+
+# RESEARCH
+tc.research_category.magianaturalis=Magia Naturalis
+
+research.magianaturalis.intro.name=Inherent Law
+research.magianaturalis.intro.text=Knowing the Nature of Things in order to comprehend the Nature of Their existence
+research.magianaturalis.intro.page.1=All Thaumaturges  can manipulate the Essence of Magic we now call Vis, but few like yourself have managed to look past Corruption and Darkness. Your deep connection with natural Flux and its Primal Occurrences have lead you to understand the real Beauty of this material World.<BR>Fellow Naturalists claim to be able to manipulate the Fabrics of Life itself, Nature and Creatures. They believe to have discovered our nature of existence....
+
+research.magianaturalis.carpentry.name=Woods
+research.magianaturalis.carpentry.text=Building Blocks
+research.magianaturalis.carpentry.page.1=Tired of always using the same magical Wood for building you decided to simply carve on it. A couple of etchings here, a bit of gold there, sticking together Slabs and the Result was better than anything you ever imagined.
+
+research.magianaturalis.transcribing_table.name=Transcribing Table
+research.magianaturalis.transcribing_table.text=Physical transportation of knowledge
+research.magianaturalis.transcribing_table.page.1=You realized that the knowledge released by the Deconstruction Table is fleeting and hard to share. Thus, you crafted this Transcribing Table.<BR>Place an empty "Research Log" in the top-left slot and have an original Deconstruction Table nearby. This table will slowly "transcribe" and seal ambient aspects and research points into the log.<BR>A full log can hold up to 64 points of each of the 6 primal aspects. When another thaumaturge reads this filled log, they gain all the research points within. This is the best way for thaumaturges to trade and inherit knowledge.
+
+research.magianaturalis.research_log.name=Research Log
+research.magianaturalis.research_log.text=Collecting Knowledge for Anyone
+research.magianaturalis.research_log.page.1=This thick Tome can store Research Points as Words written down with magical Scribing Tools. If Anyone reads this Book they gain all Research Points contained within. The words disappear from the pages leaving behind a blank Research Log.
+
+research.magianaturalis.arcane_keys.name=Thaumium Key
+research.magianaturalis.arcane_keys.text=One to Rule them All...
+research.magianaturalis.arcane_keys.page.1=This Key grants Access for the Bound Player to any arcane block owned by the Key Forger.
+research.magianaturalis.arcane_keys.page.2=This Key adds a list of players to the access list of the arcane blocks owned by the Bound Player or Key Forger.
+
+rresearch.magianaturalis.arcane_chest.name=Arcane Chest
+research.magianaturalis.arcane_chest.text=An obstinate private vault, guarding its treasures
+research.magianaturalis.arcane_chest.page.1=You grew tired of ordinary chests being destroyed by creepers or plundered by thieves. Thus, you crafted these soul-bound Arcane Chests from Greatwood or Silverwood.<BR>They are nearly immune to destruction and bind to their owner. You can add other players to the chest's access list, allowing them to open it as well.<BR>Notably, the Greatwood Chest has standard capacity, while the Silverwood Chest is significantly larger. Best of all, you can simply sneak (Shift) and right-click it with your wand to shrink it and carry it with you, without losing any stored items or the access list.
+
+research.magianaturalis.dark_goggles.name=Dark Crystal Goggles
+research.magianaturalis.dark_goggles.text=I see Your glowing Red Eyes
+research.magianaturalis.dark_goggles.page.1=You have always wondered how some entities could stay unseen to your eyes. Even though you have mastered the revealing of aura nodes you can't see invisible beings. During your travels you have started to notice that spiders often appear invisible. Through the dissection of a spider body you figured out that darkness is somehow involved in cloaking the entities. Luckily you also discovered that Spider Eyes have the ability detect it.<BR>These Goggles provide peering Sight that is unaffected by Blindness and grants the player the ability to see the Shapes of Invisible Beings. Finally the times are over being surprised by the unseen.
+
+research.magianaturalis.spectacles.name=Spectacles
+research.magianaturalis.spectacles.text=Sharper Sight
+research.magianaturalis.spectacles.page.1=Assess Aura Node Types and Modifiers without a Thaumometer. Discover who owns Arcane Doors, Glass or Chests.
+
+research.magianaturalis.construction_focus.name=Focus Of Construction
+research.magianaturalis.construction_focus.text=Grand Architecture
+research.magianaturalis.construction_focus.page.1=While the Shovel of the Earthmover already possessed a slight potential at building in a bigger manner, you have refined and expanded the shear Potential to its maximum. This Masterpiece of Focus etching has brought forth a Tool befitting a Grand Architect.
+
+research.magianaturalis.revenant_focus.name=Focus Of the Revenant
+research.magianaturalis.revenant_focus.text=Annoying touch of death
+research.magianaturalis.revenant_focus.page.1=Your combat encounters with baby zombies have ingrained into you the annoyance of small and fast moving enemies. You have uncovered a way to temporarily summon these rascals and sic them on your enemies.
+
+research.magianaturalis.prison_jar.name=Entity in a Jar
+research.magianaturalis.prison_jar.text=Imprisoning life within a tiny space
+research.magianaturalis.prison_jar.page.1=You crafted this "Prison Jar" using magical glass. It can seal ordinary creatures (excluding bosses or players) within. Simply right-click a creature with an empty jar to trap it inside.<BR>The imprisoned jar will emit a faint glow. If you wish to release the creature, place the jar on the ground and right-click it with your wand to shatter the glass and set the being free.<BR>If you simply break it, it won't release the creature, but instead drop as an item containing the creature's data, allowing you to safely transport your pets or traps. Never break it with normal attacks, or the creature inside will be released.
+
+research.magianaturalis.mutation_stone.name=Phenomorphous Stone
+research.magianaturalis.mutation_stone.text=Morphing the Visual
+research.magianaturalis.mutation_stone.page.1=Change the appearance of Blocks such as Wool, Hardened Clay, Wood, Logs and Stone Bricks. All pheno-morphable block are highlighted when looking at them simply click the block to swap it appearance. Sneak to rotate Logs & Stairs.
+
+research.magianaturalis.quicksilver_stone.name=Quicksilver Stone
+research.magianaturalis.quicksilver_stone.text=Quickening Potion Effects
+research.magianaturalis.quicksilver_stone.page.1=Shortens and condenses the Effects of Potions at the same time. Makes the Effect Stronger, but last shorter. Needs Glowstone to operate.
+
+item.magianaturalis.evil_trunk.corrupted.name=Corrupted Trunk
+item.magianaturalis.evil_trunk.sinister.name=Sinister Trunk
+item.magianaturalis.evil_trunk.demonic.name=Demonic Trunk
+item.magianaturalis.evil_trunk.tainted.name=Tainted Trunk
+
+research.magianaturalis.evil_trunk.name=Vicious Traveling Trunk
+research.magianaturalis.evil_trunk.text=Soul-infused combat backpack
+research.magianaturalis.evil_trunk.page.1=You infused warped souls into traveling trunks, creating four distinct appearances of loyal companions. They are not just a mobile backpack with a 36-slot capacity, but also powerful combat pets with 75 health and 6 attack damage, immune to fire and drowning.<BR>They will automatically follow you and fiercely fight back when you are attacked. Non-sneaking right-click opens their inventory; feeding them with food will restore their health.<BR>To carry them, simply left-click them with a Golem Bell. The four variants (Corrupted, Sinister, Demonic, Tainted) differ only in appearance and crafting materials; their combat abilities are identical.
+
+research.magianaturalis.ender_pouch.name=Focus Ender Pouch
+research.magianaturalis.ender_pouch.text=Cross-dimensional arsenal
+research.magianaturalis.ender_pouch.page.1=This is the ultimate form of the Focus Pouch. You bound it to your Ender Chest, creating a cross-dimensional storage device.<BR>Simply right-click to access your Ender Chest anytime, anywhere. Even better, it synchronizes the Foci within, allowing you to swap wand focuses on the fly.<BR>Equip it in your Baubles (Belt) slot, and it will travel with you across all dimensions, serving as your most reliable mobile arsenal.
+
+research.magianaturalis.sickles.name=Sickles
+research.magianaturalis.sickles.text=Reaping Crops
+research.magianaturalis.sickles.page.1=Destroys Crops and Plants in a small radius of about 3x3x3 Blocks. Can harvest any Plants, Crops, Leaves, Web and other Vegetation and shear Entities such as Sheep.
+
+research.magianaturalis.sickle_of_abundance.name=Sickle of Abundance
+research.magianaturalis.sickle_of_abundance.text=Harvest Feast
+research.magianaturalis.sickle_of_abundance.page.1=Evolution of the Thaumium Sickle allowing the Possessor to harvest plants in an even larger radius with a inherent abundance comparable to a fortune level of 2 which includes increased drop chances for Greatwood and Silverwood Saplings. All the harvested Loot floats towards the player.
+
+research.magianaturalis.geo_occultism.name=Geo Occultism
+research.magianaturalis.geo_occultism.text=Transforming Regions through Obsidian Totems
+research.magianaturalis.geo_occultism.page.1=Observing and studying geographic Regions and the ancient Totems found in them you have discovered that Biomes can be transformed. The Ancients seemed to use Obsidian Totems to create artificial Geo-Poles that slowly converted the Region around them. You invented a Geo-Pylon which is attuned to a specific Region and placed on top of a 3 Block tall Obsidian Totem. Fueling it with Essentia you are able to bend the Region to your will.<BR>The max Range of the Pole seems to be a radius of 8 Blocks. A black color indicates that the Device is Idle, use your wand to activate/deactivate.
+research.magianaturalis.geo_occultism.page.2=In order to attune the Geo-Pylon to a specific Region a Detailed Report of a Biome and its Attributes is needed. Simply travel to a desired Biome and carefully write down the Data while bending down in order to examine the present Soil. Once the report is finished the Ribbon Color will change than simply touch the Geo-Pylon with your Report to attune it. The stain of the Geo-Pylon will change in accordance with the Ribbon, should the old Essentia Cost Remain carefully use your wand to reset the Cost.
+
+
+# Item Names
+item.magianaturalis.herobrines_scythe.name=Herobrine's Scythe
+
+# Research Names and Texts
+research.magianaturalis.herobrines_scythe.name=Herobrine's Scythe
+research.magianaturalis.herobrines_scythe.text=Tear flesh, feed on war.
+
+research.magianaturalis.herobrines_scythe.page.0=While exploring the extremes of natural magic, you crafted the "Sickle of Abundance," a symbol of harvest and life. But your thirst for forbidden knowledge eventually consumed you. Deep within ancient ruins, you used this sickle as a base, infusing it with forbidden death knowledge and void essence. The moment its transformation was complete, you could no longer feel the vitality of nature—only endless madness. It craves to cut, to devour. This weapon is extremely powerful. It not only causes crazy damage, but also seems to tear this world apart. Every time it tears flesh, it generates a tiny energy pulse that bounces infinitely among nearby enemies, jumping from one to another until no one is left alive. This energy pulse deals the same damage as Herobrine's Scythe.
+research.magianaturalis.herobrines_scythe.page.1=This power can be enhanced by potions or enchantments of strength. Herobrine's Scythe can even repair itself like a void hoe. In addition, it can block attacks like a shield, completely negating all damage while guarding. Since you made it, other thaumaturges have been avoiding you. They talk about how your eyes have turned completely white, as if "he" has returned. But you are sure this is just their jealousy and foolishness, isn't it?..§c§oAs I wield this weapon longer and longer, I feel an increasing emptiness and loneliness. And an urge to kill......
+
+chat.magianaturalis.block.damage=§fHerobrine s Scythe blocked successfully! Negated §a%s §fdamage.

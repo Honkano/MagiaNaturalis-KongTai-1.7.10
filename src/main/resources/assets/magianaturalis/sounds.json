@@ -1,0 +1,14 @@
+{
+  "item.herobrine.attack": {
+    "category": "player",
+    "sounds": ["herobrinescythe/herobrine_hit"]
+  },
+  "item.herobrine.swing": {
+    "category": "player",
+    "sounds": ["herobrinescythe/herobrine_swing"]
+  },
+  "item.herobrine.block": {
+    "category": "player",
+    "sounds": ["herobrinescythe/herobrine_block"]
+  }
+}

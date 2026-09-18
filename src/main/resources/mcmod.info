@@ -1,0 +1,21 @@
+{
+	"modListVersion": 2,
+	"modList": [{
+		"modid": "magianaturalis",
+		"name": "Magia Naturalis",
+		"description": "A legacy 1.7.10 addon for Thaumcraft 4 focusing on natural magic, arcane carpentry, and utility devices. Revived and maintained by KongTai.",
+		"version": "${modVersion}",
+		"mcversion": "${minecraftVersion}",
+		"url": "",
+		"updateUrl": "",
+		"authorList": ["TrinaryBrain", "KongTai"],
+		"credits": "Originally created by TrinaryBrain. Special thanks to Itaros, Abdo and Thaumatarge. GitHub migration by elenterius.",
+		"logoFile": "logo.png",
+		"screenshots": [],
+		"parent": "",
+		"requiredMods": ["Thaumcraft"],
+		"dependencies": ["Thaumcraft"],
+		"dependants": [],
+		"useDependencyInformation": false
+	}]
+}
