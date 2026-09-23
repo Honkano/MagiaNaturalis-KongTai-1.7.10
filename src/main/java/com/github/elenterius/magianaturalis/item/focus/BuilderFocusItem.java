@@ -13,6 +13,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -46,6 +47,11 @@ public class BuilderFocusItem extends ItemFocusBasic implements IArchitect {
     }
 
     @Override
+    public String getSortingHelper(ItemStack itemstack) {
+        return "MNC" + super.getSortingHelper(itemstack);
+    }
+
+    @Override
     public void registerIcons(IIconRegister registry) {
         icon = registry.registerIcon(getIconString());
     }
@@ -55,27 +61,47 @@ public class BuilderFocusItem extends ItemFocusBasic implements IArchitect {
     public void addInformation(ItemStack stack, EntityPlayer player, List lines, boolean advancedItemTooltips) {
         super.addInformation(stack, player, lines, advancedItemTooltips);
         lines.add("");
-        lines.add(EnumChatFormatting.GRAY + "Mode: " + BuilderFocusUtil.getMode(stack));
-        lines.add(EnumChatFormatting.GRAY + "Shape: " + BuilderFocusUtil.getShape(stack));
-        lines.add(EnumChatFormatting.GRAY + "Size: " + BuilderFocusUtil.getSize(stack));
+        lines.add(
+            EnumChatFormatting.GRAY + StatCollector.translateToLocalFormatted(
+                "item.magianaturalis.builder_focus.tooltip.mode",
+                translateEnum("enum.magianaturalis.mode.", BuilderFocusUtil.getMode(stack))));
+        lines.add(
+            EnumChatFormatting.GRAY + StatCollector.translateToLocalFormatted(
+                "item.magianaturalis.builder_focus.tooltip.shape",
+                translateEnum("enum.magianaturalis.shape.", BuilderFocusUtil.getShape(stack))));
+        lines.add(
+            EnumChatFormatting.GRAY + StatCollector.translateToLocalFormatted(
+                "item.magianaturalis.builder_focus.tooltip.size",
+                BuilderFocusUtil.getSize(stack)));
         lines.add("");
         lines.add(
-            String.format(
-                "§8Press §7[%s]§8 or §7[%s]§8 to change size of shape",
+            StatCollector.translateToLocalFormatted(
+                "item.magianaturalis.builder_focus.tooltip.hint.increase",
                 GameSettings.getKeyDisplayString(MNKeyBindings.INCREASE_SIZE_KEY.getKeyCode()),
                 GameSettings.getKeyDisplayString(MNKeyBindings.DECREASE_SIZE_KEY.getKeyCode())));
         lines.add(
-            String.format(
-                "§8Press §7[%s]§8 to change shape",
+            StatCollector.translateToLocalFormatted(
+                "item.magianaturalis.builder_focus.tooltip.hint.shape",
                 GameSettings.getKeyDisplayString(MNKeyBindings.MISC_KEY.getKeyCode())));
         lines.add(
-            String.format(
-                "§8Press §7[ctrl + %s]§8 to change mode",
+            StatCollector.translateToLocalFormatted(
+                "item.magianaturalis.builder_focus.tooltip.hint.mode",
                 GameSettings.getKeyDisplayString(MNKeyBindings.MISC_KEY.getKeyCode())));
         lines.add(
-            String.format(
-                "§8Press §7[%s]§8 to pick block type",
+            StatCollector.translateToLocalFormatted(
+                "item.magianaturalis.builder_focus.tooltip.hint.pick",
                 GameSettings.getKeyDisplayString(MNKeyBindings.PICK_BLOCK_KEY.getKeyCode())));
+    }
+
+    /**
+     * 把枚举转成 lang 键，找不到就返回原枚举名（大写），方便排查。
+     * 例：Mode.UNIFORM → "enum.magianaturalis.mode.uniform" → "制服"
+     */
+    private static String translateEnum(String prefix, Enum<?> value) {
+        String key = prefix + value.name()
+            .toLowerCase();
+        String translated = StatCollector.translateToLocal(key);
+        return translated.equals(key) ? value.name() : translated;
     }
 
     @Override

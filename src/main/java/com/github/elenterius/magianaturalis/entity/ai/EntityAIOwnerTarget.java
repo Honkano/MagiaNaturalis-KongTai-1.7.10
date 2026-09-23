@@ -8,52 +8,68 @@ import com.github.elenterius.magianaturalis.entity.EntityZombieExtended;
 
 public class EntityAIOwnerTarget extends EntityAITarget {
 
-    private EntityLivingBase targetEntity;
     private EntityZombieExtended entityZE;
 
     public EntityAIOwnerTarget(EntityCreature creature, boolean bool) {
         super(creature, bool);
-        targetEntity = taskOwner.getAttackTarget();
         entityZE = (EntityZombieExtended) taskOwner;
     }
 
     @Override
     public boolean shouldExecute() {
-        if (targetEntity == null) return false;
-        if (!targetEntity.isDead) return true;
+        EntityLivingBase current = taskOwner.getAttackTarget();
+        if (current != null && !current.isDead && !EntityZombieExtended.isFriendlyCreature(current)) {
+            return true;
+        }
+
+        EntityLivingBase ownerTarget = getOwnerTargetSafely();
+        if (ownerTarget != null && !ownerTarget.isDead && taskOwner.canEntityBeSeen(ownerTarget)) {
+            return true;
+        }
+
         return false;
     }
 
+    @Override
     public void startExecuting() {
-        if (taskOwner.getAttackTarget() != null && taskOwner.getAttackTarget().isDead) taskOwner.setDead();
+        EntityLivingBase ownerTarget = getOwnerTargetSafely();
+        EntityLivingBase current = taskOwner.getAttackTarget();
 
-        if (taskOwner.getAttackTarget() == null && entityZE.getAITarget() != null
-            && !entityZE.getOwnerEntity()
-                .getAITarget().isDead)
-            if (entityZE.getOwnerEntity()
-                .getAITarget() instanceof EntityLivingBase && entityZE.canEntityBeSeen(
-                    entityZE.getOwnerEntity()
-                        .getAITarget()))
-                taskOwner.setAttackTarget(
-                    entityZE.getOwnerEntity()
-                        .getAITarget());
+        if ((current == null || current.isDead) && ownerTarget != null
+            && !ownerTarget.isDead
+            && taskOwner.canEntityBeSeen(ownerTarget)) {
+            taskOwner.setAttackTarget(ownerTarget);
+        }
 
-        taskOwner.setAttackTarget(targetEntity);
         super.startExecuting();
     }
 
+    @Override
     public void updateTask() {
-        if (taskOwner.getAttackTarget() != null && taskOwner.getAttackTarget().isDead) taskOwner.setDead();
+        EntityLivingBase current = taskOwner.getAttackTarget();
 
-        if (taskOwner.getAttackTarget() == null && entityZE.getAITarget() != null
-            && !entityZE.getOwnerEntity()
-                .getAITarget().isDead)
-            if (entityZE.getOwnerEntity()
-                .getAITarget() instanceof EntityLivingBase && entityZE.canEntityBeSeen(
-                    entityZE.getOwnerEntity()
-                        .getAITarget()))
-                taskOwner.setAttackTarget(
-                    entityZE.getOwnerEntity()
-                        .getAITarget());
+        // 当前目标死了，或者是个友好生物 → 清掉
+        if (current != null && (current.isDead || EntityZombieExtended.isFriendlyCreature(current))) {
+            taskOwner.setAttackTarget(null);
+        }
+
+        if (taskOwner.getAttackTarget() == null) {
+            EntityLivingBase ownerTarget = getOwnerTargetSafely();
+            if (ownerTarget != null && !ownerTarget.isDead && taskOwner.canEntityBeSeen(ownerTarget)) {
+                taskOwner.setAttackTarget(ownerTarget);
+            }
+        }
+    }
+
+    /**
+     * 安全读取"主人当前攻击目标"。
+     * 过滤掉友好生物，防止小僵尸跟着主人去打动物 / 村民。
+     */
+    private EntityLivingBase getOwnerTargetSafely() {
+        if (entityZE.getOwnerEntity() == null) return null;
+        EntityLivingBase target = entityZE.getOwnerEntity()
+            .getAITarget();
+        if (target != null && EntityZombieExtended.isFriendlyCreature(target)) return null;
+        return target;
     }
 }

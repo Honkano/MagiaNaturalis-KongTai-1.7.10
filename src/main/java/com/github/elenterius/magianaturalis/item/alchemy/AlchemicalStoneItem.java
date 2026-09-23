@@ -19,6 +19,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import com.github.elenterius.magianaturalis.MagiaNaturalis;
@@ -93,9 +94,13 @@ public class AlchemicalStoneItem extends Item implements IArchitect {
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
         if (isQuicksilverStone(stack)) {
-            list.add(EnumChatFormatting.DARK_PURPLE + "Of Twisting and Molding Status Effects");
+            list.add(
+                EnumChatFormatting.DARK_PURPLE
+                    + StatCollector.translateToLocal("item.magianaturalis.alchemical_stone.1.tooltip"));
         } else {
-            list.add(EnumChatFormatting.DARK_PURPLE + "Mold the Visual");
+            list.add(
+                EnumChatFormatting.DARK_PURPLE
+                    + StatCollector.translateToLocal("item.magianaturalis.alchemical_stone.0.tooltip"));
         }
     }
 

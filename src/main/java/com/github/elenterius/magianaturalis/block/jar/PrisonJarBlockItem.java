@@ -3,13 +3,12 @@ package com.github.elenterius.magianaturalis.block.jar;
 import java.util.List;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.boss.IBossDisplayData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 
 import com.github.elenterius.magianaturalis.util.NBTUtil;
@@ -26,9 +25,8 @@ public class PrisonJarBlockItem extends ItemBlock {
     }
 
     public static boolean storeEntityLiving(ItemStack stack, EntityLivingBase entity) {
-        if (entity == null || entity instanceof IBossDisplayData || entity instanceof EntityPlayer) return false;
-        if (!(entity instanceof EntityCreature)) return false;
         if (stack == null) return false;
+        if (!PrisonJarBlockEntity.canCapture(entity)) return false;
 
         NBTTagCompound data = new NBTTagCompound();
         if (!entity.writeMountToNBT(data)) return false;
@@ -44,6 +42,8 @@ public class PrisonJarBlockItem extends ItemBlock {
         String id = getEntityLivingID(stack);
         if (id != null) {
             lines.add(Platform.translate("entity." + id + ".name"));
+            // 显示实体 ID，方便玩家配置黑白名单
+            lines.add(EnumChatFormatting.DARK_GRAY + "ID: " + id);
         }
     }
 
@@ -79,5 +79,4 @@ public class PrisonJarBlockItem extends ItemBlock {
         }
         return false;
     }
-
 }

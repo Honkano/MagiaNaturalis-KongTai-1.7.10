@@ -9,6 +9,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
@@ -28,6 +30,9 @@ import thaumcraft.common.lib.utils.EntityUtils;
 
 public class RevenantFocusItem extends ItemFocusBasic {
 
+    /** 每个玩家同时存活的召唤物上限 */
+    public static final int MAX_ZOMBIES = 5;
+
     protected static final AspectList VIS_COST = new AspectList().add(Aspect.EARTH, 450)
         .add(Aspect.ENTROPY, 350)
         .add(Aspect.WATER, 200);
@@ -43,6 +48,11 @@ public class RevenantFocusItem extends ItemFocusBasic {
     }
 
     @Override
+    public String getSortingHelper(ItemStack itemstack) {
+        return "MNR" + super.getSortingHelper(itemstack);
+    }
+
+    @Override
     public int getFocusColor(ItemStack focusStack) {
         return 0x385226;
     }
@@ -50,6 +60,11 @@ public class RevenantFocusItem extends ItemFocusBasic {
     @Override
     public AspectList getVisCost(ItemStack focusStack) {
         return VIS_COST;
+    }
+
+    @Override
+    public int getActivationCooldown(ItemStack focusStack) {
+        return 1000;
     }
 
     @Override
@@ -66,6 +81,25 @@ public class RevenantFocusItem extends ItemFocusBasic {
 
         Entity pointedEntity = EntityUtils.getPointedEntity(player.worldObj, player, 32.0D, EntityZombieExtended.class);
         if (pointedEntity instanceof EntityLivingBase) {
+            EntityLivingBase target = (EntityLivingBase) pointedEntity;
+
+            // ---------- 1. 友好生物不能作为目标 ----------
+            if (EntityZombieExtended.isFriendlyCreature(target)) {
+                world.playSoundAtEntity(player, "thaumcraft:wandfail", 0.2F, 0.8F + world.rand.nextFloat() * 0.1F);
+                return wandStack;
+            }
+
+            // ---------- 2. 数量上限判定 ----------
+            if (countActiveZombies(world, player.getCommandSenderName()) >= MAX_ZOMBIES) {
+                if (Platform.isServer()) {
+                    player.addChatMessage(
+                        new ChatComponentText(
+                            EnumChatFormatting.DARK_PURPLE + Platform.translate("chat.magianaturalis.revenant.limit")));
+                }
+                world.playSoundAtEntity(player, "thaumcraft:wandfail", 0.2F, 0.8F + world.rand.nextFloat() * 0.1F);
+                return wandStack;
+            }
+
             double px = player.posX;
             double py = player.boundingBox.minY;
             double pz = player.posZ;
@@ -76,8 +110,9 @@ public class RevenantFocusItem extends ItemFocusBasic {
             pz += vec3d.zCoord * 0.5D;
 
             if (!world.isRemote) {
-                if (pointedEntity instanceof EntityPlayer && !MinecraftServer.getServer()
+                if (target instanceof EntityPlayer && !MinecraftServer.getServer()
                     .isPVPEnabled()) return wandStack;
+
                 EntityZombieExtended zombie = new EntityZombieExtended(world);
                 zombie.setOwner(player.getCommandSenderName());
                 zombie.setChild(true);
@@ -87,9 +122,8 @@ public class RevenantFocusItem extends ItemFocusBasic {
                 zombie.setLocationAndAngles(px, py + 0.1, pz, player.rotationYaw, 0.0F);
                 zombie.setExperienceValue(0);
 
-                zombie.setTarget(pointedEntity);
-                zombie.setAttackTarget((EntityLivingBase) pointedEntity);
-                // player.setRevengeTarget((EntityLivingBase) pointedEntity); TODO: Use this for Bone Flute
+                zombie.setTarget(target);
+                zombie.setAttackTarget(target);
 
                 Item wandItem = wandStack.getItem();
                 if (wandItem instanceof ItemWandCasting) {
@@ -116,6 +150,23 @@ public class RevenantFocusItem extends ItemFocusBasic {
         }
 
         return wandStack;
+    }
+
+    /**
+     * 统计这个玩家当前存活的小僵尸数量。
+     * 遍历世界里所有已加载实体，按 owner 名字匹配。
+     */
+    private static int countActiveZombies(World world, String ownerName) {
+        int count = 0;
+        for (Object o : world.loadedEntityList) {
+            if (o instanceof EntityZombieExtended) {
+                EntityZombieExtended z = (EntityZombieExtended) o;
+                if (ownerName.equals(z.func_152113_b())) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 
 }

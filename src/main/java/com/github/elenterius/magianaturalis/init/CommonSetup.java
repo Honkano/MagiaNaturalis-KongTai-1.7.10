@@ -24,6 +24,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 public class CommonSetup implements IGuiHandler {
 
     public void preInit(FMLPreInitializationEvent event) {
+        MNConfig.init(event.getSuggestedConfigurationFile()); // 【新增】配置文件
         MNItems.initItems();
         MNBlocks.initBlocks();
     }

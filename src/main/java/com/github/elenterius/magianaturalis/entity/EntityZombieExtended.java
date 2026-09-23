@@ -3,10 +3,13 @@ package com.github.elenterius.magianaturalis.entity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
@@ -14,13 +17,15 @@ import net.minecraft.world.World;
 import com.github.elenterius.magianaturalis.entity.ai.AIBreakDoor;
 import com.github.elenterius.magianaturalis.entity.ai.EntityAIOwnerTarget;
 
+import thaumcraft.common.config.ConfigItems;
+
 public class EntityZombieExtended extends EntityZombie implements IEntityOwnable {
 
     public EntityZombieExtended(World world) {
         super(world);
         tasks.taskEntries.clear();
+        targetTasks.taskEntries.clear();
         getNavigator().setAvoidSun(false);
-        // getNavigator().setBreakDoors(true);
 
         tasks.addTask(0, new EntityAISwimming(this));
         tasks.addTask(1, new AIBreakDoor(this));
@@ -45,7 +50,8 @@ public class EntityZombieExtended extends EntityZombie implements IEntityOwnable
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(40.0D);
-        getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.23000000417232513D);
+        // 【修改】移动速度从 0.23 提升到 0.35，明显更快
+        getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.35D);
         getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(6.0D);
         getEntityAttribute(SharedMonsterAttributes.knockbackResistance).applyModifier(
             new AttributeModifier("Random Knockback Resistance", this.rand.nextDouble() * 0.05000000074505806D, 0));
@@ -55,9 +61,40 @@ public class EntityZombieExtended extends EntityZombie implements IEntityOwnable
     public void onUpdate() {
         super.onUpdate();
 
+        // 目标为空 / 目标死了 / 存活超过 300 tick（15 秒）→ 自杀消失
         if (!worldObj.isRemote && (getAttackTarget() == null || getAttackTarget().isDead || ticksExisted > 300)) {
             attackEntityFrom(DamageSource.outOfWorld, 10.0F);
         }
+    }
+
+    /**
+     * 【新增】判定是否"友好生物"。
+     * 判据：是一个 EntityCreature（会主动走动的生物），但不实现 IMob（不是怪物）。
+     *
+     * 这样能拦下：
+     * - 所有动物（牛、猪、羊、鸡、马、狼……）
+     * - 村民
+     * - 铁傀儡、雪傀儡
+     * - 各模组的中立生物
+     * 但拦不下：
+     * - 所有怪物（僵尸、骷髅、苦力怕……）
+     * - 玩家（EntityPlayer 不是 EntityCreature）
+     */
+    public static boolean isFriendlyCreature(Entity entity) {
+        if (!(entity instanceof EntityCreature)) return false;
+        if (entity instanceof IMob) return false;
+        return true;
+    }
+
+    /**
+     * 过滤掉 TC4 附加的僵尸脑掉落。
+     */
+    @Override
+    public EntityItem entityDropItem(ItemStack stack, float offsetY) {
+        if (stack != null && stack.getItem() == ConfigItems.itemZombieBrain) {
+            return null;
+        }
+        return super.entityDropItem(stack, offsetY);
     }
 
     @Override

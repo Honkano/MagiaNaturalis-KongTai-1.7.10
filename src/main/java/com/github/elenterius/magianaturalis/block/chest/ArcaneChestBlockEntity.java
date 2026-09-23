@@ -43,7 +43,7 @@ public class ArcaneChestBlockEntity extends TileThaumcraft implements ISidedInve
 
     @Override
     public boolean canUpdate() {
-        return false;
+        return true;
     }
 
     public UUID getOwner() {

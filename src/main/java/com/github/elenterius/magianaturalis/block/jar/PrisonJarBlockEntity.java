@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
+import com.github.elenterius.magianaturalis.init.MNConfig;
 import com.github.elenterius.magianaturalis.util.NBTUtil;
 import com.github.elenterius.magianaturalis.util.Platform;
 
@@ -38,12 +39,47 @@ public class PrisonJarBlockEntity extends TileJar implements IWandable {
             cachedEntity = EntityList.createEntityFromNBT(data.getCompoundTag(ENTITY_TAG_KEY), getWorldObj());
 
             if (cachedEntity != null && cachedEntity instanceof EntityTaintacle) cachedEntity.ticksExisted = 30;
-
-            // if(((EntityLiving) cachedEntity).hasCustomNameTag())
-            // {
-            // ((EntityLiving) cachedEntity).setAlwaysRenderNameTag(true);
-            // }
         }
+    }
+
+    /**
+     * 判定一个实体能不能被封进罐子。
+     *
+     * 判定顺序：
+     * 1. 空 / 玩家 / 非 EntityCreature → 拒绝
+     * 2. 黑名单命中 → 拒绝
+     * 3. 白名单命中 → 允许（覆盖一切）
+     * 4. 原版 Boss → 拒绝
+     * 5. 其他 → 允许
+     *
+     * 白名单可以覆盖 Boss 判定，让玩家能封末影龙。
+     */
+    public static boolean canCapture(EntityLivingBase entity) {
+        if (entity == null) return false;
+        if (entity instanceof EntityPlayer) return false;
+        if (!(entity instanceof EntityCreature)) return false;
+
+        String id = EntityList.getEntityString(entity);
+        if (id == null) return false;
+
+        // 1. 黑名单优先
+        if (MNConfig.jarBlacklist != null) {
+            for (String blocked : MNConfig.jarBlacklist) {
+                if (blocked != null && blocked.equalsIgnoreCase(id)) return false;
+            }
+        }
+
+        // 2. 白名单覆盖一切（包括 Boss）
+        if (MNConfig.jarWhitelist != null) {
+            for (String allowed : MNConfig.jarWhitelist) {
+                if (allowed != null && allowed.equalsIgnoreCase(id)) return true;
+            }
+        }
+
+        // 3. 默认规则：原版 Boss 拒绝
+        if (entity instanceof IBossDisplayData) return false;
+
+        return true;
     }
 
     @Override
@@ -59,9 +95,7 @@ public class PrisonJarBlockEntity extends TileJar implements IWandable {
 
     public boolean saveEntityToNBT(EntityLivingBase entity) {
         if (Platform.isClient()) return false;
-
-        if (entity == null || entity instanceof IBossDisplayData || entity instanceof EntityPlayer) return false;
-        if (!(entity instanceof EntityCreature)) return false;
+        if (!canCapture(entity)) return false;
 
         if (!entity.writeMountToNBT(entityData)) return false;
         entity.setDead();
@@ -138,5 +172,4 @@ public class PrisonJarBlockEntity extends TileJar implements IWandable {
     public void onWandStoppedUsing(ItemStack wandstack, World world, EntityPlayer player, int count) {
         // do nothing
     }
-
 }

@@ -461,6 +461,12 @@ public class MNResearch {
                 .setPages(
                     createTextResearchPage(key, 0),
                     createTextResearchPage(key, 1),
+                    createTextResearchPage(key, 2),
+                    createTextResearchPage(key, 3),
+                    createTextResearchPage(key, 4),
+                    createTextResearchPage(key, 5),
+                    createTextResearchPage(key, 6),
+                    createTextResearchPage(key, 7),
                     new ResearchPage(MNRecipes.getInfusionRecipe("HerobrinesScythe")))
                 .setParents(SICKLE_OF_ABUNDANCE.getId()) // 可见前置：富饶镰刀
                 .setParentsHidden("INFUSION") // 隐藏前置：必须解锁注魔！【补上这一行】
