@@ -1,11 +1,11 @@
 # Magia Naturalis - KongTai's Fork / 自然魔法 - 空太分支
 
 <p align="center">
-  <img src="assets/logo.png?raw=true" alt="Magia Naturalis Logo" width="500">
+  <img src="assets/logo.png?raw=true" alt="Magia Naturalis Logo" width="1000">
 </p>
 
 <p align="center">
-  <img src="assets/icon.png?raw=true" alt="Magia Naturalis Icon" width="128">
+  <img src="assets/icon.png?raw=true" alt="Magia Naturalis Icon" width="32">
 </p>
 
 <p align="center">
