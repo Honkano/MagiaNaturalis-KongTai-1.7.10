@@ -1,6 +1,8 @@
 package com.github.elenterius.magianaturalis.init;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -18,6 +20,7 @@ import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.api.research.ResearchPage;
+import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.config.ConfigItems;
 
 public class MNResearch {
@@ -70,7 +73,9 @@ public class MNResearch {
             new ItemStack(MNBlocks.transcribingTable))
                 .setPages(
                     createTextResearchPage(key, 1),
-                    new ResearchPage(MNRecipes.getArcaneRecipe("TranscribingTable")))
+                    new ResearchPage(MNRecipes.getArcaneRecipe("TranscribingTable")),
+                    new ResearchPage(createTranscribingTableStructurePage()),
+                    createTextResearchPage(key, 2))
                 .setParents(RESEARCH_LOG.getId()));
 
     public static final DeferredHolder<ResearchItem> GOGGLES_PROXY = register(
@@ -349,7 +354,9 @@ public class MNResearch {
                 .setPages(
                     new ResearchPage("research.magianaturalis.geo_occultism.page.1"),
                     new ResearchPage(MNRecipes.getInfusionRecipe("GeoPylon")),
+                    new ResearchPage(createGeoPylonStructurePage()),
                     new ResearchPage("research.magianaturalis.geo_occultism.page.2"),
+                    new ResearchPage("research.magianaturalis.geo_occultism.page.3"),
                     new ResearchPage(MNRecipes.getArcaneRecipe("BiomeReport")))
                 .setParentsHidden(
                     "INFUSION",
@@ -444,6 +451,111 @@ public class MNResearch {
     private static ResearchPage createTextResearchPage(ResourceLocation key, int pageNumber) {
         return new ResearchPage(
             String.format("research.%s.%s.page.%d", key.getResourceDomain(), key.getResourcePath(), pageNumber));
+    }
+
+    private static List<Object> createGeoPylonStructurePage() {
+        final int dx = 3, dy = 4, dz = 3;
+
+        List<Object> structure = new ArrayList<>();
+        structure.add(new AspectList());
+        structure.add(Integer.valueOf(dx));
+        structure.add(Integer.valueOf(dy));
+        structure.add(Integer.valueOf(dz));
+
+        ItemStack hole = new ItemStack(ConfigBlocks.blockHole, 1, 15);
+
+        List<ItemStack> blocks = new ArrayList<>();
+        int cx = dx / 2;
+        int cz = dz / 2;
+
+        for (int y = 0; y < dy; y++) {
+            for (int x = 0; x < dx; x++) {
+                for (int z = 0; z < dz; z++) {
+                    boolean center = (x == cx && z == cz);
+                    ItemStack stack = hole;
+                    if (center) {
+                        if (y == 0) {
+                            stack = new ItemStack(MNBlocks.geoPylon); // 顶：地标塔
+                        } else {
+                            stack = new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 0); // y=1,2,3：三格神秘石
+                        }
+                    }
+                    blocks.add(stack);
+                }
+            }
+        }
+        structure.add(blocks);
+
+        return structure;
+    }
+
+    /**
+     * 抄录台的多方块结构展示页。
+     *
+     * 底层结构（5×5 平面）：
+     * b j b j b z=0
+     * j j j j j z=1
+     * b j a j b z=2
+     * j j j j j z=3
+     * b j b j b z=4
+     * 其中 a = 抄录台、b = 解构工作台、j = 隙间
+     *
+     * 判定规则：
+     * (x=2, z=2) → a 抄录台
+     * x、z 都是偶数 → b 解构工作台
+     * 其他 → j 隙间
+     *
+     * 本版本只画一层（dy=1），不加上层隙间，图会更大更清楚。
+     *
+     * ⚠️【重要】TC4 结构页的 y 轴是"反着来"的！
+     * y = 0 → 研究页里显示在【最上面】
+     * y = dy-1 → 研究页里显示在【最下面】
+     * 跟 MC 世界坐标（y=0 是底、y 越大越高）完全相反。
+     */
+    private static List<Object> createTranscribingTableStructurePage() {
+        // ==================================================
+        // 1) 结构尺寸
+        // dy = 1 → 只画一层
+        // ==================================================
+        final int dx = 5;
+        final int dy = 1; // ← 只留一层
+        final int dz = 5;
+
+        // ==================================================
+        // 2) 塞进 TC4 要的 List 格式
+        // ==================================================
+        List<Object> structure = new ArrayList<>();
+        structure.add(new AspectList()); // [0] 源质消耗（空）
+        structure.add(Integer.valueOf(dx)); // [1] dx = 5
+        structure.add(Integer.valueOf(dy)); // [2] dy = 1
+        structure.add(Integer.valueOf(dz)); // [3] dz = 5
+
+        // ==================================================
+        // 3) 循环遍历每一格
+        // dy=1，所以 y 只会是 0（视觉最底层）
+        // 不需要 else 分支——只有一层
+        // ==================================================
+        List<ItemStack> blocks = new ArrayList<>();
+        for (int y = 0; y < dy; y++) {
+            for (int x = 0; x < dx; x++) {
+                for (int z = 0; z < dz; z++) {
+
+                    if (x == 2 && z == 2) {
+                        // 正中心 → a 抄录台
+                        blocks.add(new ItemStack(MNBlocks.transcribingTable));
+                    } else if (x % 2 == 0 && z % 2 == 0) {
+                        // x、z 都是偶数 → b 解构工作台
+                        blocks.add(new ItemStack(ConfigBlocks.blockTable, 1, 14));
+                    } else {
+                        // 其他 → j 隙间
+                        blocks.add(new ItemStack(ConfigBlocks.blockHole, 1, 15));
+                    }
+                }
+            }
+        }
+        structure.add(blocks); // [4] 方块列表
+
+        return structure;
     }
 
     public static final DeferredHolder<ResearchItem> HEROBRINES_SCYTHE = register("herobrines_scythe", key -> {

@@ -5,6 +5,110 @@
 All notable changes to this project will be documented in this file.
 
 
+## [v1.0.8] - 2026-09-25
+
+本次更新聚焦于**白瞳者之镰的数值重平衡**与**神秘多方块结构展示**。
+
+### 白瞳者之镰（注魔配方重做）
+- **要素大幅扩充**：在原有武器、能量、灵气、邪术、死亡五要素基础上，新增黑暗、虚空、治疗、饥饿、贪婪五要素，各 640 点
+- **注魔材料重做**：配方材料全部替换为神秘时代后期素材，包括元始杖芯、邪术之眼、平衡碎片、血腥之刃、元始珍珠、元始法杖核心、元始杵、符文石板等
+- **中心核心不变**：仍为富饶镰刀
+
+### 白瞳者之镰（命名与品质）
+- **物品命名重新定义**：五个阶段的名称、品质名、Tooltip 全面重写
+  - 阶段名：初见 / 初醒 / 嗜血 / 狂乱 / 白瞳
+  - 品质名：普通 / 精良 / 稀有 / 史诗 / 传奇 / 神话（MAX）
+  - 名字颜色按阶段渐变：灰 → 白 → 金 → 红 → 深红 → 深红加粗
+- **名称颜色系统**：不同阶段显示不同的物品名字颜色，一眼可辨阶段
+
+### 白瞳者之镰（重平衡）
+- **右键吸取 Vis 的耐久消耗重做**：按 Tier 缩放，低等级扣得多，高等级扣得少，MAX 永不扣
+- **连锁攻击耐久消耗新增**：每次连锁命中会按 Tier 扣除耐久，命中越多扣得越多
+- **被动修复重做**：
+  - 修复间隔按 Tier 缩放，高等级修得更快
+  - 每次修复量按 Tier 缩放，高等级一次修更多点
+  - 修复消耗的 Vis 总量重新调整，低等级更"贵"
+- **MAX 状态**：杀敌数到达 99999 后，耐久条隐藏、自动修复停止、全机制免疫耐久损耗
+
+### 神秘多方块结构研究
+- **地标塔（Geo Pylon）** 新增多方块结构展示页
+  - 展示"地标塔 → 空隙 → 3 格神秘石"的完整结构
+- **抄录台（Transcribing Table）** 新增多方块结构展示页
+  - 展示"抄录台中心 + 解构工作台隔格环绕"的 5×5 布局
+  - 教授玩家：抄录台与解构台之间必须留一格空隙，否则不工作
+- 两个结构页均附完整中英文说明文本
+
+### 研究文本
+- 地标塔研究文本重写：完整叙述群系采样的三个步骤、要素代价机制、重置注意事项
+- 抄录台研究文本重写：解释"隔格"规则，附带神秘使风格的小段子
+- 所有研究文本走 `StatCollector`，完整中英双语
+
+### Bug 修复
+- 修复"研究页结构图渲染时方块列表长度不匹配导致的渲染异常"
+- 修复"地标塔结构页 y 轴反向导致结构上下颠倒"
+
+### 技术变更
+- `MNResearch` 新增 `createGeoPylonStructurePage()` / `createTranscribingTableStructurePage()` 两个结构页构造方法
+- 统一 TC4 结构页的 y 轴语义注释：**y=0 是视觉最顶层，y=dy-1 是视觉最底层**（与 MC 世界坐标相反）
+- `ItemHerobrinesScythe` 新增 `TIER_CHAIN_DAMAGE` / `TIER_REPAIR_AMOUNT` 常量
+- `ScytheBlockHandler` 的 `drainVis` 改为按目标数扣耐久
+
+---
+
+## English
+
+This update focuses on **rebalancing Herobrine's Scythe** and **multi-block structure pages**.
+
+### Herobrine's Scythe (Infusion Recipe Reworked)
+- **Aspects greatly expanded**: alongside the original Weapon, Energy, Aura, Eldritch, and Death, now also includes Darkness, Void, Heal, Hunger, and Greed, each at 640
+- **Infusion materials reworked**: materials replaced with late-game Thaumcraft components, including Primal Wand Rod, Eldritch Eye, Balanced Shard, Crimson Blade, Primordial Pearl, Primal Focus, Primal Crusher, Runic Tablet, and more
+- **Center core unchanged**: still the Sickle of Abundance
+
+### Herobrine's Scythe (Naming & Quality)
+- **Naming redefined**: all five stages, quality tiers, and tooltips rewritten
+  - Stage names: First Glimpse / First Awakening / Bloodthirst / Frenzy / The White Eye
+  - Quality tiers: Common / Uncommon / Rare / Epic / Legendary / Mythic (MAX)
+  - Name color gradient: Gray → White → Gold → Red → Dark Red → Dark Red Bold
+- **Name color system**: each stage displays its own item name color at a glance
+
+### Herobrine's Scythe (Rebalanced)
+- **Right-click Vis drain durability cost reworked**: scales with Tier—early tiers cost more, higher tiers cost less, MAX never costs
+- **Chain attack durability cost added**: each chain hit costs durability scaled by Tier; more hits, higher cost
+- **Passive repair reworked**:
+  - Repair interval scales with Tier (higher tiers repair faster)
+  - Repair amount per tick scales with Tier (higher tiers repair more per tick)
+  - Total Vis cost of repair rebalanced; early tiers pay more
+- **MAX state**: upon reaching 99,999 kills, the durability bar is hidden, auto-repair stops, and all durability-cost mechanics are disabled
+
+### Multi-Block Structure Research
+- **Geo Pylon** gains a multi-block structure page
+  - Shows "Geo Pylon → gap → 3 Arcane Stones" layout
+- **Transcribing Table** gains a multi-block structure page
+  - Shows "Table at center, Deconstruction Tables in a 5×5 grid with gaps"
+  - Teaches players: the Table and Deconstruction Tables must be separated by one block of space, or the Table will not work
+- Both structure pages come with full Chinese and English text
+
+### Research Text
+- Geo Pylon text rewritten: full walkthrough of biome sampling, essentia cost mechanics, and reset precautions
+- Transcribing Table text rewritten: explains the "gap rule", with a small in-character joke
+- All research text routed through `StatCollector`, fully localized
+
+### Bug Fixes
+- Fixed rendering anomaly when the structure page's block list length does not match `dx*dy*dz`
+- Fixed the Geo Pylon structure rendering upside-down due to reversed y-axis
+
+### Technical Changes
+- `MNResearch` gains `createGeoPylonStructurePage()` / `createTranscribingTableStructurePage()`
+- Unified y-axis semantics for TC4 structure pages: **y=0 is the visual top, y=dy-1 is the visual bottom** (opposite of MC world coordinates)
+- `ItemHerobrinesScythe` gains `TIER_CHAIN_DAMAGE` / `TIER_REPAIR_AMOUNT`
+- `ScytheBlockHandler.drainVis` now costs durability per target
+
+---
+
+*持续更新中 / Still in progress — 2026-09-25*
+
+
+
 ## [v1.0.7] - 2026-09-24
 
 本次更新**重做了白瞳者之镰的整套机制**。该武器在旧版本中已存在，本次并非新增武器，而是彻底重构了它的成长逻辑、认主机制与战斗表现。

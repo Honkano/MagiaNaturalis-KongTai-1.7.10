@@ -91,6 +91,7 @@ research.magianaturalis.carpentry.page.1=你厌倦了魔法木头的建造，于
 research.magianaturalis.transcribing_table.name=研究转录台
 research.magianaturalis.transcribing_table.text=知识的实体化搬运
 research.magianaturalis.transcribing_table.page.1=你发现解构台释放的要素知识稍纵即逝，难以分享。为此你打造了这张转录台。<BR>将空的“研究日志”放入左上角的槽位，并在附近放置原版的解构台。这张桌子会自动将周围的要素与研究点缓慢“转录”并封存入日志之中。<BR>一本完整的日志可以记录6种基础要素各64点。当其他神秘使阅读这本写满的日志时，他们便能直接继承其中的研究点。这是神秘使之间交易与传承知识的最佳途径。
+research.magianaturalis.transcribing_table.page.2=注意——抄录台与周围的解构工作台之间，必须留出一格空隙。<BR>否则，它永远只是一个不会转动的木架子。<BR><BR>神秘使们把这道空隙称为"知识的呼吸空间"。<BR>也有一种说法是，当年第一个搭抄录台的人手抖放歪了一格，后人不敢质疑，便一直流传至今。
 
 research.magianaturalis.research_log.name=研究日志
 research.magianaturalis.research_log.text=为任何人收集知识
@@ -153,7 +154,7 @@ research.magianaturalis.sickle_of_abundance.page.1=神秘镰刀的进化使得�
 research.magianaturalis.geo_occultism.name=地质隐匿
 research.magianaturalis.geo_occultism.text=用黑曜图腾转换区域
 research.magianaturalis.geo_occultism.page.1=通过观察和研究地形区域和其中发现的古代图腾，你发现生物群系可以转化。古人似乎用黑曜石图腾来人造地球两极，慢慢地改变周围的区域。你发明了一个地标塔，它被调节到一个特定的区域，并放置在一个3格高的黑曜石图腾之上。以要素为燃料，你可以按照自己的意愿扭曲区域。<BR>极点的最大范围为8格半径。黑色表示设备处于空闲状态，请使用法杖激活/停用。
-research.magianaturalis.geo_occultism.page.2=为了将地标塔调节到特定的区域，需要一份关于生物群落及其属性的详细报告。只需前往所需的生物群落，并在俯身时仔细记录数据，以便检查当前土壤。报告完成后，色系颜色将改变，而不是简单地用报告触摸地标塔来调节它。如果旧的要素花费仍然存在，地标塔的污点将根据色系的变化而变化，请小心使用法杖重置花费。
+research.magianaturalis.geo_occultism.page.2=地标塔不是魔法阵，它更像一块"贪吃的土壤"。<BR><BR>想让某片区域改头换面，你得先做三件事：<BR>· 拿着采样器，去目标群系潜行采样，让它"记住"那里的风土。<BR>· 拿着采样器，右键地标塔，把这份记忆交付给它。<BR>· 拿着法杖，潜行右键地标塔，让它重新计算这次改土要付的"代价"。<BR><BR>代价是什么？要素。地标塔不种田，只点菜——它会在十二格范围内搜寻可用的源质罐，按着群系对应的要素一口一口地抽。抽完，那片土地就变样了。<BR><BR>如果你想反悔，或者发现旧账没结清，就再潜行右键一次。<BR>地标塔会一声不吭地把账单撕了重写。<BR><BR>——不少神秘使都栽在这一步：他们忘了潜行右键，然后眼睁睁看着整片森林在自己的实验室旁边变成了腐化沼泽。<BR>据说历史上有三位神秘使因此改行去种土豆了。。
 
 # MISC
 itemGroup.magianaturalis=神秘自然
@@ -327,7 +328,8 @@ research.magianaturalis.sickle_of_abundance.page.1=神秘镰刀的进化使得�
 research.magianaturalis.geo_occultism.name=地质隐匿
 research.magianaturalis.geo_occultism.text=用黑曜图腾转换区域
 research.magianaturalis.geo_occultism.page.1=通过观察和研究地形区域和其中发现的古代图腾，你发现生物群系可以转化。古人似乎用黑曜石图腾来人造地球两极，慢慢地改变周围的区域。你发明了一个地标塔，它被调节到一个特定的区域，并放置在一个3格高的黑曜石图腾之上。以要素为燃料，你可以按照自己的意愿扭曲区域。<BR>极点的最大范围为8格半径。黑色表示设备处于空闲状态，请使用法杖激活/停用。
-research.magianaturalis.geo_occultism.page.2=为了将地标塔调节到特定的区域，需要一份关于生物群落及其属性的详细报告。只需前往所需的生物群落，并在俯身时仔细记录数据，以便检查当前土壤。报告完成后，色系颜色将改变，而不是简单地用报告触摸地标塔来调节它。如果旧的要素花费仍然存在，地标塔的污点将根据色系的变化而变化，请小心使用法杖重置花费。
+research.magianaturalis.geo_occultism.page.2=地标塔不是魔法阵，它更像一块"贪吃的土壤"。<BR><BR>想让某片区域改头换面，你得先做三件事：<BR>· 拿着采样器，去目标群系潜行采样，让它"记住"那里的风土。<BR>· 拿着采样器，右键地标塔，把这份记忆交付给它。<BR>· 拿着法杖，潜行右键地标塔，让它重新计算这次改土要付的"代价"。<BR><BR>代价是什么？要素。地标塔不种田，只点菜——它会在十二格范围内搜寻可用的源质罐，按着群系对应的要素一口一口地抽。抽完，那片土地就变样了。<BR>
+research.magianaturalis.geo_occultism.page.3=如果你想反悔，或者发现旧账没结清，就再潜行右键一次。<BR>地标塔会一声不吭地把账单撕了重写。<BR><BR>——不少神秘使都栽在这一步：他们忘了潜行右键，然后眼睁睁看着整片森林在自己的实验室旁边变成了腐化沼泽。<BR>据说历史上有三位神秘使因此改行去种土豆了。
 
 item.magianaturalis.alchemical_stone.1.tooltip=扭曲并塑形状态效果
 item.magianaturalis.alchemical_stone.0.tooltip=变形视觉
@@ -373,13 +375,13 @@ research.magianaturalis.herobrines_scythe.page.3=第一次握住它的人，灵�
 research.magianaturalis.herobrines_scythe.page.4=每一次撕碎血肉，都会迸发出一缕微小的能量脉冲，在周围的敌人之间跳跃，从一个找到下一个，直到再无人站立。脉冲的威力与镰刀本身等同。<BR>一刀挥出，血光成线。这便是它收割“丰收”的方式。
 
 # ---- 研究页 5：格挡与吸取 ----
-research.magianaturalis.herobrines_scythe.page.5=按住右键，它会化为血色的屏障。减伤比例随阶段提升，到了最终形态，它将完全免疫一切伤害。<BR>同时，它会在你周围八格内汲取生灵与玩家身上的 Vis，汇聚成一条条血红丝线，为你的法杖与护身符充能。它不杀，只取。
+research.magianaturalis.herobrines_scythe.page.5=按住右键，它会化为血色的屏障。减伤比例随阶段提升，到了最终形态，它将完全免疫一切伤害。<BR>同时，它会在你周围八格内汲取生灵与玩家身上的 Vis，汇聚成一条条血红丝线，为你的法杖与护身符充能。它不杀，只取。<BR>但神性从不是免费的。你每吸一次，刃口就多一道划痕。只有喂饱它——用你的背包、你的法杖、你自己的耐久——它才肯为你停留。
 
 # ---- 研究页 6：吸血与扭曲 ----
 research.magianaturalis.herobrines_scythe.page.6=它喜食鲜血。你伤得越重，它为你回复的越多——这是在喂养你，也是在喂养它自己。<BR>代价是，它会让你的灵魂沾染扭曲，阶段越高，扭曲越深。终有一天，你会在水中的倒影里看见那双已经泛白的眼睛。
 
 # ---- 研究页 7：终局 ----
-research.magianaturalis.herobrines_scythe.page.7=当你终于收割了 99999 个灵魂，它会安静下来。不再嗡鸣，不再渴望。你握着它，感受到一种从未有过的平静——以及一种深入骨髓的空虚。<BR>你已经不能算是一个神秘使了。你是它的主人，你是它的容器，你是它的下一顿。
+research.magianaturalis.herobrines_scythe.page.7=当你终于收割了 99999 个灵魂，它会安静下来。不再嗡鸣，不再渴望。<BR>你握着它，感受到一种从未有过的平静——以及一种深入骨髓的空虚。你的眼睛，在那一天变了颜色。你没有照镜子，但你知道。<BR>你已经不能算是一个神秘使了。你是它的主人，你是它的容器，你是它的下一顿。
 
 
 # ==================================================
@@ -405,19 +407,34 @@ item.magianaturalis.herobrines_scythe.tier.4=白瞳
 
 
 # ==================================================
+#              镰刀 · 工具提示（品质名）
+# ==================================================
+
+item.magianaturalis.herobrines_scythe.quality.0=普通
+item.magianaturalis.herobrines_scythe.quality.1=精良
+item.magianaturalis.herobrines_scythe.quality.2=稀有
+item.magianaturalis.herobrines_scythe.quality.3=史诗
+item.magianaturalis.herobrines_scythe.quality.4=传奇
+item.magianaturalis.herobrines_scythe.quality.5=神话
+
+
+# ==================================================
 #              镰刀 · 工具提示（数值面板）
 # ==================================================
 
+item.magianaturalis.herobrines_scythe.tooltip.quality=品质: %s
 item.magianaturalis.herobrines_scythe.tooltip.stage=阶段: %s (%s/5)
 item.magianaturalis.herobrines_scythe.tooltip.kills=杀敌数: %s
 item.magianaturalis.herobrines_scythe.tooltip.kills.max=MAX
+item.magianaturalis.herobrines_scythe.tooltip.durability=耐久: %s / %s
+item.magianaturalis.herobrines_scythe.tooltip.durability.max=耐久: ∞（永不损坏）
 item.magianaturalis.herobrines_scythe.tooltip.lifesteal=吸血: %s%% (血量越低，吸血越高)
 item.magianaturalis.herobrines_scythe.tooltip.block=格挡: %s%%
 item.magianaturalis.herobrines_scythe.tooltip.attack=攻击: %s
 item.magianaturalis.herobrines_scythe.tooltip.speed=速度: +%s%%
 item.magianaturalis.herobrines_scythe.tooltip.warp=扭曲: %s
 item.magianaturalis.herobrines_scythe.tooltip.max_targets=吸取VIS上限: %s 个目标
-item.magianaturalis.herobrines_scythe.tooltip.maxed=该武器已经不能成长了，你已经化身成了魔道
+item.magianaturalis.herobrines_scythe.tooltip.maxed=它不再低语了。它只是在等你自己发现——你的眼睛，什么时候变了颜色。
 item.magianaturalis.herobrines_scythe.tooltip.owner=认主: %s
 item.magianaturalis.herobrines_scythe.tooltip.owner.none=未认主
 
@@ -429,3 +446,6 @@ item.magianaturalis.herobrines_scythe.tooltip.owner.none=未认主
 item.magianaturalis.herobrines_scythe.tooltip.author.1=这是自然魔法重生版迁移了神秘基础学
 item.magianaturalis.herobrines_scythe.tooltip.author.2=第一个象征意义的物品我是空太
 item.magianaturalis.herobrines_scythe.tooltip.author.3=一个用接手了自然魔法的普通人
+
+
+

@@ -337,19 +337,45 @@ public final class MNRecipes {
         ItemStack[] recipe;
 
         // ======================================================================
-        // 【新增】白瞳者之镰的注魔配方
+        // 【白瞳者之镰】注魔配方
+        // 注意：外围物品当前 13 个，超过 TC4 上限 12 个！
+        // 请从 recipe 数组中再删掉 1 个物品，配方才能生效。
         // ======================================================================
-        aspects = new AspectList().add(Aspect.WEAPON, 828)
+        aspects = new AspectList()
+            // --- 原有要素，保持不变 ---
+            .add(Aspect.WEAPON, 828)
             .add(Aspect.ENERGY, 320)
             .add(Aspect.AURA, 64)
             .add(Aspect.ELDRITCH, 666)
-            .add(Aspect.DEATH, 640);
-        recipe = new ItemStack[] { new ItemStack(Items.nether_star), new ItemStack(Items.nether_star),
-            new ItemStack(Items.nether_star), new ItemStack(Items.nether_star), new ItemStack(Items.nether_star),
-            new ItemStack(Items.nether_star), new ItemStack(Items.nether_star),
-            new ItemStack(ConfigItems.itemBucketDeath), new ItemStack(ConfigItems.itemBucketDeath),
-            new ItemStack(ConfigItems.itemBucketDeath), new ItemStack(ConfigItems.itemWandRod, 1, 100),
-            new ItemStack(ConfigItems.itemBucketDeath) };
+            .add(Aspect.DEATH, 640)
+            // --- 新增要素：暂定全部 = 640（与死亡相同）---
+            .add(Aspect.DARKNESS, 640) // 黑暗
+            .add(Aspect.VOID, 640) // 虚空
+            .add(Aspect.HEAL, 640) // 治疗（生命类）
+            .add(Aspect.HUNGER, 640) // 饥饿
+            .add(Aspect.GREED, 640); // 贪婪
+
+        recipe = new ItemStack[] {
+            // --- 保留的原有物品（各 1 个）---
+            new ItemStack(Items.nether_star), // 下界之星 ×1
+                                              // //
+                                              // 元始杖芯
+                                              // ×1
+            new ItemStack(ConfigItems.itemBucketDeath), // 桶装死亡水 ×1
+
+            // --- 新增物品 ---
+            new ItemStack(ConfigItems.itemShard, 1, 6), // ❓平衡碎片（暂用 itemShard:6）
+            new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 8), // ❓血腥教徒旗帜（暂用 blockWoodenDevice:8）
+            new ItemStack(ConfigItems.itemSwordCrimson), // 血腥之刃 ×1
+            new ItemStack(ConfigItems.itemResource, 1, 15), // ❓元始魔力（暂用 itemResource:17）
+            new ItemStack(ConfigItems.itemEldritchObject, 1, 3), // ❓元始珍珠（暂用 itemEldritchObject:3）
+            new ItemStack(ConfigItems.itemFocusPrimal), // 元始法杖核心 ×1
+            new ItemStack(ConfigItems.itemPrimalCrusher), // 元始杵 ×1
+            new ItemStack(ConfigItems.itemEldritchObject, 1, 0), // ❓邪术之眼 ×1（暂用 itemEldritchObject:0）
+            new ItemStack(ConfigItems.itemEldritchObject, 1, 2) // ❓符文石板（暂用 itemEldritchObject:2）
+
+        };
+
         RECIPES.put(
             "HerobrinesScythe",
             registerInfusionRecipe(
@@ -357,7 +383,7 @@ public final class MNRecipes {
                 new ItemStack(MNItems.herobrinesScythe),
                 20,
                 aspects,
-                new ItemStack(MNItems.sickleElemental),
+                new ItemStack(MNItems.sickleElemental), // 中间核心：富饶镰刀，不变
                 recipe));
 
         aspects = new AspectList().add(Aspect.WEATHER, 9)

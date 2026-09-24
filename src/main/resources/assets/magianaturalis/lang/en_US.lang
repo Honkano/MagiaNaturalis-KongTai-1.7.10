@@ -91,6 +91,7 @@ research.magianaturalis.carpentry.page.1=Tired of always using the same magical 
 research.magianaturalis.transcribing_table.name=Transcribing Table
 research.magianaturalis.transcribing_table.text=Physical transportation of knowledge
 research.magianaturalis.transcribing_table.page.1=You realized that the knowledge released by the Deconstruction Table is fleeting and hard to share. Thus, you crafted this Transcribing Table.<BR>Place an empty "Research Log" in the top-left slot and have an original Deconstruction Table nearby. This table will slowly "transcribe" and seal ambient aspects and research points into the log.<BR>A full log can hold up to 64 points of each of the 6 primal aspects. When another thaumaturge reads this filled log, they gain all the research points within. This is the best way for thaumaturges to trade and inherit knowledge.
+research.magianaturalis.transcribing_table.page.2=Note: the transcribing table must leave a gap between itself and the surrounding deconstruction tables.<BR>Otherwise, it will forever remain a wooden frame that refuses to turn.<BR><BR>Thaumaturges call this gap "the breathing room of knowledge."<BR>Others insist it is simply because the first person to build a transcribing table placed one block off by accident, and no one since has dared to question it.
 
 research.magianaturalis.research_log.name=Research Log
 research.magianaturalis.research_log.text=Collecting Knowledge for Anyone
@@ -157,7 +158,8 @@ research.magianaturalis.sickle_of_abundance.page.1=Evolution of the Thaumium Sic
 research.magianaturalis.geo_occultism.name=Geo Occultism
 research.magianaturalis.geo_occultism.text=Transforming Regions through Obsidian Totems
 research.magianaturalis.geo_occultism.page.1=Observing and studying geographic Regions and the ancient Totems found in them you have discovered that Biomes can be transformed. The Ancients seemed to use Obsidian Totems to create artificial Geo-Poles that slowly converted the Region around them. You invented a Geo-Pylon which is attuned to a specific Region and placed on top of a 3 Block tall Obsidian Totem. Fueling it with Essentia you are able to bend the Region to your will.<BR>The max Range of the Pole seems to be a radius of 8 Blocks. A black color indicates that the Device is Idle, use your wand to activate/deactivate.
-research.magianaturalis.geo_occultism.page.2=In order to attune the Geo-Pylon to a specific Region a Detailed Report of a Biome and its Attributes is needed. Simply travel to a desired Biome and carefully write down the Data while bending down in order to examine the present Soil. Once the report is finished the Ribbon Color will change than simply touch the Geo-Pylon with your Report to attune it. The stain of the Geo-Pylon will change in accordance with the Ribbon, should the old Essentia Cost Remain carefully use your wand to reset the Cost.
+research.magianaturalis.geo_occultism.page.2=The Geo Pylon is not a magic circle. It is closer to a very hungry patch of soil.<BR><BR>To reshape a region, you need three things:<BR>· Hold the Biome Sampler, sneak-right-click the target biome, and let it memorize the local nature.<BR>· Hold the Biome Sampler, right-click the Geo Pylon, and hand that memory over.<BR>· Hold a wand, sneak-right-click the Geo Pylon, and let it recalculate the price of the transmutation.<BR><BR>What price? Essentia. The Geo Pylon does not farm—it orders from a menu. It searches within twelve blocks for available essentia jars and siphons the aspects matching the biome's nature, one by one.
+research.magianaturalis.geo_occultism.page.3=If you change your mind, or find that an old bill is still unpaid, sneak-right-click once more.<BR>The Pylon will silently tear up the invoice and start a new one.<BR><BR>— Many a thaumaturge has fallen at this step: they forgot the sneak, and then watched an entire forest turn into a tainted marsh beside their own laboratory.<BR>Three of them, it is said, retired to grow potatoes.
 
 item.magianaturalis.alchemical_stone.1.tooltip=Of Twisting and Molding Status Effects
 item.magianaturalis.alchemical_stone.0.tooltip=Mold the Visual
@@ -219,49 +221,100 @@ research.magianaturalis.herobrines_scythe.page.7=When you reap your 99999th soul
 
 
 # ==================================================
-#              Chat Messages
+#              Herobrine's Scythe
 # ==================================================
 
-chat.magianaturalis.block.damage=§fHerobrine's Scythe blocked successfully! Negated §a%s §fdamage.
-chat.magianaturalis.scythe.bind=Herobrine's Scythe has bound itself to your soul. None shall take it from you.
-chat.magianaturalis.scythe.levelup=Herobrine's Scythe has awakened—Stage %s: %s
-chat.magianaturalis.scythe.reject=This scythe is not yours. You have been cast out.
-chat.magianaturalis.scythe.owner.notify=Someone tried to claim your Herobrine's Scythe. The blood-light turned them away.
+# ---- Item name ----
+item.magianaturalis.herobrines_scythe.name=Herobrine's Scythe
+
+# ---- Research entry ----
+research.magianaturalis.herobrines_scythe.name=Herobrine's Scythe
+research.magianaturalis.herobrines_scythe.text=Tear the flesh. Feed the war.
+
+# ---- Research page 0: Origin ----
+research.magianaturalis.herobrines_scythe.page.0=You forged the Sickle of Abundance to bow the wheat and gather the harvest. It was a farmer's blessing, an echo of nature's gift. You remember stroking its edge beneath the moon, listening to its quiet hum—a song about harvest.<BR>But you grew greedy. You no longer wished to understand the life and death of crops. You wished to understand life itself.
+
+# ---- Research page 1: Metamorphosis ----
+research.magianaturalis.herobrines_scythe.page.1=You placed it upon the Infusion Altar, inked with death-knowledge, sealed with void-essence, carving runes that should never have been carved. The moment the altar's violet light died, the wheat-song fell silent—replaced by heartbeats. Thousands upon thousands of tiny heartbeats, trembling along its edge.<BR>It no longer craved the harvest. It craved a different kind of reaping.
+
+# ---- Research page 2: Growth ----
+research.magianaturalis.herobrines_scythe.page.2=It began to remember every strike. As the kill-count climbed through 30, 120, 450, 1500, it awakened through five stages: First Sight, First Stirring, Bloodthirst, Frenzy, Pale Eye. With each awakening, the edge blushed redder; the aura burned brighter.<BR>When the count reaches 99,999, it will complete its transformation into a cursed artifact—attack surging to 999. And you will not be able to turn back.
+
+# ---- Research page 3: Binding ----
+research.magianaturalis.herobrines_scythe.page.3=The first hand to hold it has its soul bound to the blade. A UUID is carved deep into the steel. Should another try to take it, the blood-light will cast them out—and whisper a warning into your ear.<BR>It knows you. It knows only you.<BR>If you ever wish to pass it on, you must first erase your own mark. No one has ever spoken of what that takes.
+
+# ---- Research page 4: Chain ----
+research.magianaturalis.herobrines_scythe.page.4=Every torn body releases a small pulse of energy, leaping between nearby foes—from one to the next, until nothing remains standing. The pulse strikes with the full weight of the scythe itself.<BR>One swing. A line of blood-light. This is how it reaps its harvest.
+
+# ---- Research page 5: Block & Drain ----
+research.magianaturalis.herobrines_scythe.page.5=Hold right-click, and it becomes a crimson barrier. The damage reduction grows with each tier; in its final form, it will completely negate all harm.<BR>Meanwhile, it drains Vis from every living thing within eight blocks—beast and player alike—gathering the essence into threads of blood-red light that fuel your wands and amulets. It does not kill. It only takes.<BR>But divinity is never free. Each draught leaves a scratch upon its edge. Only by feeding it—your satchel, your wand, your own durability—will it choose to stay.
+
+# ---- Research page 6: Bloodthirst & Warp ----
+research.magianaturalis.herobrines_scythe.page.6=It hungers for blood. The deeper your wounds, the more it gives back—feeding you, and feeding itself.<BR>The price: your soul is stained with warp. Higher tiers, deeper stains. One day you will see those whitened eyes in your own reflection.
+
+# ---- Research page 7: Finale ----
+research.magianaturalis.herobrines_scythe.page.7=When you finally reap the 99,999th soul, it falls silent. No longer humming. No longer hungering.<BR>You hold it, and feel a peace you have never known—and an emptiness that reaches into your bones. Your eyes changed color that day. You did not look into a mirror. But you knew.<BR>You are no longer a thaumaturge. You are its master. You are its vessel. You are its next meal.
 
 
 # ==================================================
-#              Tooltip - Tier Names
+#              Scythe · Chat messages
 # ==================================================
 
-item.magianaturalis.herobrines_scythe.tier.0=First Glimpse
-item.magianaturalis.herobrines_scythe.tier.1=First Awakening
+chat.magianaturalis.block.damage=§fHerobrine's Scythe blocked the blow! §a%s §fdamage absorbed.
+chat.magianaturalis.scythe.bind=Herobrine's Scythe has bound itself to you. None may take it.
+chat.magianaturalis.scythe.levelup=Herobrine's Scythe has awakened to Stage %s: %s
+chat.magianaturalis.scythe.reject=This scythe does not belong to you. You are cast out.
+chat.magianaturalis.scythe.owner.notify=Someone tried to take your Herobrine's Scythe! (Repelled by blood-light)
+
+
+# ==================================================
+#              Scythe · Tooltip (stage names)
+# ==================================================
+
+item.magianaturalis.herobrines_scythe.tier.0=First Sight
+item.magianaturalis.herobrines_scythe.tier.1=First Stirring
 item.magianaturalis.herobrines_scythe.tier.2=Bloodthirst
 item.magianaturalis.herobrines_scythe.tier.3=Frenzy
-item.magianaturalis.herobrines_scythe.tier.4=The White Eye
+item.magianaturalis.herobrines_scythe.tier.4=Pale Eye
 
 
 # ==================================================
-#              Tooltip - Stat Panel
+#              Scythe · Tooltip (quality names)
 # ==================================================
 
+item.magianaturalis.herobrines_scythe.quality.0=Common
+item.magianaturalis.herobrines_scythe.quality.1=Uncommon
+item.magianaturalis.herobrines_scythe.quality.2=Rare
+item.magianaturalis.herobrines_scythe.quality.3=Epic
+item.magianaturalis.herobrines_scythe.quality.4=Legendary
+item.magianaturalis.herobrines_scythe.quality.5=Mythic
+
+
+# ==================================================
+#              Scythe · Tooltip (stats)
+# ==================================================
+
+item.magianaturalis.herobrines_scythe.tooltip.quality=Quality: %s
 item.magianaturalis.herobrines_scythe.tooltip.stage=Stage: %s (%s/5)
 item.magianaturalis.herobrines_scythe.tooltip.kills=Kills: %s
 item.magianaturalis.herobrines_scythe.tooltip.kills.max=MAX
-item.magianaturalis.herobrines_scythe.tooltip.lifesteal=Lifesteal: %s%% (higher at low health)
+item.magianaturalis.herobrines_scythe.tooltip.durability=Durability: %s / %s
+item.magianaturalis.herobrines_scythe.tooltip.durability.max=Durability: ∞ (Indestructible)
+item.magianaturalis.herobrines_scythe.tooltip.lifesteal=Lifesteal: %s%% (lower HP, higher steal)
 item.magianaturalis.herobrines_scythe.tooltip.block=Block: %s%%
 item.magianaturalis.herobrines_scythe.tooltip.attack=Attack: %s
 item.magianaturalis.herobrines_scythe.tooltip.speed=Speed: +%s%%
 item.magianaturalis.herobrines_scythe.tooltip.warp=Warp: %s
 item.magianaturalis.herobrines_scythe.tooltip.max_targets=Vis Drain Cap: %s targets
-item.magianaturalis.herobrines_scythe.tooltip.maxed=This weapon can grow no further. You have walked the demon's path.
-item.magianaturalis.herobrines_scythe.tooltip.owner=Soulbound: %s
+item.magianaturalis.herobrines_scythe.tooltip.maxed=It no longer whispers. It is only waiting for you to notice—when did your eyes change color?
+item.magianaturalis.herobrines_scythe.tooltip.owner=Bound to: %s
 item.magianaturalis.herobrines_scythe.tooltip.owner.none=Unbound
 
 
 # ==================================================
-#              Tooltip - Author Signature
+#              Scythe · Tooltip (author signature)
 # ==================================================
 
-item.magianaturalis.herobrines_scythe.tooltip.author.1=Natural Magic Reborn, ported from Thaumic Bases
-item.magianaturalis.herobrines_scythe.tooltip.author.2=The first symbolic item—I am KongTai
-item.magianaturalis.herobrines_scythe.tooltip.author.3=An ordinary man who took up Natural Magic
+item.magianaturalis.herobrines_scythe.tooltip.author.1=Magia Naturalis Reborn, a migration of Thaumic Bases.
+item.magianaturalis.herobrines_scythe.tooltip.author.2=The first symbolic item. Signed by KongTai.
+item.magianaturalis.herobrines_scythe.tooltip.author.3=An ordinary person who took up Magia Naturalis.

@@ -35,6 +35,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 
 import com.github.elenterius.magianaturalis.MagiaNaturalis;
+import com.github.elenterius.magianaturalis.event.ScytheBlockHandler;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
@@ -49,37 +50,32 @@ import thaumcraft.api.IWarpingGear;
  * 【NBT 结构】
  * ScytheTier byte 0~4 当前等级
  * ScytheKills int 击杀计数，上限 99999
- * ScytheOwner String 认主玩家 UUID（判断归属用）
- * ScytheOwnerName String 认主玩家名（仅显示用，不参与判断）
+ * ScytheOwner String 认主玩家 UUID
+ * ScytheOwnerName String 认主玩家名（仅显示）
  *
- * 【设计思路】
- * - 认主判定永远用 UUID，玩家改 ID 也不影响归属。
- * - 显示名字缓存到 NBT，Tooltip 直接读，避免实时反查。
- * - 所有等级数值放进 TIER_* 数组，想改平衡只动这里一处。
- * - 攻击力：Tier 0~4 温和成长，杀敌数到 MAX 时质变 999。
- *
- * 【多语言】
- * 所有 UI 文本走 StatCollector，键名见 zh_CN.lang：
- * item.magianaturalis.herobrines_scythe.tier.*
- * item.magianaturalis.herobrines_scythe.tooltip.*
- * chat.magianaturalis.scythe.bind
+ * 【耐久机制】
+ * - Tier 0~4：统一 50000 耐久（原版耐久条正常显示）
+ * - MAX（99999 杀）：damageItem 被拦截 → 永不损坏
+ * - 自动修复：按 Tier 间隔触发，消耗法杖/魔力石的六大原始要素
+ * - 右键吸取 Vis 时：按 Tier 扣耐久（低等级扣得多）
  */
 public class ItemHerobrinesScythe extends ItemSword implements IRepairable, IWarpingGear {
 
     // ==================================================
-    // NBT 键（改键名会导致旧存档读不到）
+    // NBT 键
     // ==================================================
     public static final String NBT_TIER = "ScytheTier";
     public static final String NBT_KILLS = "ScytheKills";
-    public static final String NBT_OWNER = "ScytheOwner"; // UUID，判断归属
-    public static final String NBT_OWNER_NAME = "ScytheOwnerName"; // 玩家名，仅显示
+    public static final String NBT_OWNER = "ScytheOwner";
+    public static final String NBT_OWNER_NAME = "ScytheOwnerName";
 
     // ==================================================
-    // 多语言键（集中声明，方便统一改）
+    // 多语言键
     // ==================================================
-    /** 阶段名：tier.0 ~ tier.4 */
     private static final String LANG_TIER_PREFIX = "item.magianaturalis.herobrines_scythe.tier.";
+    private static final String LANG_QUALITY_PREFIX = "item.magianaturalis.herobrines_scythe.quality.";
     private static final String LANG_TOOLTIP_STAGE = "item.magianaturalis.herobrines_scythe.tooltip.stage";
+    private static final String LANG_TOOLTIP_QUALITY = "item.magianaturalis.herobrines_scythe.tooltip.quality";
     private static final String LANG_TOOLTIP_KILLS = "item.magianaturalis.herobrines_scythe.tooltip.kills";
     private static final String LANG_TOOLTIP_KILLS_MAX = "item.magianaturalis.herobrines_scythe.tooltip.kills.max";
     private static final String LANG_TOOLTIP_LIFESTEAL = "item.magianaturalis.herobrines_scythe.tooltip.lifesteal";
@@ -88,6 +84,8 @@ public class ItemHerobrinesScythe extends ItemSword implements IRepairable, IWar
     private static final String LANG_TOOLTIP_SPEED = "item.magianaturalis.herobrines_scythe.tooltip.speed";
     private static final String LANG_TOOLTIP_WARP = "item.magianaturalis.herobrines_scythe.tooltip.warp";
     private static final String LANG_TOOLTIP_MAX_TARGETS = "item.magianaturalis.herobrines_scythe.tooltip.max_targets";
+    private static final String LANG_TOOLTIP_DURABILITY = "item.magianaturalis.herobrines_scythe.tooltip.durability";
+    private static final String LANG_TOOLTIP_DURABILITY_MAX = "item.magianaturalis.herobrines_scythe.tooltip.durability.max";
     private static final String LANG_TOOLTIP_MAXED = "item.magianaturalis.herobrines_scythe.tooltip.maxed";
     private static final String LANG_TOOLTIP_OWNER = "item.magianaturalis.herobrines_scythe.tooltip.owner";
     private static final String LANG_TOOLTIP_OWNER_NONE = "item.magianaturalis.herobrines_scythe.tooltip.owner.none";
@@ -97,80 +95,45 @@ public class ItemHerobrinesScythe extends ItemSword implements IRepairable, IWar
     private static final String LANG_CHAT_BIND = "chat.magianaturalis.scythe.bind";
 
     // ==================================================
-    // 平衡数值表（想改平衡只动这里）
+    // 平衡数值表
     // ==================================================
-    /**
-     * 升到 Tier 1/2/3/4 所需累计击杀数。
-     * 索引 0 永远是 0，因为 Tier 0 出生就是。
-     * 也就是说：
-     * 杀敌数 >= 30 → Tier 1
-     * 杀敌数 >= 120 → Tier 2
-     * 杀敌数 >= 450 → Tier 3
-     * 杀敌数 >= 1500 → Tier 4
-     */
     public static final int[] TIER_THRESHOLDS = { 0, 30, 120, 450, 1500 };
-
-    /** 杀敌数上限。到顶后不再累积，Tooltip 显示 MAX */
     public static final int MAX_KILLS = 99999;
 
-    /** 每级基础吸血（满血时）。实际吸血会随血量越低越高，见 performPlayerAttackAt */
     public static final float[] TIER_LIFESTEAL = { 0.03F, 0.05F, 0.07F, 0.09F, 0.12F };
-
-    /** 每级格挡减伤。1.00F = 100% 完全免伤 */
     public static final float[] TIER_BLOCK = { 0.20F, 0.40F, 0.60F, 0.80F, 1.00F };
-
-    /**
-     * 每级基础攻击力，写进属性修饰符，参与原版暴击/击退计算。
-     * 【新曲线】前期温和，满杀敌数时质变。
-     * Tier 0~4 属性值：5 / 7 / 10 / 14 / 20
-     * 实际普攻 = 属性 + Tier*2（事件补正） + 1（玩家空手基础）
-     */
     public static final float[] TIER_ATTACK = { 5.0F, 7.0F, 10.0F, 14.0F, 20.0F };
-
-    /**
-     * 杀敌数达到 MAX_KILLS 时的终极攻击力。
-     * 这个是属性值，实际普攻会额外 +1（玩家空手基础）。
-     * 想精确 999 伤害就把这里改成 998.0F。
-     */
     public static final float MAX_ATTACK = 999.0F;
-
-    /** 每级移动速度加成。第二参数 2 表示"加法百分比"，0.05F = +5% */
     public static final float[] TIER_SPEED = { 0.05F, 0.08F, 0.11F, 0.14F, 0.18F };
-
-    /** 每级扭曲值（IWarpingGear 手持生效，收起来不占玩家永久扭曲） */
     public static final int[] TIER_WARP = { 0, 15, 50, 140, 300 };
-
-    /** 每级右键吸取 Vis 的最大目标数 */
     public static final int[] TIER_MAX_TARGETS = { 5, 10, 15, 22, 30 };
 
-    /**
-     * 属性修饰符的 UUID。
-     * 【重要】同一个属性如果 UUID 相同，新的会覆盖旧的，不会叠加。
-     * 所以每次 getAttributeModifiers 用同一个 UUID 就安全。
-     * 千万别每次随机一个 UUID，否则属性会无限叠加。
-     */
+    /** 每级基础修复间隔（tick / 1 点耐久） */
+    public static final int[] TIER_REPAIR_INTERVAL = { 10, 6, 4, 2, 1 };
+
+    /** 每级每点耐久的 Vis 消耗总量（六大原始要素均分） */
+    public static final int[] TIER_REPAIR_COST = { 16, 8, 6, 4, 2 };
+
+    /** 连锁攻击每次命中扣的耐久。Tier 越高，每命中扣得越少 */
+    public static final int[] TIER_CHAIN_DAMAGE = { 30, 20, 12, 6, 3 };
+
+    /** 内部耐久上限。所有 Tier 共享 */
+    public static final int INTERNAL_MAX_DAMAGE = 50000;
+
     private static final UUID ATK_UUID = UUID.fromString("CB3F55D3-645C-4F38-A497-9C13A33DB5CF");
     private static final UUID SPD_UUID = UUID.fromString("CB3F55D3-645C-4F38-A497-9C13A33DB5CE");
 
-    /** 5 张图标，索引 = Tier。客户端渲染用 */
     @SideOnly(Side.CLIENT)
     private IIcon[] tierIcons;
 
     public ItemHerobrinesScythe() {
         super(ToolMaterial.EMERALD);
-        this.setMaxDamage(50000);
+        this.setMaxDamage(INTERNAL_MAX_DAMAGE);
     }
 
     // ==================================================
-    // 贴图：按 Tier 切换
+    // 贴图
     // ==================================================
-
-    /**
-     * 注册 5 张物品贴图。
-     * 1.7.10 会把所有 register.registerIcon 注册的贴图拼进 items.png 图集，
-     * 之后 getIconIndex 才能从图集里取到具体的 IIcon。
-     * 这一步是必须的，不注册就找不到贴图，会变紫黑方格。
-     */
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister register) {
@@ -180,21 +143,15 @@ public class ItemHerobrinesScythe extends ItemSword implements IRepairable, IWar
         tierIcons[2] = register.registerIcon("magianaturalis:herobrines_scythe2");
         tierIcons[3] = register.registerIcon("magianaturalis:herobrines_scythe3");
         tierIcons[4] = register.registerIcon("magianaturalis:herobrines_scythe4");
-        this.itemIcon = tierIcons[0]; // 默认图标 = 0 级
+        this.itemIcon = tierIcons[0];
     }
 
-    /**
-     * 返回当前 Stack 对应的图标。
-     * 1.7.10 的 ItemStack.getIconIndex() 会调用到这里，
-     * 所以自定义渲染器 HerobrinesScytheRenderer 不用改，自动跟着 NBT 变。
-     */
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIconIndex(ItemStack stack) {
         return tierIcons[getTier(stack)];
     }
 
-    /** 老版本渲染管线的备用入口，保持返回一致 */
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(ItemStack stack, int pass) {
@@ -202,22 +159,18 @@ public class ItemHerobrinesScythe extends ItemSword implements IRepairable, IWar
     }
 
     // ==================================================
-    // 右键（格挡 + 吸取）
+    // 右键
     // ==================================================
-
-    /** 借用剑的格挡动作，1.7.10 里 EnumAction.block 触发使用中的减速和手臂姿态 */
     @Override
     public EnumAction getItemUseAction(ItemStack stack) {
         return EnumAction.block;
     }
 
-    /** 最长右键持续时间，72000 tick = 1 小时，够用了 */
     @Override
     public int getMaxItemUseDuration(ItemStack stack) {
         return 72000;
     }
 
-    /** 右键开始"使用"状态。实际吸取和格挡逻辑在 ScytheBlockHandler 里处理 */
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
         player.setItemInUse(stack, getMaxItemUseDuration(stack));
@@ -227,42 +180,27 @@ public class ItemHerobrinesScythe extends ItemSword implements IRepairable, IWar
     // ==================================================
     // NBT 工具方法
     // ==================================================
-
-    /**
-     * 保证 stack 有 tagCompound，没有就 new 一个。
-     * 所有写 NBT 的地方都先调这个，防止 NPE。
-     */
     private static NBTTagCompound ensureTag(ItemStack stack) {
         if (stack.stackTagCompound == null) stack.stackTagCompound = new NBTTagCompound();
         return stack.stackTagCompound;
     }
 
-    /**
-     * 读当前 Tier。
-     * clamp_int 把值夹在 0~4，防止 NBT 被改坏导致数组越界。
-     */
     public static int getTier(ItemStack stack) {
         if (stack == null || stack.stackTagCompound == null) return 0;
         return MathHelper.clamp_int(stack.stackTagCompound.getByte(NBT_TIER), 0, 4);
     }
 
-    /** 读击杀数。没标签就当 0 */
     public static int getKills(ItemStack stack) {
         if (stack == null || stack.stackTagCompound == null) return 0;
         return stack.stackTagCompound.getInteger(NBT_KILLS);
     }
 
-    /** 读 UUID 字符串。没绑定时返回 null */
     public static String getOwner(ItemStack stack) {
         if (stack == null || stack.stackTagCompound == null) return null;
         if (!stack.stackTagCompound.hasKey(NBT_OWNER)) return null;
         return stack.stackTagCompound.getString(NBT_OWNER);
     }
 
-    /**
-     * 读缓存的玩家名，仅用于 Tooltip 显示。
-     * 空字符串也返回 null，方便上层统一判空。
-     */
     public static String getOwnerName(ItemStack stack) {
         if (stack == null || stack.stackTagCompound == null) return null;
         if (!stack.stackTagCompound.hasKey(NBT_OWNER_NAME)) return null;
@@ -270,24 +208,17 @@ public class ItemHerobrinesScythe extends ItemSword implements IRepairable, IWar
         return name.isEmpty() ? null : name;
     }
 
-    /**
-     * 首次持有时绑定主人。已经有 owner 就什么都不做。
-     * 返回 true 表示本次真的绑定了。
-     */
     public static boolean bindOwnerIfEmpty(ItemStack stack, EntityPlayer player) {
         if (stack == null || player == null) return false;
         NBTTagCompound tag = ensureTag(stack);
-        if (tag.hasKey(NBT_OWNER)) return false; // 已认主，不再改
+        if (tag.hasKey(NBT_OWNER)) return false;
 
-        // 认主判定永远用 UUID
         tag.setString(
             NBT_OWNER,
             player.getUniqueID()
                 .toString());
-        // 玩家名只缓存一份，仅用于显示
         tag.setString(NBT_OWNER_NAME, player.getCommandSenderName());
 
-        // 认主成功提示。只在服务端发，客户端由 addChatMessage 自动同步
         if (!player.worldObj.isRemote) {
             player.addChatMessage(
                 new ChatComponentText(EnumChatFormatting.DARK_RED + StatCollector.translateToLocal(LANG_CHAT_BIND)));
@@ -297,10 +228,6 @@ public class ItemHerobrinesScythe extends ItemSword implements IRepairable, IWar
         return true;
     }
 
-    /**
-     * 判断玩家是否是当前 Stack 的主人。
-     * 未绑定 → 返回 true（人人都能拿，因为还没认主）。
-     */
     public static boolean isOwner(ItemStack stack, EntityPlayer player) {
         String owner = getOwner(stack);
         if (owner == null) return true;
@@ -309,19 +236,10 @@ public class ItemHerobrinesScythe extends ItemSword implements IRepairable, IWar
                 .toString());
     }
 
-    /**
-     * 击杀 +1，并检查是否跨过升级阈值。
-     * 返回 true 表示本次触发升级。
-     *
-     * 实现思路：从高到低遍历 TIER_THRESHOLDS，
-     * 找到第一个 kills >= 阈值的下标，就是当前应处的 Tier。
-     * 比当前 Tier 大就升级。
-     */
     public static boolean addKill(ItemStack stack, EntityPlayer owner) {
         NBTTagCompound tag = ensureTag(stack);
         int kills = tag.getInteger(NBT_KILLS);
 
-        // 到顶就不再累积
         if (kills >= MAX_KILLS) return false;
 
         kills++;
@@ -343,28 +261,64 @@ public class ItemHerobrinesScythe extends ItemSword implements IRepairable, IWar
         return false;
     }
 
-    /** 是否已到杀敌数上限 */
     public static boolean isMaxed(ItemStack stack) {
         return getKills(stack) >= MAX_KILLS;
     }
 
     // ==================================================
-    // 阶段名（走多语言）
+    // 阶段名 / 品质名
     // ==================================================
-    /**
-     * 阶段显示名。
-     * 键名：item.magianaturalis.herobrines_scythe.tier.0 ~ .4
-     * 找不到键会直接显示键名本身，不会崩。
-     */
     public static String tierName(int tier) {
         return StatCollector.translateToLocal(LANG_TIER_PREFIX + tier);
+    }
+
+    public static String qualityName(ItemStack stack) {
+        int idx = isMaxed(stack) ? 5 : getTier(stack);
+        return StatCollector.translateToLocal(LANG_QUALITY_PREFIX + idx);
+    }
+
+    // ==================================================
+    // 名字按 Tier 上色
+    // ==================================================
+    @Override
+    public String getItemStackDisplayName(ItemStack stack) {
+        String name = super.getItemStackDisplayName(stack);
+        int tier = getTier(stack);
+
+        EnumChatFormatting color;
+        boolean bold = false;
+
+        if (isMaxed(stack)) {
+            color = EnumChatFormatting.DARK_RED;
+            bold = true;
+        } else {
+            switch (tier) {
+                case 0:
+                    color = EnumChatFormatting.GRAY;
+                    break;
+                case 1:
+                    color = EnumChatFormatting.WHITE;
+                    break;
+                case 2:
+                    color = EnumChatFormatting.GOLD;
+                    break;
+                case 3:
+                    color = EnumChatFormatting.RED;
+                    break;
+                case 4:
+                    color = EnumChatFormatting.DARK_RED;
+                    break;
+                default:
+                    color = EnumChatFormatting.GRAY;
+            }
+        }
+
+        return color.toString() + (bold ? EnumChatFormatting.BOLD.toString() : "") + name;
     }
 
     // ==================================================
     // 挥动音效 / 稀有度
     // ==================================================
-
-    /** 空挥也能听到声音 */
     @Override
     public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
         if (entityLiving instanceof EntityPlayer) {
@@ -374,7 +328,6 @@ public class ItemHerobrinesScythe extends ItemSword implements IRepairable, IWar
         return super.onEntitySwing(entityLiving, stack);
     }
 
-    /** 物品稀有度（名字黄色） */
     @Override
     public EnumRarity getRarity(ItemStack itemstack) {
         return EnumRarity.uncommon;
@@ -389,8 +342,12 @@ public class ItemHerobrinesScythe extends ItemSword implements IRepairable, IWar
         int tier = getTier(stack);
         int kills = getKills(stack);
 
+        // ---- 品质 ----
+        lst.add(
+            EnumChatFormatting.GRAY
+                + StatCollector.translateToLocalFormatted(LANG_TOOLTIP_QUALITY, qualityName(stack)));
+
         // ---- 阶段 ----
-        // 键：tooltip.stage = "阶段: %s (%s/5)"
         lst.add(
             EnumChatFormatting.DARK_RED + StatCollector.translateToLocalFormatted(
                 LANG_TOOLTIP_STAGE,
@@ -398,8 +355,6 @@ public class ItemHerobrinesScythe extends ItemSword implements IRepairable, IWar
                 tier + 1));
 
         // ---- 杀敌数 ----
-        // 键：tooltip.kills = "杀敌数: %s"
-        // 键：tooltip.kills.max = "MAX"
         String killText;
         if (isMaxed(stack)) {
             killText = EnumChatFormatting.DARK_RED + ""
@@ -415,18 +370,30 @@ public class ItemHerobrinesScythe extends ItemSword implements IRepairable, IWar
         }
         lst.add(EnumChatFormatting.GRAY + StatCollector.translateToLocalFormatted(LANG_TOOLTIP_KILLS, killText));
 
+        // ---- 耐久 ----
+        if (isMaxed(stack)) {
+            lst.add(
+                EnumChatFormatting.DARK_RED + ""
+                    + EnumChatFormatting.BOLD
+                    + StatCollector.translateToLocal(LANG_TOOLTIP_DURABILITY_MAX));
+        } else {
+            int max = stack.getMaxDamage();
+            int current = max - stack.getItemDamage();
+            if (current < 0) current = 0;
+            lst.add(
+                EnumChatFormatting.GREEN
+                    + StatCollector.translateToLocalFormatted(LANG_TOOLTIP_DURABILITY, current, max));
+        }
+
         // ---- 数值面板 ----
-        // 键：tooltip.lifesteal = "吸血: %s%% (血量越低，吸血越高)"
         lst.add(
             EnumChatFormatting.RED
                 + StatCollector.translateToLocalFormatted(LANG_TOOLTIP_LIFESTEAL, (int) (TIER_LIFESTEAL[tier] * 100)));
 
-        // 键：tooltip.block = "格挡: %s%%"
         lst.add(
             EnumChatFormatting.BLUE
                 + StatCollector.translateToLocalFormatted(LANG_TOOLTIP_BLOCK, (int) (TIER_BLOCK[tier] * 100)));
 
-        // 键：tooltip.attack = "攻击: %s"
         String atkText;
         if (isMaxed(stack)) {
             atkText = EnumChatFormatting.DARK_RED + "" + EnumChatFormatting.BOLD + (int) MAX_ATTACK;
@@ -436,17 +403,14 @@ public class ItemHerobrinesScythe extends ItemSword implements IRepairable, IWar
         }
         lst.add(EnumChatFormatting.GOLD + StatCollector.translateToLocalFormatted(LANG_TOOLTIP_ATTACK, atkText));
 
-        // 键：tooltip.speed = "速度: +%s%%"
         lst.add(
             EnumChatFormatting.AQUA
                 + StatCollector.translateToLocalFormatted(LANG_TOOLTIP_SPEED, (int) (TIER_SPEED[tier] * 100)));
 
-        // 键：tooltip.warp = "扭曲: %s"
         lst.add(
             EnumChatFormatting.DARK_PURPLE
                 + StatCollector.translateToLocalFormatted(LANG_TOOLTIP_WARP, TIER_WARP[tier]));
 
-        // 键：tooltip.max_targets = "吸取VIS上限: %s 个目标"
         lst.add(
             EnumChatFormatting.LIGHT_PURPLE
                 + StatCollector.translateToLocalFormatted(LANG_TOOLTIP_MAX_TARGETS, TIER_MAX_TARGETS[tier]));
@@ -454,7 +418,6 @@ public class ItemHerobrinesScythe extends ItemSword implements IRepairable, IWar
         // ---- 到顶提示 ----
         if (isMaxed(stack)) {
             lst.add("");
-            // 键：tooltip.maxed
             lst.add(
                 EnumChatFormatting.DARK_RED + ""
                     + EnumChatFormatting.ITALIC
@@ -462,12 +425,9 @@ public class ItemHerobrinesScythe extends ItemSword implements IRepairable, IWar
         }
 
         // ---- 认主信息 ----
-        // 键：tooltip.owner = "认主: %s"
-        // 键：tooltip.owner.none = "未认主"
         String ownerUuid = getOwner(stack);
         lst.add("");
         if (ownerUuid == null) {
-            // 配方书 / JEI / NEI 里显示的裸物品没有 NBT，走到这里
             lst.add(
                 EnumChatFormatting.DARK_GRAY + StatCollector.translateToLocalFormatted(
                     LANG_TOOLTIP_OWNER,
@@ -475,7 +435,6 @@ public class ItemHerobrinesScythe extends ItemSword implements IRepairable, IWar
         } else {
             String ownerName = getOwnerName(stack);
             if (ownerName == null) {
-                // 兼容旧版本只存 UUID 的镰刀
                 ownerName = ownerUuid.substring(0, Math.min(8, ownerUuid.length())) + "...";
             }
             lst.add(
@@ -500,7 +459,7 @@ public class ItemHerobrinesScythe extends ItemSword implements IRepairable, IWar
     }
 
     // ==================================================
-    // onUpdate：认主绑定 + 自动修复
+    // onUpdate：认主 + 自动修复
     // ==================================================
     @Override
     public void onUpdate(ItemStack stk, World w, Entity entity, int slot, boolean held) {
@@ -510,26 +469,31 @@ public class ItemHerobrinesScythe extends ItemSword implements IRepairable, IWar
         if (held && entity instanceof EntityPlayer) {
             bindOwnerIfEmpty(stk, (EntityPlayer) entity);
         }
-
-        // 自动修复：每 20 tick 恢复 1 点耐久（虚空锄同款）
-        if (stk.isItemDamaged() && entity != null
-            && entity.ticksExisted % 20 == 0
-            && entity instanceof EntityLivingBase) {
-            stk.damageItem(-1, (EntityLivingBase) entity);
+        // MAX：永不损坏，耐久强制归零
+        if (isMaxed(stk)) {
+            if (stk.getItemDamage() > 0) {
+                stk.setItemDamage(0);
+            }
+            return;
         }
+
+        if (!(entity instanceof EntityPlayer)) return;
+        if (!stk.isItemDamaged()) return;
+
+        EntityPlayer player = (EntityPlayer) entity;
+        int tier = getTier(stk);
+        int interval = TIER_REPAIR_INTERVAL[tier];
+
+        if (entity.ticksExisted % interval != 0) return;
+
+        // 尝试抽 Vis（法杖 + 魔力石，六大原始要素）
+        int cost = TIER_REPAIR_COST[tier];
+        ScytheBlockHandler.tryDrainVisForRepair(player, cost);
+
+        // 无论是否抽到 Vis，都修复 1 点耐久
+        stk.damageItem(-1, player);
     }
 
-    // ==================================================
-    // 攻击连锁（保留你原版）
-    // ==================================================
-
-    /**
-     * 连锁闪电攻击。
-     * 从 attacked 周围 6 格内随机挑一个敌对生物，
-     * 对他执行一次和玩家普攻一样的伤害，再画一条闪电，再递归。
-     *
-     * doNotAttack 记录已经被打过的不重复打。
-     */
     @SuppressWarnings("unchecked")
     public static void attack(EntityPlayer attacker, List<EntityLivingBase> doNotAttack, EntityLivingBase attacked) {
         AxisAlignedBB aabb = AxisAlignedBB
@@ -549,13 +513,11 @@ public class ItemHerobrinesScythe extends ItemSword implements IRepairable, IWar
         if (!mobs.isEmpty()) {
             while (!mobs.isEmpty()) {
                 int index = rnd.nextInt(mobs.size());
-                // 只打敌对生物，不误伤玩家和其他生物
                 if (mobs.get(index) != null && mobs.get(index)
                     .isEntityAlive() && mobs.get(index) instanceof IMob && !(mobs.get(index) instanceof EntityPlayer)) {
 
                     performPlayerAttackAt(attacker, mobs.get(index));
 
-                    // 画血红色闪电
                     MagiaNaturalis.lightning(
                         attacker.worldObj,
                         attacked.posX,
@@ -575,7 +537,23 @@ public class ItemHerobrinesScythe extends ItemSword implements IRepairable, IWar
                         .playSoundAtEntity(mobs.get(index), "magianaturalis:item.herobrine.attack", 1.0F, 1.0F);
 
                     doNotAttack.add(mobs.get(index));
-                    attack(attacker, doNotAttack, mobs.get(index)); // 递归跳到下一个
+
+                    // ==================================================
+                    // 【新增】连锁每命中一个目标，就扣一次耐久
+                    // 连锁目标越多 → 总扣得越多
+                    // Tier 越高 → 每命中扣得越少
+                    // MAX → 不扣
+                    // ==================================================
+                    ItemStack held = attacker.getCurrentEquippedItem();
+                    if (held != null && held.getItem() instanceof ItemHerobrinesScythe && !isMaxed(held)) {
+                        int tier = getTier(held);
+                        int chainDamage = TIER_CHAIN_DAMAGE[tier];
+                        if (chainDamage > 0) {
+                            held.damageItem(chainDamage, attacker);
+                        }
+                    }
+
+                    attack(attacker, doNotAttack, mobs.get(index));
                     break;
                 } else {
                     mobs.remove(index);
@@ -584,7 +562,6 @@ public class ItemHerobrinesScythe extends ItemSword implements IRepairable, IWar
         }
     }
 
-    /** 左键点生物时触发连锁。非主人不触发 */
     @Override
     public boolean onLeftClickEntity(ItemStack stk, EntityPlayer attacker, Entity attacked) {
         if (!isOwner(stk, attacker)) {
@@ -596,27 +573,16 @@ public class ItemHerobrinesScythe extends ItemSword implements IRepairable, IWar
         return super.onLeftClickEntity(stk, attacker, attacked);
     }
 
-    /**
-     * 对目标执行一次和玩家普攻几乎一样的伤害计算。
-     * 这是照抄 EntityPlayer.attackTargetEntityWithCurrentItem 的流程，
-     * 因为直接调 attackTargetEntityWithCurrentItem 会受玩家自己目标锁定的影响。
-     *
-     * 动态吸血也写在这里：每次伤害结算后按 Tier 治疗玩家。
-     * 注意：这里的攻击力已经包含了 getAttributeModifiers 提供的属性值。
-     */
     public static void performPlayerAttackAt(EntityPlayer p, Entity p_71059_1_) {
-        // 其他模组监听攻击事件，取消就不打
         if (MinecraftForge.EVENT_BUS.post(new AttackEntityEvent(p, p_71059_1_))) return;
         if (!p_71059_1_.canAttackWithItem()) return;
         if (p_71059_1_.hitByEntity(p)) return;
 
-        // 基础伤害 = 玩家当前攻击属性（已经包含了镰刀的属性修饰符）
         float f = (float) p.getEntityAttribute(SharedMonsterAttributes.attackDamage)
             .getAttributeValue();
         int i = 0;
         float f1 = 0.0F;
 
-        // 附魔额外伤害
         if (p_71059_1_ instanceof EntityLivingBase) {
             f1 = EnchantmentHelper.getEnchantmentModifierLiving(p, (EntityLivingBase) p_71059_1_);
             i += EnchantmentHelper.getKnockbackModifier(p, (EntityLivingBase) p_71059_1_);
@@ -624,7 +590,6 @@ public class ItemHerobrinesScythe extends ItemSword implements IRepairable, IWar
         if (p.isSprinting()) ++i;
 
         if (f > 0.0F || f1 > 0.0F) {
-            // 跳劈判定
             boolean flag = p.fallDistance > 0.0F && !p.onGround
                 && !p.isOnLadder()
                 && !p.isInWater()
@@ -634,7 +599,6 @@ public class ItemHerobrinesScythe extends ItemSword implements IRepairable, IWar
             if (flag && f > 0.0F) f *= 1.5F;
             f += f1;
 
-            // 火焰附加（原版 Fire Aspect）：附魔了就会点燃目标
             boolean flag1 = false;
             int j = EnchantmentHelper.getFireAspectModifier(p);
             if (p_71059_1_ instanceof EntityLivingBase && j > 0 && !p_71059_1_.isBurning()) {
@@ -642,14 +606,8 @@ public class ItemHerobrinesScythe extends ItemSword implements IRepairable, IWar
                 p_71059_1_.setFire(1);
             }
 
-            // 真正造成伤害
             boolean flag2 = p_71059_1_.attackEntityFrom(DamageSource.causePlayerDamage(p), f);
             if (flag2) {
-                // ==========================================
-                // 按 Tier 动态吸血
-                // 基础吸血 + (1 - 当前血量百分比) * 15%
-                // 也就是血越少吸得越多
-                // ==========================================
                 ItemStack heldStack = p.getCurrentEquippedItem();
                 if (heldStack != null && heldStack.getItem() instanceof ItemHerobrinesScythe) {
                     int tier = getTier(heldStack);
@@ -658,7 +616,6 @@ public class ItemHerobrinesScythe extends ItemSword implements IRepairable, IWar
                     p.heal(f * lifesteal);
                 }
 
-                // 击退
                 if (i > 0) {
                     p_71059_1_.addVelocity(
                         -MathHelper.sin(p.rotationYaw * (float) Math.PI / 180.0F) * (float) i * 0.5F,
@@ -673,12 +630,10 @@ public class ItemHerobrinesScythe extends ItemSword implements IRepairable, IWar
                 if (f >= 18.0F) p.triggerAchievement(AchievementList.overkill);
                 p.setLastAttacker(p_71059_1_);
 
-                // 触发护甲附魔
                 if (p_71059_1_ instanceof EntityLivingBase)
                     EnchantmentHelper.func_151384_a((EntityLivingBase) p_71059_1_, p);
                 EnchantmentHelper.func_151385_b(p, p_71059_1_);
 
-                // 触发武器 hitEntity（比如耐久消耗、吸血附魔）
                 ItemStack itemstack = p.getCurrentEquippedItem();
                 Object object = p_71059_1_;
                 if (p_71059_1_ instanceof EntityDragonPart) {
@@ -692,13 +647,11 @@ public class ItemHerobrinesScythe extends ItemSword implements IRepairable, IWar
                     if (itemstack.stackSize <= 0) p.destroyCurrentEquippedItem();
                 }
 
-                // 统计 + 火焰附加的持续燃烧
                 if (p_71059_1_ instanceof EntityLivingBase) {
                     p.addStat(StatList.damageDealtStat, Math.round(f * 10.0F));
                     if (j > 0) p_71059_1_.setFire(j * 4);
                 }
 
-                // 消耗饥饿
                 p.addExhaustion(0.3F);
             } else if (flag1) {
                 p_71059_1_.extinguish();
@@ -707,14 +660,8 @@ public class ItemHerobrinesScythe extends ItemSword implements IRepairable, IWar
     }
 
     // ==================================================
-    // 扭曲值：随 Tier 增长
+    // 扭曲值
     // ==================================================
-
-    /**
-     * IWarpingGear 接口。
-     * 神秘时代每 tick 查一次玩家手持物品，是 IWarpingGear 就把这里的值加到玩家。
-     * 所以收起来就不占玩家扭曲，只是手持时生效。
-     */
     @Override
     public int getWarp(ItemStack stack, EntityPlayer player) {
         if (stack == null) return 0;
@@ -722,25 +669,13 @@ public class ItemHerobrinesScythe extends ItemSword implements IRepairable, IWar
     }
 
     // ==================================================
-    // 属性修饰符：按 Tier 动态
+    // 属性修饰符
     // ==================================================
-
-    /**
-     * 每次攻击计算伤害时都会调用这个方法读属性。
-     * 因为读的是 NBT，所以 Tier 变了伤害也立即跟着变。
-     *
-     * 攻击力分两段：
-     * - 未满杀敌数：读 TIER_ATTACK[tier]（5 / 7 / 10 / 14 / 20）
-     * - 满杀敌数：直接读 MAX_ATTACK（999），跳过 Tier 曲线
-     *
-     * UUID 必须固定，否则会叠加。第二参数 2 表示"百分比加法"。
-     */
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public Multimap getAttributeModifiers(ItemStack stack) {
         Multimap attribs = HashMultimap.create();
         int tier = getTier(stack);
 
-        // 满杀敌数时攻击力直接质变到 999，否则按 Tier 曲线
         float atk = isMaxed(stack) ? MAX_ATTACK : TIER_ATTACK[tier];
 
         attribs.put(
@@ -754,7 +689,6 @@ public class ItemHerobrinesScythe extends ItemSword implements IRepairable, IWar
         return attribs;
     }
 
-    /** 声明为工具，用于某些附魔判定（比如耐久附魔） */
     @Override
     public boolean isItemTool(ItemStack stk) {
         return true;
