@@ -13,8 +13,8 @@
 		"logoFile": "logo.png",
 		"screenshots": [],
 		"parent": "",
-		"requiredMods": ["Thaumcraft"],
-		"dependencies": ["Thaumcraft"],
+		"requiredMods": ["Thaumcraft", "NotEnoughItems"],
+		"dependencies": ["required-after:Thaumcraft", "required-after:NotEnoughItems"],
 		"dependants": [],
 		"useDependencyInformation": false
 	}]

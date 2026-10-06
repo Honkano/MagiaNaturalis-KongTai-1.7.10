@@ -25,6 +25,12 @@ public final class MNKeyBindings {
         -98,
         "key.categories.magianaturalis");
 
+    /** ★ 态度面具切换键 */
+    public static final KeyBinding ATTITUDE_SWITCH_KEY = new KeyBinding(
+        "key.magianaturalis.attitude_switch",
+        Keyboard.KEY_G,
+        "key.categories.magianaturalis");
+
     private MNKeyBindings() {}
 
     static void register() {
@@ -32,6 +38,6 @@ public final class MNKeyBindings {
         ClientRegistry.registerKeyBinding(DECREASE_SIZE_KEY);
         ClientRegistry.registerKeyBinding(MISC_KEY);
         ClientRegistry.registerKeyBinding(PICK_BLOCK_KEY);
+        ClientRegistry.registerKeyBinding(ATTITUDE_SWITCH_KEY);
     }
-
 }

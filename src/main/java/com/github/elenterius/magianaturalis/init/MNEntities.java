@@ -4,6 +4,7 @@ import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.world.biome.BiomeGenBase;
 
 import com.github.elenterius.magianaturalis.MagiaNaturalis;
+import com.github.elenterius.magianaturalis.easteregg.EntityHerobrineWatcher;
 import com.github.elenterius.magianaturalis.entity.EntityEvilTrunk;
 import com.github.elenterius.magianaturalis.entity.EntityZombieExtended;
 import com.github.elenterius.magianaturalis.entity.taint.EntityTaintBreeder;
@@ -13,11 +14,6 @@ import cpw.mods.fml.common.registry.EntityRegistry;
 import thaumcraft.common.lib.world.ThaumcraftWorldGenerator;
 
 public final class MNEntities {
-
-    // Entity Names
-    // public static final String WRATHGAZER = "wrathgazer";
-    // public static final String SNAPJAW = "snapjaw";
-    // public static final String DOG_ONYX = "dogOnyx";
 
     static void register() {
         int id = 0;
@@ -42,10 +38,19 @@ public final class MNEntities {
             3,
             false);
 
-        // EntityRegistry.registerGlobalEntityID(EntityTaintman.class, "taintman",
-        // EntityRegistry.findGlobalUniqueEntityId(), 0xFFC0FF, 0x800090);
-        // EntityRegistry.registerModEntity(EntityTaintman.class, "taintman", id++, MagiaNaturalis.instance, 64, 3,
-        // false);
+        // ==================================================
+        // 【彩蛋】白瞳凝视者
+        // id++ 现在是 3，正好是下一个空号
+        // ==================================================
+        EntityRegistry.registerModEntity(
+            EntityHerobrineWatcher.class,
+            "herobrine_watcher",
+            id++,
+            MagiaNaturalis.instance,
+            80,    // 追踪距离
+            3,     // 更新频率
+            false  // 它不动，不需要同步速度
+        );
     }
 
     static void registerThaumcraftChampions() {

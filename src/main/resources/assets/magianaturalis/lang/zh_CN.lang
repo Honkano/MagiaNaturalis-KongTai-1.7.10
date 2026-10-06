@@ -1,4 +1,6 @@
-# MISC
+# ==================================================
+#              通用 · MISC
+# ==================================================
 itemGroup.magianaturalis=神秘自然
 
 enum.magianaturalis.none=无
@@ -6,17 +8,21 @@ enum.magianaturalis.unknown=未知
 enum.magianaturalis.mode.uniform=制服
 enum.magianaturalis.shape.cube=方块
 enum.magianaturalis.shape.plane=平面
-enum.magianaturalis.shape.plane.extend=平面延伸
+enum.magianaturalis.shape.plane_extend=平面延伸
 enum.magianaturalis.shape.sphere=球
 
-# KEY BINDINGS
+# ==================================================
+#              按键 · KEY BINDINGS
+# ==================================================
 key.categories.magianaturalis=神秘自然
 key.magianaturalis.increase_size=扩大区域
 key.magianaturalis.decrease_size=缩小区域
 key.magianaturalis.misc=切换形状/模式
 key.magianaturalis.pick_block=拾取方块
 
-# CHAT MSG
+# ==================================================
+#              聊天 · CHAT MESSAGES
+# ==================================================
 chat.magianaturalis.key.access.door=神秘之门与你的灵魂相连。
 chat.magianaturalis.key.access.chest=神秘箱子似乎喜欢你。
 chat.magianaturalis.key.access.misc=神秘装置现在绑定到你的灵魂。
@@ -27,7 +33,11 @@ chat.magianaturalis.key.accesslist=%s 已添加到密钥访问列表中。
 chat.magianaturalis.chest.access.denied=神秘箱子似乎不喜欢你。
 chat.magianaturalis.chest.resist=这个箱子阻止了你的小型化尝试。
 
-# Flavor Text & Tool Hint & Misc 
+chat.magianaturalis.revenant.limit=你不能再召唤更多了，必须先让其中一只消散。
+
+# ==================================================
+#              风味文本与提示 · FLAVOR & HINTS
+# ==================================================
 flavor.magianaturalis.key.0=打开一切...
 flavor.magianaturalis.key.1=为他人授予权限...
 flavor.magianaturalis.banner=标志我们存在的旗帜。
@@ -36,11 +46,13 @@ hint.magianaturalis.empty=空
 hint.magianaturalis.chest.items=包含宝藏
 hint.magianaturalis.chest.access=有访问列表
 
-# ITEM NAMES
+# ==================================================
+#              物品名 · ITEM NAMES
+# ==================================================
 item.magianaturalis.research_log.name=研究日志
 item.magianaturalis.biome_sampler.name=生物群落报告
-item.magianaturalis.alchemical_stone.1.name=水银炼金符石
 item.magianaturalis.alchemical_stone.0.name=催化石
+item.magianaturalis.alchemical_stone.1.name=水银炼金符石
 item.magianaturalis.dev_tool.name=其他开发工具
 item.magianaturalis.biome_dev_tool.name=生物群系开发工具
 item.magianaturalis.thaumium_key.0.name=奥能之钥
@@ -49,20 +61,22 @@ item.magianaturalis.dark_crystal_goggles.name=混沌护目镜
 item.magianaturalis.spectacles.name=高级揭示护目镜
 item.magianaturalis.builder_focus.name=法杖核心：建筑
 item.magianaturalis.revenant_focus.name=法杖核心：亡魂核心
-item.magianaturalis.evil_trunk.tainted.name=污染箱子宝宝
-item.magianaturalis.evil_trunk.demonic.name=恶魔箱子宝宝
-item.magianaturalis.evil_trunk.sinister.name=阴险箱子宝宝
 item.magianaturalis.evil_trunk.corrupted.name=邪恶箱子宝宝
+item.magianaturalis.evil_trunk.sinister.name=阴险箱子宝宝
+item.magianaturalis.evil_trunk.demonic.name=恶魔箱子宝宝
+item.magianaturalis.evil_trunk.tainted.name=污染箱子宝宝
 item.magianaturalis.focus_ender_pouch.name=末影核心袋
 item.magianaturalis.thaumium_sickle.name=神秘镰刀
 item.magianaturalis.void_sickle.name=虚空镰刀
 item.magianaturalis.elemental_sickle.name=富饶镰刀
 
-# TILE NAMES
+# ==================================================
+#              方块名 · TILE NAMES
+# ==================================================
 tile.magianaturalis.transcribing_table.name=转录桌
 tile.magianaturalis.arcane_chest.gw.name=宏伟之木箱子
 tile.magianaturalis.arcane_chest.sw.name=银木箱子
-tile.magianaturalis.prison_jar.name=罐中实体
+tile.magianaturalis.prison_jar.name=封存之罐
 tile.magianaturalis.arcane_wood.gw_planks.name=水平宏伟之木木板
 tile.magianaturalis.arcane_wood.gw_orn.name=宏伟之木装饰
 tile.magianaturalis.arcane_wood.sw_planks.0.name=水平银木木板
@@ -73,269 +87,139 @@ tile.magianaturalis.arcane_wood.gw_gold_trim.name=金边宏伟之木
 tile.magianaturalis.banner.name=神秘自然旗帜
 tile.magianaturalis.geo_pylon.name=地标塔
 
-# ENTITY NAMES
+# ==================================================
+#              实体名 · ENTITY NAMES
+# ==================================================
 entity.magianaturalis.taint_breeder.name=污染饲养员
 entity.magianaturalis.evil_trunk.name=邪恶树干
 
-# RESEARCH
+# ==================================================
+#              研究 · RESEARCH - 分类
+# ==================================================
 tc.research_category.magianaturalis=神秘自然
 
-research.magianaturalis.intro.name=内在规律
-research.magianaturalis.intro.text=了解事物的本质以理解其存在的本质
-research.magianaturalis.intro.page.1=所有的魔法使都能操控我们现在称之为魔力(Vis)的魔法的本质，但很少有人能像你这样成功地摆脱腐败和黑暗。你与自然流动及其原始现象的深刻联系，使你了解了这个物质世界的真正美。<BR>其他自然学家声称，他们能够操纵生命本身、自然和生物的结构。他们相信已经发现了我们存在的本质……
+# ============================================================
+# 研究：内在规律
+# ============================================================
 
+research.magianaturalis.intro.name=内在规律
+research.magianaturalis.intro.text=了解事物的本质，以理解其存在的本质。
+research.magianaturalis.intro.page.1=所有魔法使都能操纵我们称之为魔力(Vis)的魔法的本质，但很少有人能像你这样成功地摆脱腐败与黑暗。你与自然流动及其原始现象的深刻联系，使你了解了这个物质世界的真正美。<BR>其他自然学家声称，他们能够操纵生命本身、自然与生物的结构。他们相信已经发现了我们存在的本质……
+research.magianaturalis.intro.page.2=遗憾的是，神秘时代的前辈们并未为要素容器（如要素安瓿、灵气精华等）设计直观的标识。你只能凭借隐约的颜色去分辨瓶中封存的是什么要素——在一个堆满罐子的实验室里，这实在谈不上是好的体验。<BR>幸好，你现在可以做到这一点了。<BR><BR>按下【切换要素图标】按键（默认 O 键），即可在物品槽的角落直接看到其中封存的要素图标；再次按下则全部隐藏。
+research.magianaturalis.intro.page.3=<IMG>magianaturalis:textures/misc/introback/magianaturaliszhcn.png:0:0:255:255:0.55</IMG>
+
+# ---- 更多木头装饰 ----
 research.magianaturalis.carpentry.name=更多木头装饰
 research.magianaturalis.carpentry.text=建筑方块
 research.magianaturalis.carpentry.page.1=你厌倦了魔法木头的建造，于是你决定把它们稍微地雕刻一下。这里用几处蚀刻，那里用一点黄金，或者是粘在一起的石板，看来结果比你预期的要好。
 
+# ---- 研究转录台 ----
 research.magianaturalis.transcribing_table.name=研究转录台
 research.magianaturalis.transcribing_table.text=知识的实体化搬运
 research.magianaturalis.transcribing_table.page.1=你发现解构台释放的要素知识稍纵即逝，难以分享。为此你打造了这张转录台。<BR>将空的“研究日志”放入左上角的槽位，并在附近放置原版的解构台。这张桌子会自动将周围的要素与研究点缓慢“转录”并封存入日志之中。<BR>一本完整的日志可以记录6种基础要素各64点。当其他神秘使阅读这本写满的日志时，他们便能直接继承其中的研究点。这是神秘使之间交易与传承知识的最佳途径。
 research.magianaturalis.transcribing_table.page.2=注意——抄录台与周围的解构工作台之间，必须留出一格空隙。<BR>否则，它永远只是一个不会转动的木架子。<BR><BR>神秘使们把这道空隙称为"知识的呼吸空间"。<BR>也有一种说法是，当年第一个搭抄录台的人手抖放歪了一格，后人不敢质疑，便一直流传至今。
 
+# ---- 研究日志 ----
 research.magianaturalis.research_log.name=研究日志
 research.magianaturalis.research_log.text=为任何人收集知识
 research.magianaturalis.research_log.page.1=这本厚厚的书可以把研究点存储为用神奇的笔写下来的文字。如果有人读这本书，他们会得到书中所有的研究要素。这些要素从书页上消失，留下一个空白的研究日志。
 
+# ---- 神秘钥匙 ----
 research.magianaturalis.arcane_keys.name=神秘钥匙
 research.magianaturalis.arcane_keys.text=一个统治它们的人……
 research.magianaturalis.arcane_keys.page.1=将此钥匙给予其他玩家来让他们获得你的访问权限。
 research.magianaturalis.arcane_keys.page.2=给予这个钥匙会把其他玩家加入到你的访问列表里。
 
+# ---- 神秘箱子 ----
 research.magianaturalis.arcane_chest.name=神秘箱子
 research.magianaturalis.arcane_chest.text=固执的私人金库，坚守它的宝藏
-research.magianaturalis.arcane_chest.page.1=你厌倦了普通箱子轻易被苦力怕炸毁，或被窃贼翻找。于是你用宏伟之木或银木打造了这种具有灵魂绑定的神秘箱子。<BR>它几乎可以免疫所有破坏，并能绑定主人。你可以在箱子的访问列表中添加其他玩家，让他们也能打开它。<BR>值得注意的是，宏伟之木箱子容量普通，而银木箱子则更为宽敞。最棒的是，你只需潜行Shift+并用你的法杖右键点击它，就能将其整个收缩并随身携带，箱内的所有物品和访问列表都不会丢失
+research.magianaturalis.arcane_chest.page.1=我在尘封的古代典籍残页中，寻得了将灵魂与木材交织的秘法。它抗拒凡俗的破坏，只认其主<BR>宏伟之木箱子54格，银木箱子77格。手持钥匙左键箱子可授予权限：无权限不可交互，访问可打开，管理员可破坏或收缩。潜行+法杖右键可收缩箱子，物品与权限保留，仅限主人与管理员。<BR>创造模式无视限制。
+research.magianaturalis.arcane_chest.page.2=宏伟之木造价低适合前期，银木多23格适合当仓库。分享权限：手持钥匙左键箱子；收回：挖掉重放。<BR>管理员可收缩箱子但不能转移所有权。箱子收缩后物品和权限封装在物品中，跨维度不掉落。
 
-research.magianaturalis.dark_goggles.name=黑色的护目镜
+# ---- 混沌的护目镜 ----
+research.magianaturalis.dark_goggles.name=混沌的护目镜
 research.magianaturalis.dark_goggles.text=我能看见你的红色眼睛
-research.magianaturalis.dark_goggles.page.1=你一直在想，为什么有些实体怎么能不被你看到。即使你已经掌握了节点的显示，你也看不到隐形生物。在你的旅行中，你已经开始注意到蜘蛛经常是看不见的。通过对蜘蛛身体的解剖，你发现视觉黑暗在某种程度上与隐藏实体有关。幸运的是，你还发现了蜘蛛眼有能力侦测到它。<BR>由蜘蛛眼和黑色碎片制成，这些护目镜提供不受失明影响的效果，并赋予玩家看到隐形生物的能力。最后，被看不见的事物所惊吓的时代结束了。
+research.magianaturalis.dark_goggles.page.1=你通过解剖蜘蛛，发现了黑暗与隐藏实体间的联系。<BR><BR>【功能】<BR>· 显示灵气节点：无需透镜即可看见。<BR>· 看穿隐形：隐形生物无所遁形。<BR>· 免疫失明：佩戴时移除失明效果。<BR>· 魔力减免：所有要素减免 5%；<B>混沌（熵）</B>要素更高，白天 9%、夜晚 7%。<BR><BR>由蜘蛛眼与混沌碎片铸成。戴上它，被看不见的东西吓到的日子就结束了。
+research.magianaturalis.dark_goggles.page.2=【代价与用途】<BR>注魔需要蜘蛛眼、铁锭与混沌碎片，并会在灵魂上留下扭曲。它与高级揭示护目镜最大的不同，是真正能看穿隐形。<BR><BR>【推荐场景】<BR>· 丛林神庙与废弃矿井。<BR>· 与隐身玩家对战。<BR>· 消耗大量混沌要素的仪式。<BR><BR>【警告】<BR>戴久了，你会开始怀疑黑暗里到底还有没有别的东西。那不是错觉。
 
+# ---- 高级揭示护目镜 ----
 research.magianaturalis.spectacles.name=高级揭示护目镜
 research.magianaturalis.spectacles.text=更清晰的视野
-research.magianaturalis.spectacles.page.1=在没有魔导透镜的情况下看见节点类型和属性。发现拥有神秘门、玻璃或箱子的玩家。
+research.magianaturalis.spectacles.page.1=你为魔导透镜加了一层精致的金丝镜框，不再需要手持透镜即可阅见隐秘。<BR><BR>【功能】<BR>· 显示灵气节点：无需透镜即可看见。<BR>· HUD 提示：看向节点时屏幕中央显示类型与属性；看向神秘门、玻璃或箱子时显示主人名字。<BR>· 魔力减免：所有要素固定减免 6%。<BR><BR>戴上它，一眼就能看清这个世界属于谁。
+research.magianaturalis.spectacles.page.2=【为什么需要它】<BR>解放双手——你可以同时握着法杖巡视节点，或拿着工具建造。全要素 6% 的减免胜在均衡。<BR><BR>【合成与代价】<BR>以魔导透镜为基础，辅以金锭与皮革。不需要注魔，不会留下扭曲。<BR><BR>它是每一位神秘使都值得拥有的第一副护目镜。
 
+# ---- 建筑核心 ----
 research.magianaturalis.construction_focus.name=建筑核心
 research.magianaturalis.construction_focus.text=大建筑
 research.magianaturalis.construction_focus.page.1=虽然挖土机的铲子已经具备了以更大的方式建造的微小潜力，但你已经精炼并将剪切潜力扩大到最大。这幅聚焦蚀刻的杰作带来了一个适合大建筑师的工具。
 
+# ---- 亡魂核心 ----
 research.magianaturalis.revenant_focus.name=亡魂核心
 research.magianaturalis.revenant_focus.text=烦人的死亡之触
 research.magianaturalis.revenant_focus.page.1=与幼年僵尸的战斗经历让你深刻体会到了这种体型小、移动快的敌人的烦人之处。你发现了一种方法，可以暂时召唤这些小混蛋，并让它们去攻击你的敌人。<BR>它们不会攻击友善的生物——无论是村民还是家畜。它们只认你指着的那只敌人，打完就散。你最多同时驱使五只，再多就需要等待其中一只自行消散。它们来去匆匆，但足够让敌人尝尝被一群小崽子围攻的滋味。
 
+# ---- 封存之罐 ----
 research.magianaturalis.prison_jar.name=封存之罐
 research.magianaturalis.prison_jar.text=将生命禁锢于方寸之间
-research.magianaturalis.prison_jar.page.1=你利用魔法玻璃打造了这种“封存之罐”。它能将普通生物（不包括Boss或玩家）封印其中。只需拿着空罐子直接右键点击生物，就能将其吸入罐中。<BR>被封印的罐子会发出微弱的光芒。如果你想释放里面的生物，只需将它放在地上，用你的法杖右键敲击它，罐子便会碎裂并将生物释放。<BR>如果你直接挖掉它，它也不会释放生物，而是变成一个带有生物数据的物品掉落，方便你安全地搬运你的宠物或陷阱。切勿用普通攻击打破它，否则里面的生物会被释放出来。
+research.magianaturalis.prison_jar.page.1=你以魔法玻璃铸成此"封存之罐"，可将寻常生灵尽数收入其中——但Boss与玩家除外。手持空罐，径直右键点击生灵，便可将它纳入罐内。<BR>被封之罐会散发幽幽微光。若要放出其中之物，只需将罐置于地面，再以法杖右键敲击，罐身应声碎裂，生灵便重获自由。<BR>若直接将其挖去，罐中之物并不会就此脱困——它会化作一枚承载着生灵印记的物品掉落，便于你安然转移宠物或陷阱。切勿以寻常攻击砸碎它，否则罐中之物必将破罐而出。
 
+# ---- 多形石 ----
 research.magianaturalis.mutation_stone.name=多形石
 research.magianaturalis.mutation_stone.text=变形视觉
 research.magianaturalis.mutation_stone.page.1=改变方块的外观，如羊毛、硬粘土、木材、原木和石砖。当看到所有可变形块时，单击该块以改变其外观，它们就会变得更加显眼。偷偷旋转原木和楼梯。
 
+# ---- 水银石 ----
 research.magianaturalis.quicksilver_stone.name=水银石
 research.magianaturalis.quicksilver_stone.text=加速药剂效果
 research.magianaturalis.quicksilver_stone.page.1=浓缩药剂的效果。使效果更强，但持续时间更短。需要萤石粉来操作。
 
+# ---- 恶毒旅行箱 ----
 research.magianaturalis.evil_trunk.name=恶毒旅行箱
 research.magianaturalis.evil_trunk.text=注入灵魂的战斗背包
-research.magianaturalis.evil_trunk.page.1=你将扭曲的灵魂注入了旅行箱，创造了四种不同外观的忠诚跟班。它们不仅是一个拥有36格容量的移动背包，更是一只强大的战斗宠物，拥有75点生命值和6点攻击力，并免疫火焰与溺水。<BR>它们会自动跟随你，并在你被攻击时悍然反击。非潜行右键可以打开它们的背包；用食物右键喂养可以恢复它们的生命。<BR>如果你想带走它们，只需用魔像铃铛左键敲击，它们就会变回物品。四种变体（邪恶、阴险、恶魔、污染）仅是外观与合成材料不同，战斗能力完全一致。
+research.magianaturalis.evil_trunk.page.1=你将扭曲的灵魂注入了旅行箱，创造出了这只忠诚的邪恶箱子宝宝。<BR>它拥有36格容量的移动背包，同时也是一只强大的战斗宠物（75点生命值，6点攻击力），免疫火焰与溺水。<BR>它会自动跟随你，并在你被攻击时悍然反击。非潜行右键可以打开它的背包；用食物右键喂养可以恢复它的生命。<BR>如果你想带走它，只需用魔像铃铛左键敲击，它就会变回物品。
 
-# 中文
+# ---- 阴险箱子宝宝 ----
+research.magianaturalis.sinister_trunk.name=阴险箱子宝宝
+research.magianaturalis.sinister_trunk.text=注入灵魂的战斗背包
+research.magianaturalis.sinister_trunk.page.1=这是恶毒旅行箱的变体之一。仅仅是外观不同，战斗能力与基础版本完全一致。<BR>通过注魔将其灵魂注入旅行箱后，它便拥有了这副阴险的外表。
+
+# ---- 恶魔箱子宝宝 ----
+research.magianaturalis.demonic_trunk.name=恶魔箱子宝宝
+research.magianaturalis.demonic_trunk.text=注入灵魂的战斗背包
+research.magianaturalis.demonic_trunk.page.1=这是恶毒旅行箱的变体之一。仅仅是外观不同，战斗能力与基础版本完全一致。<BR>通过注魔将其灵魂注入旅行箱后，它便拥有了这副恶魔的外表。
+
+# ---- 污染箱子宝宝 ----
+research.magianaturalis.tainted_trunk.name=污染箱子宝宝
+research.magianaturalis.tainted_trunk.text=注入灵魂的战斗背包
+research.magianaturalis.tainted_trunk.page.1=这是恶毒旅行箱的变体之一。仅仅是外观不同，战斗能力与基础版本完全一致。<BR>通过注魔将其灵魂注入旅行箱后，它便拥有了这副污染的外表。
+
+# ---- 末影核心袋 ----
 research.magianaturalis.ender_pouch.name=末影核心袋
 research.magianaturalis.ender_pouch.text=跨维度移动军火库
 research.magianaturalis.ender_pouch.page.1=这是法杖核心袋的终极形态。你将其与末影箱绑定，创造出了这个跨空间存储装置。<BR>只需右键点击，你就能随时随地打开你的末影箱。更妙的是，它可以直接同步里面的法杖核心，让你在任何地方都能换装核心。<BR>你可以把它装备在饰品栏（腰带）中，它就能随你一起穿梭各个维度，成为你最可靠的移动军火库。
 
+# ---- 镰刀 ----
 research.magianaturalis.sickles.name=镰刀
 research.magianaturalis.sickles.text=收割庄稼
 research.magianaturalis.sickles.page.1=摧毁小半径约3x3x3街区内的农作物和植物。可收获任何植物、农作物、树叶、网和其他植被及剪切体，如绵羊。
 
+# ---- 富饶镰刀 ----
 research.magianaturalis.sickle_of_abundance.name=富饶镰刀
 research.magianaturalis.sickle_of_abundance.text=丰收盛宴
 research.magianaturalis.sickle_of_abundance.page.1=神秘镰刀的进化使得拥有者能够在更大的半径范围内收获植物，其固有属性可与时运2相媲美，其中包括增加了宏伟之木和银木树苗的掉落机会。掉落物会飘向玩家。
 
+# ---- 地质隐匿 ----
 research.magianaturalis.geo_occultism.name=地质隐匿
 research.magianaturalis.geo_occultism.text=用黑曜图腾转换区域
 research.magianaturalis.geo_occultism.page.1=通过观察和研究地形区域和其中发现的古代图腾，你发现生物群系可以转化。古人似乎用黑曜石图腾来人造地球两极，慢慢地改变周围的区域。你发明了一个地标塔，它被调节到一个特定的区域，并放置在一个3格高的黑曜石图腾之上。以要素为燃料，你可以按照自己的意愿扭曲区域。<BR>极点的最大范围为8格半径。黑色表示设备处于空闲状态，请使用法杖激活/停用。
-research.magianaturalis.geo_occultism.page.2=地标塔不是魔法阵，它更像一块"贪吃的土壤"。<BR><BR>想让某片区域改头换面，你得先做三件事：<BR>· 拿着采样器，去目标群系潜行采样，让它"记住"那里的风土。<BR>· 拿着采样器，右键地标塔，把这份记忆交付给它。<BR>· 拿着法杖，潜行右键地标塔，让它重新计算这次改土要付的"代价"。<BR><BR>代价是什么？要素。地标塔不种田，只点菜——它会在十二格范围内搜寻可用的源质罐，按着群系对应的要素一口一口地抽。抽完，那片土地就变样了。<BR><BR>如果你想反悔，或者发现旧账没结清，就再潜行右键一次。<BR>地标塔会一声不吭地把账单撕了重写。<BR><BR>——不少神秘使都栽在这一步：他们忘了潜行右键，然后眼睁睁看着整片森林在自己的实验室旁边变成了腐化沼泽。<BR>据说历史上有三位神秘使因此改行去种土豆了。。
-
-# MISC
-itemGroup.magianaturalis=神秘自然
-
-enum.magianaturalis.none=无
-enum.magianaturalis.unknown=未知
-enum.magianaturalis.mode.uniform=制服
-enum.magianaturalis.shape.cube=方块
-enum.magianaturalis.shape.plane=平面
-enum.magianaturalis.shape.plane.extend=平面延伸
-enum.magianaturalis.shape.sphere=球
-
-# KEY BINDINGS
-key.categories.magianaturalis=神秘自然
-key.magianaturalis.increase_size=扩大区域
-key.magianaturalis.decrease_size=缩小区域
-key.magianaturalis.misc=切换形状/模式
-key.magianaturalis.pick_block=拾取方块
-
-# CHAT MSG
-chat.magianaturalis.key.access.door=神秘之门与你的灵魂相连。
-chat.magianaturalis.key.access.chest=神秘箱子似乎喜欢你。
-chat.magianaturalis.key.access.misc=神秘装置现在绑定到你的灵魂。
-chat.magianaturalis.key.boundplayer=密钥绑定到%s的灵魂。
-chat.magianaturalis.key.boundplayer.1=你把钥匙绑在你的灵魂上。
-chat.magianaturalis.key.owner=你现在是钥匙的伪造者。
-chat.magianaturalis.key.accesslist=%s 已添加到密钥访问列表中。
-chat.magianaturalis.chest.access.denied=神秘箱子似乎不喜欢你。
-chat.magianaturalis.chest.resist=这个箱子阻止了你的小型化尝试。
-
-# Flavor Text & Tool Hint & Misc
-flavor.magianaturalis.key.0=打开一切...
-flavor.magianaturalis.key.1=为他人授予权限...
-flavor.magianaturalis.banner=标志我们存在的旗帜。
-hint.magianaturalis.ctrl=<按Ctrl>
-hint.magianaturalis.empty=空
-hint.magianaturalis.chest.items=包含宝藏
-hint.magianaturalis.chest.access=有访问列表
-
-# ITEM NAMES
-item.magianaturalis.research_log.name=研究日志
-item.magianaturalis.biome_sampler.name=生物群落报告
-item.magianaturalis.alchemical_stone.1.name=水银炼金符石
-item.magianaturalis.alchemical_stone.0.name=催化石
-item.magianaturalis.dev_tool.name=其他开发工具
-item.magianaturalis.biome_dev_tool.name=生物群系开发工具
-item.magianaturalis.thaumium_key.0.name=奥能之钥
-item.magianaturalis.thaumium_key.1.name=奥密之钥
-item.magianaturalis.dark_crystal_goggles.name=混沌护目镜
-item.magianaturalis.spectacles.name=高级揭示护目镜
-item.magianaturalis.builder_focus.name=法杖核心：建筑
-item.magianaturalis.revenant_focus.name=法杖核心：亡魂核心
-item.magianaturalis.evil_trunk.tainted.name=污染箱子宝宝
-item.magianaturalis.evil_trunk.demonic.name=恶魔箱子宝宝
-item.magianaturalis.evil_trunk.sinister.name=阴险箱子宝宝
-item.magianaturalis.evil_trunk.corrupted.name=邪恶箱子宝宝
-item.magianaturalis.focus_ender_pouch.name=末影核心袋
-item.magianaturalis.thaumium_sickle.name=神秘镰刀
-item.magianaturalis.void_sickle.name=虚空镰刀
-item.magianaturalis.elemental_sickle.name=富饶镰刀
-
-# TILE NAMES
-tile.magianaturalis.transcribing_table.name=转录桌
-tile.magianaturalis.arcane_chest.gw.name=宏伟之木箱子
-tile.magianaturalis.arcane_chest.sw.name=银木箱子
-tile.magianaturalis.prison_jar.name=罐中实体
-tile.magianaturalis.arcane_wood.gw_planks.name=水平宏伟之木木板
-tile.magianaturalis.arcane_wood.gw_orn.name=宏伟之木装饰
-tile.magianaturalis.arcane_wood.sw_planks.0.name=水平银木木板
-tile.magianaturalis.arcane_wood.sw_planks.1.name=垂直银木木板
-tile.magianaturalis.arcane_wood.gw_gold_orn.0.name=金饰宏伟之木
-tile.magianaturalis.arcane_wood.gw_gold_orn.1.name=金饰宏伟之木
-tile.magianaturalis.arcane_wood.gw_gold_trim.name=金边宏伟之木
-tile.magianaturalis.banner.name=神秘自然旗帜
-tile.magianaturalis.geo_pylon.name=地标塔
-
-# ENTITY NAMES
-entity.magianaturalis.taint_breeder.name=污染饲养员
-entity.magianaturalis.evil_trunk.name=邪恶树干
-
-# RESEARCH - 分类
-tc.research_category.magianaturalis=神秘自然
-
-# RESEARCH - 内在规律
-research.magianaturalis.intro.name=内在规律
-research.magianaturalis.intro.text=了解事物的本质以理解其存在的本质
-research.magianaturalis.intro.page.1=所有的魔法使都能操控我们现在称之为魔力(Vis)的魔法的本质，但很少有人能像你这样成功地摆脱腐败和黑暗。你与自然流动及其原始现象的深刻联系，使你了解了这个物质世界的真正美。<BR>其他自然学家声称，他们能够操纵生命本身、自然和生物的结构。他们相信已经发现了我们存在的本质……
-
-# RESEARCH - 更多木头装饰
-research.magianaturalis.carpentry.name=更多木头装饰
-research.magianaturalis.carpentry.text=建筑方块
-research.magianaturalis.carpentry.page.1=你厌倦了魔法木头的建造，于是你决定把它们稍微地雕刻一下。这里用几处蚀刻，那里用一点黄金，或者是粘在一起的石板，看来结果比你预期的要好。
-
-# RESEARCH - 研究转录台
-research.magianaturalis.transcribing_table.name=研究转录台
-research.magianaturalis.transcribing_table.text=知识的实体化搬运
-research.magianaturalis.transcribing_table.page.1=你发现解构台释放的要素知识稍纵即逝，难以分享。为此你打造了这张转录台。<BR>将空的“研究日志”放入左上角的槽位，并在附近放置原版的解构台。这张桌子会自动将周围的要素与研究点缓慢“转录”并封存入日志之中。<BR>一本完整的日志可以记录6种基础要素各64点。当其他神秘使阅读这本写满的日志时，他们便能直接继承其中的研究点。这是神秘使之间交易与传承知识的最佳途径。
-
-# RESEARCH - 研究日志
-research.magianaturalis.research_log.name=研究日志
-research.magianaturalis.research_log.text=为任何人收集知识
-research.magianaturalis.research_log.page.1=这本厚厚的书可以把研究点存储为用神奇的笔写下来的文字。如果有人读这本书，他们会得到书中所有的研究要素。这些要素从书页上消失，留下一个空白的研究日志。
-
-# RESEARCH - 神秘钥匙
-research.magianaturalis.arcane_keys.name=神秘钥匙
-research.magianaturalis.arcane_keys.text=一个统治它们的人……
-research.magianaturalis.arcane_keys.page.1=将此钥匙给予其他玩家来让他们获得你的访问权限。
-research.magianaturalis.arcane_keys.page.2=给予这个钥匙会把其他玩家加入到你的访问列表里。
-
-# RESEARCH - 神秘箱子
-research.magianaturalis.arcane_chest.name=神秘箱子
-research.magianaturalis.arcane_chest.text=固执的私人金库，坚守它的宝藏
-research.magianaturalis.arcane_chest.page.1=你厌倦了普通箱子轻易被苦力怕炸毁，或被窃贼翻找。于是你用宏伟之木或银木打造了这种具有灵魂绑定的神秘箱子。<BR>它几乎可以免疫所有破坏，并能绑定主人。你可以在箱子的访问列表中添加其他玩家，让他们也能打开它。<BR>值得注意的是，宏伟之木箱子容量普通，而银木箱子则更为宽敞。最棒的是，你只需潜行Shift+并用你的法杖右键点击它，就能将其整个收缩并随身携带，箱内的所有物品和访问列表都不会丢失
-
-# RESEARCH - 黑色护目镜
-research.magianaturalis.dark_goggles.name=黑色的护目镜
-research.magianaturalis.dark_goggles.text=我能看见你的红色眼睛
-research.magianaturalis.dark_goggles.page.1=你一直在想，为什么有些实体怎么能不被你看到。即使你已经掌握了节点的显示，你也看不到隐形生物。在你的旅行中，你已经开始注意到蜘蛛经常是看不见的。通过对蜘蛛身体的解剖，你发现视觉黑暗在某种程度上与隐藏实体有关。幸运的是，你还发现了蜘蛛眼有能力侦测到它。<BR>由蜘蛛眼和黑色碎片制成，这些护目镜提供不受失明影响的效果，并赋予玩家看到隐形生物的能力。最后，被看不见的事物所惊吓的时代结束了。
-
-# RESEARCH - 高级揭示护目镜
-research.magianaturalis.spectacles.name=高级揭示护目镜
-research.magianaturalis.spectacles.text=更清晰的视野
-research.magianaturalis.spectacles.page.1=在没有魔导透镜的情况下看见节点类型和属性。发现拥有神秘门、玻璃或箱子的玩家。
-
-# RESEARCH - 建筑核心
-research.magianaturalis.construction_focus.name=建筑核心
-research.magianaturalis.construction_focus.text=大建筑
-research.magianaturalis.construction_focus.page.1=虽然挖土机的铲子已经具备了以更大的方式建造的微小潜力，但你已经精炼并将剪切潜力扩大到最大。这幅聚焦蚀刻的杰作带来了一个适合大建筑师的工具。
-
-# RESEARCH - 亡魂核心
-research.magianaturalis.revenant_focus.name=亡魂核心
-research.magianaturalis.revenant_focus.text=烦人的死亡之触
-research.magianaturalis.revenant_focus.page.1=与幼年僵尸的战斗经历让你深刻体会到了这种体型小、移动快的敌人的烦人之处。你发现了一种方法，可以暂时召唤这些小混蛋，并让它们去攻击你的敌人。<BR>它们不会攻击友善的生物——无论是村民还是家畜。它们只认你指着的那只敌人，打完就散。你最多同时驱使五只，再多就需要等待其中一只自行消散。它们来去匆匆，但足够让敌人尝尝被一群小崽子围攻的滋味。
-
-# RESEARCH - 封存之罐
-research.magianaturalis.prison_jar.name=封存之罐
-research.magianaturalis.prison_jar.text=将生命禁锢于方寸之间
-research.magianaturalis.prison_jar.page.1=你利用魔法玻璃打造了这种“封存之罐”。它能将普通生物（不包括Boss或玩家）封印其中。只需拿着空罐子直接右键点击生物，就能将其吸入罐中。<BR>被封印的罐子会发出微弱的光芒。如果你想释放里面的生物，只需将它放在地上，用你的法杖右键敲击它，罐子便会碎裂并将生物释放。<BR>如果你直接挖掉它，它也不会释放生物，而是变成一个带有生物数据的物品掉落，方便你安全地搬运你的宠物或陷阱。切勿用普通攻击打破它，否则里面的生物会被释放出来。
-
-# RESEARCH - 多形石
-research.magianaturalis.mutation_stone.name=多形石
-research.magianaturalis.mutation_stone.text=变形视觉
-research.magianaturalis.mutation_stone.page.1=改变方块的外观，如羊毛、硬粘土、木材、原木和石砖。当看到所有可变形块时，单击该块以改变其外观，它们就会变得更加显眼。偷偷旋转原木和楼梯。
-
-# RESEARCH - 水银石
-research.magianaturalis.quicksilver_stone.name=水银石
-research.magianaturalis.quicksilver_stone.text=加速药剂效果
-research.magianaturalis.quicksilver_stone.page.1=浓缩药剂的效果。使效果更强，但持续时间更短。需要萤石粉来操作。
-
-# RESEARCH - 恶毒旅行箱
-research.magianaturalis.evil_trunk.name=恶毒旅行箱
-research.magianaturalis.evil_trunk.text=注入灵魂的战斗背包
-research.magianaturalis.evil_trunk.page.1=你将扭曲的灵魂注入了旅行箱，创造了四种不同外观的忠诚跟班。它们不仅是一个拥有36格容量的移动背包，更是一只强大的战斗宠物，拥有75点生命值和6点攻击力，并免疫火焰与溺水。<BR>它们会自动跟随你，并在你被攻击时悍然反击。非潜行右键可以打开它们的背包；用食物右键喂养可以恢复它们的生命。<BR>如果你想带走它们，只需用魔像铃铛左键敲击，它们就会变回物品。四种变体（邪恶、阴险、恶魔、污染）仅是外观与合成材料不同，战斗能力完全一致。
-
-# RESEARCH - 末影核心袋
-research.magianaturalis.ender_pouch.name=末影核心袋
-research.magianaturalis.ender_pouch.text=跨维度移动军火库
-research.magianaturalis.ender_pouch.page.1=这是法杖核心袋的终极形态。你将其与末影箱绑定，创造出了这个跨空间存储装置。<BR>只需右键点击，你就能随时随地打开你的末影箱。更妙的是，它可以直接同步里面的法杖核心，让你在任何地方都能换装核心。<BR>你可以把它装备在饰品栏（腰带）中，它就能随你一起穿梭各个维度，成为你最可靠的移动军火库。
-
-# RESEARCH - 镰刀
-research.magianaturalis.sickles.name=镰刀
-research.magianaturalis.sickles.text=收割庄稼
-research.magianaturalis.sickles.page.1=摧毁小半径约3x3x3街区内的农作物和植物。可收获任何植物、农作物、树叶、网和其他植被及剪切体，如绵羊。
-
-# RESEARCH - 富饶镰刀
-research.magianaturalis.sickle_of_abundance.name=富饶镰刀
-research.magianaturalis.sickle_of_abundance.text=丰收盛宴
-research.magianaturalis.sickle_of_abundance.page.1=神秘镰刀的进化使得拥有者能够在更大的半径范围内收获植物，其固有属性可与时运2相媲美，其中包括增加了宏伟之木和银木树苗的掉落机会。掉落物会飘向玩家。
-
-# RESEARCH - 地质隐匿
-research.magianaturalis.geo_occultism.name=地质隐匿
-research.magianaturalis.geo_occultism.text=用黑曜图腾转换区域
-research.magianaturalis.geo_occultism.page.1=通过观察和研究地形区域和其中发现的古代图腾，你发现生物群系可以转化。古人似乎用黑曜石图腾来人造地球两极，慢慢地改变周围的区域。你发明了一个地标塔，它被调节到一个特定的区域，并放置在一个3格高的黑曜石图腾之上。以要素为燃料，你可以按照自己的意愿扭曲区域。<BR>极点的最大范围为8格半径。黑色表示设备处于空闲状态，请使用法杖激活/停用。
-research.magianaturalis.geo_occultism.page.2=地标塔不是魔法阵，它更像一块"贪吃的土壤"。<BR><BR>想让某片区域改头换面，你得先做三件事：<BR>· 拿着采样器，去目标群系潜行采样，让它"记住"那里的风土。<BR>· 拿着采样器，右键地标塔，把这份记忆交付给它。<BR>· 拿着法杖，潜行右键地标塔，让它重新计算这次改土要付的"代价"。<BR><BR>代价是什么？要素。地标塔不种田，只点菜——它会在十二格范围内搜寻可用的源质罐，按着群系对应的要素一口一口地抽。抽完，那片土地就变样了。<BR>
+research.magianaturalis.geo_occultism.page.2=地标塔不是魔法阵，它更像一块"贪吃的土壤"。<BR><BR>想让某片区域改头换面，你得先做三件事：<BR>· 拿着采样器，去目标群系潜行采样，让它"记住"那里的风土。<BR>· 拿着采样器，右键地标塔，把这份记忆交付给它。<BR>· 拿着法杖，潜行右键地标塔，让它重新计算这次改土要付的"代价"。<BR><BR>代价是什么？要素。地标塔不种田，只点菜——它会在十二格范围内搜寻可用的源质罐，按着群系对应的要素一口一口地抽。抽完，那片土地就变样了。
 research.magianaturalis.geo_occultism.page.3=如果你想反悔，或者发现旧账没结清，就再潜行右键一次。<BR>地标塔会一声不吭地把账单撕了重写。<BR><BR>——不少神秘使都栽在这一步：他们忘了潜行右键，然后眼睁睁看着整片森林在自己的实验室旁边变成了腐化沼泽。<BR>据说历史上有三位神秘使因此改行去种土豆了。
 
-item.magianaturalis.alchemical_stone.1.tooltip=扭曲并塑形状态效果
+# ==================================================
+#              工具提示 · TOOLTIPS
+# ==================================================
 item.magianaturalis.alchemical_stone.0.tooltip=变形视觉
-
-# RESEARCH 亡灵核心tip
-chat.magianaturalis.revenant.limit=你不能再召唤更多了，必须先让其中一只消散。
+item.magianaturalis.alchemical_stone.1.tooltip=扭曲并塑形状态效果
 
 item.magianaturalis.builder_focus.tooltip.mode=模式: %s
 item.magianaturalis.builder_focus.tooltip.shape=形状: %s
@@ -345,48 +229,28 @@ item.magianaturalis.builder_focus.tooltip.hint.shape=§8按 §7[%s]§8 切换形
 item.magianaturalis.builder_focus.tooltip.hint.mode=§8按 §7[ctrl + %s]§8 切换模式
 item.magianaturalis.builder_focus.tooltip.hint.pick=§8按 §7[%s]§8 拾取方块类型
 
-
-
+# ==================================================
+#              界面提示 · HUD
+# ==================================================
+hud.magianaturalis.spectacles.owner=主人
+hud.magianaturalis.builder.infinite=无限
 
 # ==================================================
 #              白瞳者之镰
 # ==================================================
-
-# ---- 物品名 ----
 item.magianaturalis.herobrines_scythe.name=白瞳者之镰
 
-# ---- 研究条目 ----
 research.magianaturalis.herobrines_scythe.name=白瞳者之镰
 research.magianaturalis.herobrines_scythe.text=撕裂血肉，以战养战。
 
-# ---- 研究页 0：起源 ----
 research.magianaturalis.herobrines_scythe.page.0=你最初打造那把富饶镰刀，是为了让麦浪低伏、让果实归仓。它是农人的福音，是自然馈赠的回响。你曾在月下抚摸它的刃口，听见它轻轻嗡鸣，仿佛在唱一首关于丰收的歌谣。<BR>但你太贪心了。你想理解的不再只是庄稼的生死，而是生命本身。
-
-# ---- 研究页 1：蜕变 ----
 research.magianaturalis.herobrines_scythe.page.1=你将它置于注魔祭坛之上，以死亡知识为墨，以虚空精华为胶，刻下本不该刻的符文。当祭坛的紫光熄灭的那一刻，你再也听不到麦浪的声音——取而代之的，是心跳。成千上万，微小的心跳，在它的刃口下颤动。<BR>它不再渴望庄稼。它渴望收割另一种“丰收”。
-
-# ---- 研究页 2：成长 ----
 research.magianaturalis.herobrines_scythe.page.2=它开始记忆每一次斩击。杀敌数累积至 30、120、450、1500 时，它会依次觉醒五个阶段：初见、初醒、嗜血、狂乱、白瞳。每觉醒一次，刃口便更红一分，光环便更亮一圈。<BR>当杀敌数抵达 99999，它将彻底蜕变为魔器——攻击力暴涨至 999，而你也再无法回头。
-
-# ---- 研究页 3：认主 ----
 research.magianaturalis.herobrines_scythe.page.3=第一次握住它的人，灵魂将与它绑定，UUID 深深刻入刃身。旁人若想夺走它，血光会将其排斥弹开，并在你的耳畔低语警示。<BR>它认你。也只认你。<BR>若你想将它转赠他人，唯有先抹去自己的烙印——但那过程，没有人愿意提起。
-
-# ---- 研究页 4：连锁 ----
 research.magianaturalis.herobrines_scythe.page.4=每一次撕碎血肉，都会迸发出一缕微小的能量脉冲，在周围的敌人之间跳跃，从一个找到下一个，直到再无人站立。脉冲的威力与镰刀本身等同。<BR>一刀挥出，血光成线。这便是它收割“丰收”的方式。
-
-# ---- 研究页 5：格挡与吸取 ----
 research.magianaturalis.herobrines_scythe.page.5=按住右键，它会化为血色的屏障。减伤比例随阶段提升，到了最终形态，它将完全免疫一切伤害。<BR>同时，它会在你周围八格内汲取生灵与玩家身上的 Vis，汇聚成一条条血红丝线，为你的法杖与护身符充能。它不杀，只取。<BR>但神性从不是免费的。你每吸一次，刃口就多一道划痕。只有喂饱它——用你的背包、你的法杖、你自己的耐久——它才肯为你停留。
-
-# ---- 研究页 6：吸血与扭曲 ----
 research.magianaturalis.herobrines_scythe.page.6=它喜食鲜血。你伤得越重，它为你回复的越多——这是在喂养你，也是在喂养它自己。<BR>代价是，它会让你的灵魂沾染扭曲，阶段越高，扭曲越深。终有一天，你会在水中的倒影里看见那双已经泛白的眼睛。
-
-# ---- 研究页 7：终局 ----
 research.magianaturalis.herobrines_scythe.page.7=当你终于收割了 99999 个灵魂，它会安静下来。不再嗡鸣，不再渴望。<BR>你握着它，感受到一种从未有过的平静——以及一种深入骨髓的空虚。你的眼睛，在那一天变了颜色。你没有照镜子，但你知道。<BR>你已经不能算是一个神秘使了。你是它的主人，你是它的容器，你是它的下一顿。
-
-
-# ==================================================
-#              镰刀 · 聊天提示
-# ==================================================
 
 chat.magianaturalis.block.damage=§f白瞳者之镰格挡成功！本次抵挡了 §a%s §f点伤害。
 chat.magianaturalis.scythe.bind=白瞳者之镰已认你为主，他人不可夺。
@@ -394,21 +258,11 @@ chat.magianaturalis.scythe.levelup=白瞳者之镰已觉醒至第 %s 阶段：%s
 chat.magianaturalis.scythe.reject=这把镰刀不属于你，你被排斥了。
 chat.magianaturalis.scythe.owner.notify=有人试图夺取你的白瞳者之镰！（已被血光排斥）
 
-
-# ==================================================
-#              镰刀 · 工具提示（阶段名）
-# ==================================================
-
 item.magianaturalis.herobrines_scythe.tier.0=初见
 item.magianaturalis.herobrines_scythe.tier.1=初醒
 item.magianaturalis.herobrines_scythe.tier.2=嗜血
 item.magianaturalis.herobrines_scythe.tier.3=狂乱
 item.magianaturalis.herobrines_scythe.tier.4=白瞳
-
-
-# ==================================================
-#              镰刀 · 工具提示（品质名）
-# ==================================================
 
 item.magianaturalis.herobrines_scythe.quality.0=普通
 item.magianaturalis.herobrines_scythe.quality.1=精良
@@ -416,11 +270,6 @@ item.magianaturalis.herobrines_scythe.quality.2=稀有
 item.magianaturalis.herobrines_scythe.quality.3=史诗
 item.magianaturalis.herobrines_scythe.quality.4=传奇
 item.magianaturalis.herobrines_scythe.quality.5=神话
-
-
-# ==================================================
-#              镰刀 · 工具提示（数值面板）
-# ==================================================
 
 item.magianaturalis.herobrines_scythe.tooltip.quality=品质: %s
 item.magianaturalis.herobrines_scythe.tooltip.stage=阶段: %s (%s/5)
@@ -438,14 +287,185 @@ item.magianaturalis.herobrines_scythe.tooltip.maxed=它不再低语了。它只�
 item.magianaturalis.herobrines_scythe.tooltip.owner=认主: %s
 item.magianaturalis.herobrines_scythe.tooltip.owner.none=未认主
 
-
-# ==================================================
-#              镰刀 · 工具提示（作者签名）
-# ==================================================
-
 item.magianaturalis.herobrines_scythe.tooltip.author.1=这是自然魔法重生版迁移了神秘基础学
 item.magianaturalis.herobrines_scythe.tooltip.author.2=第一个象征意义的物品我是空太
 item.magianaturalis.herobrines_scythe.tooltip.author.3=一个用接手了自然魔法的普通人
 
+# ==================================================
+#              彩蛋 · 白瞳凝视者
+# ==================================================
+chat.magianaturalis.easteregg.herobrine=你回头，什么都没有。但你确定，刚才那里站着一个人。
+chat.magianaturalis.herobrine.join=%s 加入了游戏
+
+item.magianaturalis.natural_robe_helm.name=银树自然教皇冠冕
+item.magianaturalis.natural_robe_chest.name=银树自然教皇圣袍
+item.magianaturalis.natural_robe_legs.name=银树自然教皇护腿
+item.magianaturalis.natural_robe_boots.name=银树自然教皇之靴
+
+item.magianaturalis.nature_verdict.name=银树自然裁决
+
+item.magianaturalis.nature_wrath.name=大地之怒
+item.magianaturalis.verdant_spear.name=林间信使
+item.magianaturalis.tide_verdict.name=潮汐裁决
+
+item.magianaturalis.greatwood_tablet.name=宏伟之木石板
+item.magianaturalis.silverwood_tablet.name=银树之木石板
+
+# ==================================================
+#              揭示之护目镜（饰品版）
+# ==================================================
+
+item.magianaturalis.revealing_goggles.name=窥秘之眼镜(装饰品)
+
+item.magianaturalis.revealing_goggles.tooltip.1=装饰品
+item.magianaturalis.revealing_goggles.tooltip.2=装备在项链栏
+item.magianaturalis.revealing_goggles.tooltip.3=感谢植物魔法的作者 Vazkii
+item.magianaturalis.revealing_goggles.tooltip.4=这是空太学会的第二个物品
+item.magianaturalis.revealing_goggles.tooltip.5=让 Azanor 见鬼去吧——开个玩笑。
+
+research.magianaturalis.revealing_goggles.name=窥秘眼镜
+research.magianaturalis.revealing_goggles.text=真相在颈不在顶 阿扎诺没想到的事
+
+research.magianaturalis.revealing_goggles.page.1=你已经厌倦了整天把揭示护目镜扣在脑袋上。它占据了你的头盔位，让你无法再佩戴那些真正有用的装备。<BR>你曾无数次地问自己：那位住在虚空里的老人家，究竟什么时候才肯把护目镜做成一个饰品？<BR><BR>——让阿扎诺见鬼去吧。他显然不会。
+
+research.magianaturalis.revealing_goggles.page.2=但你学会了自己动手。<BR><BR>通过自然魔法的秘仪，你成功地将这副护目镜缩小并重塑，让它能够被佩戴在项链栏。从此，你的头盔位彻底解放了。<BR>你再也不需要为了头顶那一寸空间而绞尽脑汁。
+
+research.magianaturalis.revealing_goggles.page.3=现在，你可以一边戴着窥秘之眼镜，一边佩戴任何你想要的头部装备——无论是银木冠冕、神秘的护目镜，还是那些你从来没舍得用过的传说中的头盔。<BR><BR>它不仅继承了高级揭示护目镜的全部能力，更额外赋予你近乎无限的夜视效果。摘下之后，这份馈赠便会消散。<BR><BR>当然，你完全可以同时戴上它和一副普通的揭示之护目镜。它们不会打架，节点和要素依然能正常看见——只不过你的视野里会多出一层多余的镜片。<BR>如果你真打算这么做，那请问，你研究这个东西出来，究竟是为了什么？
+
+item.magianaturalis.natural_wood_helm.name=银木头盔
+item.magianaturalis.natural_wood_chest.name=银木胸甲
+item.magianaturalis.natural_wood_legs.name=银木护腿
+item.magianaturalis.natural_wood_boots.name=银木靴子
+
+item.magianaturalis.greatwood_helm.name=宏伟之木头盔
+item.magianaturalis.greatwood_chest.name=宏伟之木胸甲
+item.magianaturalis.greatwood_legs.name=宏伟之木护腿
+item.magianaturalis.greatwood_boots.name=宏伟之木靴子
+
+item.magianaturalis.greatwood_advanced_helm.name=宏伟之木头盔·觉醒
+item.magianaturalis.greatwood_advanced_chest.name=宏伟之木胸甲·觉醒
+item.magianaturalis.greatwood_advanced_legs.name=宏伟之木护腿·觉醒
+item.magianaturalis.greatwood_advanced_boots.name=宏伟之木靴子·觉醒
+
+item.magianaturalis.water_god_helm.name=水神头冠
+item.magianaturalis.water_god_chest.name=水神战铠
+item.magianaturalis.water_god_legs.name=水神胫甲
+item.magianaturalis.water_god_boots.name=水神步履
+
+item.magianaturalis.mask.0.name=狞笑恶魔面具
+item.magianaturalis.mask.1.name=暴怒幽魂面具
+item.magianaturalis.mask.2.name=嗜血邪妖面具
+
+item.magianaturalis.mask.tooltip.1=装饰品
+item.magianaturalis.mask.tooltip.2=装备在项链栏
+
+item.magianaturalis.mask.0.desc=据说戴上它的人，都笑得很诡异。
+item.magianaturalis.mask.1.desc=面具下的怒火，从未熄灭。
+item.magianaturalis.mask.2.desc=你确定要戴上它吗？
 
 
+# ==================================================
+# 面具学 · 总成
+# ==================================================
+research.magianaturalis.mask_theory.name=假面之秘
+research.magianaturalis.mask_theory.text=态度是心的面具
+
+research.magianaturalis.mask_theory.page.1=阿扎诺曾试图将“态度”本身凝为一张面具。他将其覆于面上，却无论如何也戴不牢，纵使以魔法束缚，也总会自行脱落。<BR><BR>那面具发出无声的嘲笑：“原来你没有心。态度是心的面具，无心之人，如何戴得上我？”<BR><BR>阿扎诺这才恍然——他早已将心交给了求知。无心之人，戴不上态度的面具。<BR><BR>换言之，有心之人，态度便是一张面具。
+
+research.magianaturalis.mask_theory.page.2=§c"面具之下，是心，还是无心？"<BR><BR><IMG>magianaturalis:textures/misc/eldritchajor2.png:0:0:255:255:0.5</IMG>
+
+research.magianaturalis.mask_theory.page.3=阿扎诺望着手中那张戴不牢的面具，沉默了很久。<BR><BR>他终于明白——态度从来不是凭空捏造的东西。它从心里长出来。心有所执，态度才有所形；心中空无一物，态度便只是一张空壳，风一吹就掉。<BR><BR>行走于世，莫不如此。<BR><BR>面对长辈，你戴上恭敬；面对敌人，你戴上冷酷；面对挚友，你摘下所有面具，露出真心。这不是虚伪，恰恰相反——这是「有心」的证明。因为心里清楚眼前的是谁，所以脸上才呈现出相应的态度。<BR><BR>而那些对谁都是一副面孔的人，未必是坦荡。也可能是因为，他心里什么都没有。
+
+research.magianaturalis.mask_theory.page.4=无心之人，戴不上态度。因为态度不是用来戴的，是用来流露的。<BR><BR>你手中的每一张面具，都是心中某一种态度的具象。戴上它，不是遮掩自己，而是让内心以最直接的方式呈现于世界。面具之下，是心。
+
+# ==================================================
+# 狞笑恶魔面具
+# ==================================================
+research.magianaturalis.mask_grinning_devil.name=狞笑恶魔面具
+research.magianaturalis.mask_grinning_devil.text=笑对人生峥嵘
+research.magianaturalis.mask_grinning_devil.page.1=戴上这幅面具，你会获得一种奇妙的阻滞扭曲效果的能力。它无法阻止扭曲的发生，却能让扭曲的侵蚀在一定程度上被削弱。<BR><BR>看来，笑对人生之峥嵘，的确能够有所收获。<BR><BR>——<BR><BR>你并没有把它做成要塞兜鍪的附件。你将它缩小、重塑，让它成为一枚可佩戴于项链栏的独立面具。<BR>从此，你不必再为了一副面具而牺牲整个头部装备。它依旧是面具，只是换了一种存在的方式。
+
+# ==================================================
+# 暴怒幽魂面具
+# ==================================================
+research.magianaturalis.mask_angry_ghost.name=暴怒幽魂面具
+research.magianaturalis.mask_angry_ghost.text=自己作死
+research.magianaturalis.mask_angry_ghost.page.1=当身处战场，那些攻击戴上这副冷酷面具后的你的生物，都会有一定几率染上凋零效果。<BR><BR>真是自己作死！<BR><BR>——<BR><BR>你没有将它固定在头盔上。你将它做成一枚可以悬于胸前的面具，一枚项链。<BR>怒火不必顶在头上，它本就藏在心里。
+
+# ==================================================
+# 嗜血邪妖面具
+# ==================================================
+research.magianaturalis.mask_sipping_fiend.name=嗜血邪妖面具
+research.magianaturalis.mask_sipping_fiend.text=该不该忧心？
+research.magianaturalis.mask_sipping_fiend.page.1=戴上这副面具后，你如果攻击其他生物，有时候会窃取它们的生命力，用以强化自己。<BR><BR>你吸它们血的事情，实际上似乎并没有像你以为那样让你觉得有什么异样。<BR><BR>但你疑惑的是——你该不该对此忧心呢？<BR><BR>——<BR><BR>你把这副面具也做成了项链。贴在颈侧，正如它本就该在的位置。<BR>颈侧的脉搏，比脸上的表情更接近真相。
+
+key.magianaturalis.attitude_switch=切换态度
+key.categories.magianaturalis=自然魔法
+
+item.magianaturalis.mask.3.name=态度面具
+item.magianaturalis.mask.3.desc=面具之下，是心。
+item.magianaturalis.mask.3.current=当前态度：
+item.magianaturalis.mask.3.hint=按 %s 切换态度
+item.magianaturalis.mask.3.face.0=无态度
+item.magianaturalis.mask.3.face.1=友善
+item.magianaturalis.mask.3.face.2=威严
+item.magianaturalis.mask.3.face.3=隐匿
+
+msg.magianaturalis.mask.no_attitude_blocked=§5无态度：§d攻击被化解
+msg.magianaturalis.mask.solemn_start=§6威严：§e气场展开
+msg.magianaturalis.mask.hiding_start=§5隐匿降临
+msg.magianaturalis.mask.hiding_end=§5隐匿消散
+msg.magianaturalis.mask.hiding_fail=§4法力不足，隐匿被迫中断
+msg.magianaturalis.mask.hiding_no_vis=§7你的法力不足以维持隐匿
+msg.magianaturalis.mask.equipped=§7态度面具：%s
+msg.magianaturalis.mask.unequipped=§7态度面具已卸下
+msg.magianaturalis.mask.no_heart=§4一个没有心的人，怎么又能戴上态度呢？
+death.attack.mask_attitude=%1$s 把自己的心交给了态度。
+
+research.magianaturalis.mask_attitude.name=态度面具
+research.magianaturalis.mask_attitude.text=态度是心的面具
+
+research.magianaturalis.mask_attitude.page.1=阿扎诺的笔记最后一页，画着一张戴不牢的面具。<BR><BR>他终于想明白——态度不是凭空造出的东西。它从心里长出来。心有所执，态度才有所形；心中空无一物，态度便只是一张空壳。<BR><BR>既然已经做出了狞笑、暴怒、嗜血三张面具——那么，把这三张面具连同它们各自代表的心，一起熔铸成一张真正可佩戴的面具呢？<BR><BR>他将那三张面具浸入元始之泉，以心为引，以魂为薪。<BR><BR>三天三夜之后，一张崭新的面具浮出水面——它什么态度都没有，却又什么态度都有。<BR><BR>他给它取了个名字，就叫「态度」。
+
+research.magianaturalis.mask_attitude.page.2=【无态度】§r旁观者。<BR>§r不争，不怒，不出手。<BR><BR>怪物不再主动盯上你。<BR>你先动手，态度才失效。<BR>有人执意攻击，那一下或许会落空，反噬其身<IMG>magianaturalis:textures/misc/mark/marktip1.png:0:0:255:255:0.5</IMG>。
+
+research.magianaturalis.mask_attitude.page.3=【友善】§r和光同尘。<BR>§r你放下身段，世界便不再提防你。<BR><BR>中立者不躲，敌意散得更快。<BR>追你者三步之内便遗忘初衷。<BR>被冒犯时，对方也常心软抽手<IMG>magianaturalis:textures/misc/mark/marktip2.png:0:0:255:255:0.5</IMG>。
+
+research.magianaturalis.mask_attitude.page.4=【威严】§r不动如山。<BR>§r你不战，敌先怯。<BR><BR>威压展开，八步内生灵尽皆停手。<BR>不攻、不动、不追。<BR>你自身亦获强化，出手更重<IMG>magianaturalis:textures/misc/mark/marktip3.png:0:0:255:255:0.5</IMG>。
+
+research.magianaturalis.mask_attitude.page.5=【隐匿】§r雾里看花。<BR>§r你还在那里，只是别人看不清你。<BR><BR>身形淡出，怪物目光从你身上滑过。<BR>代价：抽取法杖六大元始之力。<BR>法力耗尽则雾散，冷却后方可再隐<IMG>magianaturalis:textures/misc/mark/marktip4.png:0:0:255:255:0.5</IMG>。
+
+# ==================================================
+# 原始面具
+# ==================================================
+item.magianaturalis.mask.4.name=元始面具
+item.magianaturalis.mask.4.desc=六元始之根，万法之源。
+item.magianaturalis.mask.4.current=当前元始：
+item.magianaturalis.mask.4.hint=潜行 + 手持法杖右键切换
+item.magianaturalis.mask.4.face.0=元始
+item.magianaturalis.mask.4.face.1=火
+item.magianaturalis.mask.4.face.2=风
+item.magianaturalis.mask.4.face.3=混沌
+item.magianaturalis.mask.4.face.4=大地
+item.magianaturalis.mask.4.face.5=秩序
+item.magianaturalis.mask.4.face.6=水
+
+msg.magianaturalis.mask.primal.equipped=§7原始面具：§d%s
+msg.magianaturalis.mask.primal.switch=§5原始面具：§d%s
+msg.magianaturalis.mask.primal.no_vis=§4你的法杖没有足够的元始之力。
+
+key.magianaturalis.toggle_display=切换要素图标
+
+# ============================================================
+# 开关消息
+# ============================================================
+msg.magianaturalis.display.on=要素图标：已开启
+msg.magianaturalis.display.off=要素图标：已关闭
+
+
+# ============================================================
+# 自然魔法 - 自创要素
+# ============================================================
+tc.aspect.gaia=地球
+tc.aspect.natura=自然
+tc.aspect.flora=花

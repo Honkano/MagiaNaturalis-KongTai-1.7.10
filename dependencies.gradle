@@ -37,8 +37,16 @@ dependencies {
     // 神秘时代本体 (deobf 版本)
     compile files('libs/Thaumcraft-deobf-1.7.10-4.2.3.5.jar')
 
-    compile files('libs/Baubles-deobf-1.7.10-1.0.1.10.jar')
+    compile files('libs/NotEnoughItems-2.8.144-GTNH-dev.jar')
 
+    compile files('libs/CodeChickenCore-1.4.22-dev.jar')
+
+    devOnlyNonPublishable('com.github.GTNewHorizons:Botania:1.13.36-GTNH:dev')
+
+
+
+    // Mixin 编译依赖（Sponge Mixin —— 用 Maven 坐标，不要 files()）
+    compileOnly("org.spongepowered:mixin:0.8.5")
     
     // 如果你需要 NEI（可选），可以保留下面这行
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:NotEnoughItems:2.7.69-GTNH:dev")

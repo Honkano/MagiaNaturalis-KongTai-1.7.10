@@ -107,8 +107,13 @@ public class PrisonJarBlockEntity extends TileJar implements IWandable {
         return entityData != null && entityData.hasKey(ENTITY_TAG_KEY);
     }
 
+    // ==================================================
+    // 【修复】原三元逻辑写反了：
+    //   旧：有实体 → 返回 null；没实体 → 去取 NBT
+    //   新：有实体 → 返回实体数据；没实体 → 返回 null
+    // ==================================================
     public NBTTagCompound getEntityData() {
-        return hasEntityInside() ? null : entityData.getCompoundTag(ENTITY_TAG_KEY);
+        return hasEntityInside() ? entityData.getCompoundTag(ENTITY_TAG_KEY) : null;
     }
 
     public void setEntityData(NBTTagCompound data) {

@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.github.elenterius.magianaturalis.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "mixins.magianaturalis.refmap.json",
+  "mixins": [
+    "MixinEntity",
+    "MixinEntityRenderer",
+    "MixinGuiContainer",
+    "MixinGuiResearchRecipe"
+  ],
+  "client": [],
+  "server": []
+}

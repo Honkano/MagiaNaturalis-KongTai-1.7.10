@@ -9,6 +9,9 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
 
+import com.github.elenterius.magianaturalis.network.packet.PacketAttitudeParticles;
+import com.github.elenterius.magianaturalis.network.packet.PacketAttitudeSwitch;
+
 public class PacketHandler {
 
     public static SimpleNetworkWrapper network;
@@ -29,6 +32,20 @@ public class PacketHandler {
             PacketBiomeChange.BiomeChangeMessage.class,
             nextPacketID++,
             Side.CLIENT);
+
+                // ★ 新增
+        network.registerMessage(
+            PacketAttitudeSwitch.class,
+            PacketAttitudeSwitch.AttitudeSwitchMessage.class,
+            nextPacketID++,
+            Side.SERVER);
+        network.registerMessage(
+            PacketAttitudeParticles.class,
+            PacketAttitudeParticles.Message.class,
+            4,
+            cpw.mods.fml.relauncher.Side.CLIENT);            
+
+            
     }
 
     // private static <REQ extends IMessage, REPLY extends IMessage> void registerMessage(Class<? extends

@@ -3,6 +3,7 @@ package com.github.elenterius.magianaturalis.init;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.MinecraftForge;
 
 import com.github.elenterius.magianaturalis.MagiaNaturalis;
 import com.github.elenterius.magianaturalis.block.chest.ArcaneChestBlockEntity;
@@ -10,10 +11,12 @@ import com.github.elenterius.magianaturalis.block.table.TranscribingTableBlockEn
 import com.github.elenterius.magianaturalis.container.ContainerArcaneChest;
 import com.github.elenterius.magianaturalis.container.ContainerEvilTrunk;
 import com.github.elenterius.magianaturalis.container.ContainerTranscribingTable;
+import com.github.elenterius.magianaturalis.easteregg.HerobrineSpawnHandler;
 import com.github.elenterius.magianaturalis.entity.EntityEvilTrunk;
 import com.github.elenterius.magianaturalis.event.PlayerEventHandler;
 import com.github.elenterius.magianaturalis.event.ScytheBlockHandler;
 import com.github.elenterius.magianaturalis.event.WorldEventHandler;
+import com.github.elenterius.magianaturalis.event.MaskEventHandler;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -37,6 +40,10 @@ public class CommonSetup implements IGuiHandler {
         WorldEventHandler.register();
         PlayerEventHandler.register();
         ScytheBlockHandler.register(); // 【新增】
+        net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(new HerobrineSpawnHandler());
+        MinecraftForge.EVENT_BUS.register(new MaskEventHandler());// 面具效果
+        MinecraftForge.EVENT_BUS.register(new com.github.elenterius.magianaturalis.event.PrimalSwitchHandler());
+        MinecraftForge.EVENT_BUS.register(new com.github.elenterius.magianaturalis.event.PrimalEffectHandler());
     }
 
     public void postInit(FMLPostInitializationEvent event) {

@@ -1,5 +1,7 @@
 package com.github.elenterius.magianaturalis.client.render;
 
+import java.awt.Color;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -16,9 +18,13 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.chunk.Chunk;
+import net.minecraftforge.client.event.DrawBlockHighlightEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
+import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 
@@ -31,11 +37,21 @@ import com.github.elenterius.magianaturalis.util.BuilderFocusUtil;
 import com.github.elenterius.magianaturalis.util.BuilderFocusUtil.Mode;
 import com.github.elenterius.magianaturalis.util.Platform;
 
+import baubles.common.container.InventoryBaubles;
+import baubles.common.lib.PlayerHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import thaumcraft.api.IGoggles;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.aspects.IAspectContainer;
 import thaumcraft.api.nodes.INode;
+import thaumcraft.api.nodes.IRevealer;
 import thaumcraft.api.wands.ItemFocusBasic;
+import thaumcraft.client.lib.UtilsFX;
+import thaumcraft.client.renderers.tile.TileNodeRenderer;
+import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.tiles.TileNodeEnergized;
@@ -44,11 +60,14 @@ import thaumcraft.common.tiles.TileOwned;
 @SideOnly(Side.CLIENT)
 public final class RenderEventHandler {
 
-    private static final ResourceLocation SILKTOUCH_TEXTURE = new ResourceLocation(
-        "thaumcraft",
-        "textures/foci/silktouch.png");
-    private static final ResourceLocation GLOWING_EYES_TEXTURE = MagiaNaturalis.rl("textures/models/glowingEyes.png");
+    private static final ResourceLocation SILKTOUCH_TEXTURE =
+        new ResourceLocation("thaumcraft", "textures/foci/silktouch.png");
+    private static final ResourceLocation GLOWING_EYES_TEXTURE =
+        MagiaNaturalis.rl("textures/models/glowingEyes.png");
     private static final ModelBiped OVERLAY_MODEL = new ModelBiped();
+
+    /** 要素标签的淡入淡出系数 */
+    private static float tagscale = 0.0F;
 
     private final RenderItem itemRender;
     private ItemStack prevPickedBlock = null;
@@ -62,24 +81,27 @@ public final class RenderEventHandler {
         MinecraftForge.EVENT_BUS.register(new RenderEventHandler());
     }
 
+    // ==================================================
+    // 【HUD 渲染】护目镜文字 + 建筑核心提示
+    // ==================================================
     @SubscribeEvent
     public void renderOverlay(RenderGameOverlayEvent event) {
         if (event.type != RenderGameOverlayEvent.ElementType.HELMET) return;
 
         Minecraft mc = Minecraft.getMinecraft();
 
-        if (Minecraft.isGuiEnabled() && !mc.isGamePaused() /* && mc.currentScreen == null */
+        if (Minecraft.isGuiEnabled() && !mc.isGamePaused()
             && !mc.gameSettings.showDebugInfo) {
             if (mc.renderViewEntity instanceof EntityPlayer) {
                 EntityPlayer player = (EntityPlayer) mc.renderViewEntity;
 
-                ItemStack stack = player.inventory.armorItemInSlot(3);
-                if (stack != null && stack.getItem() instanceof ISpectacles
-                    && ((ISpectacles) stack.getItem()).drawSpectacleHUD(stack, player)) {
+                ItemStack specs = findSpectaclesOnPlayer(player);
+                if (specs != null
+                    && ((ISpectacles) specs.getItem()).drawSpectacleHUD(specs, player)) {
                     renderSpectaclesHUD(mc, player);
                 }
 
-                stack = player.inventory.getCurrentItem();
+                ItemStack stack = player.inventory.getCurrentItem();
                 if (stack != null && stack.getItem() instanceof ItemWandCasting) {
                     ItemWandCasting wand = (ItemWandCasting) stack.getItem();
                     ItemFocusBasic focus = wand.getFocus(stack);
@@ -92,32 +114,287 @@ public final class RenderEventHandler {
         }
     }
 
-    // @SubscribeEvent
-    // public void renderBlockHighlight(DrawBlockHighlightEvent event)
-    // {
-    // int ticks = event.player.ticksExisted;
-    // MovingObjectPosition target = event.target;
-    //
-    // if(Thaumcraft.instance.renderEventHandler.wandHandler == null) Thaumcraft.instance.renderEventHandler.wandHandler
-    // = new REHWandHandler();
-    //
-    // if(target.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
-    // {
-    // if(event.player.getHeldItem() != null && event.player.getHeldItem().getItem() instanceof ItemWandCasting)
-    // {
-    // ItemWandCasting wand = (ItemWandCasting) event.player.getHeldItem().getItem();
-    // ItemStack focus = wand.getFocusItem( event.player.getHeldItem());
-    // if(focus.getItem() instanceof ItemFocusBuild)
-    // {
-    // Log.logger.info("DO IT NOW");
-    // if(Thaumcraft.instance.renderEventHandler.wandHandler.handleArchitectOverlay(event.player.getHeldItem(), event,
-    // ticks, target))
-    // event.setCanceled(true);
-    // }
-    // }
-    // }
-    // }
+    // ==================================================
+    // 【节点高亮渲染】监听 RenderWorldLastEvent
+    // ==================================================
+    @SubscribeEvent
+    @SideOnly(Side.CLIENT)
+    public void onRenderWorldLast(RenderWorldLastEvent event) {
+        EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+        if (player == null) return;
 
+        renderBaublesNodes(player, event.partialTicks);
+
+        // tagscale 每帧递减，实现淡出
+        if (tagscale > 0.0F) {
+            tagscale -= 0.005F;
+            if (tagscale < 0.0F) tagscale = 0.0F;
+        }
+    }
+
+    // ==================================================
+    // 【准星对准节点显示要素】监听 DrawBlockHighlightEvent
+    // ==================================================
+    @SubscribeEvent
+    @SideOnly(Side.CLIENT)
+    public void onDrawBlockHighlight(DrawBlockHighlightEvent event) {
+        EntityPlayer player = event.player;
+        if (player == null) return;
+
+        if (event.target == null || event.target.typeOfHit != MovingObjectType.BLOCK) return;
+
+        // 头盔槽有 TC4 护目镜 → TC4 会自己显示，跳过
+        ItemStack helm = player.inventory.armorItemInSlot(3);
+        if (helm != null && helm.getItem() instanceof IGoggles
+            && ((IGoggles) helm.getItem()).showIngamePopups(helm, player)) {
+            return;
+        }
+
+        // 在 Baubles 里找 IGoggles 护目镜
+        ItemStack goggles = findGogglesOnPlayer(player);
+        if (goggles == null) return;
+        if (!(goggles.getItem() instanceof IGoggles)) return;
+        if (!((IGoggles) goggles.getItem()).showIngamePopups(goggles, player)) return;
+
+        int x = event.target.blockX;
+        int y = event.target.blockY;
+        int z = event.target.blockZ;
+        TileEntity te = player.worldObj.getTileEntity(x, y, z);
+
+        if (te == null || !(te instanceof IAspectContainer)) return;
+
+        AspectList aspects = ((IAspectContainer) te).getAspects();
+        if (aspects == null || aspects.size() <= 0) return;
+
+        boolean spaceAbove = player.worldObj.isAirBlock(x, y + 1, z);
+        ForgeDirection dir = spaceAbove
+            ? ForgeDirection.UP
+            : ForgeDirection.getOrientation(event.target.sideHit);
+
+        if (tagscale < 0.3F) {
+            tagscale += 0.031F - tagscale / 10.0F;
+        }
+
+        drawTagsOnContainer(
+            (double) x,
+            (double) y + (spaceAbove ? 0.4F : 0.0F),
+            (double) z,
+            aspects,
+            220,
+            dir,
+            event.partialTicks);
+    }
+
+    // ==================================================
+    // 【核心方法】渲染 Baubles 护目镜对应的节点高亮
+    // ==================================================
+    private void renderBaublesNodes(EntityPlayer player, float partialTicks) {
+        ItemStack specs = findSpectaclesOnPlayer(player);
+        if (specs == null) return;
+
+        ItemStack helm = player.inventory.armorItemInSlot(3);
+        if (helm != null && helm.getItem() instanceof IRevealer
+            && ((IRevealer) helm.getItem()).showNodes(helm, player)) {
+            return;
+        }
+
+        if (!(specs.getItem() instanceof IRevealer)) return;
+        IRevealer revealer = (IRevealer) specs.getItem();
+        if (!revealer.showNodes(specs, player)) return;
+
+        int cx = (int) player.posX >> 4;
+        int cz = (int) player.posZ >> 4;
+        int range = 2;
+        double maxDistSq = 64 * 64;
+
+        GL11.glPushAttrib(GL11.GL_ENABLE_BIT);
+        GL11.glDisable(GL11.GL_LIGHTING);
+        GL11.glDisable(GL11.GL_CULL_FACE);
+        GL11.glEnable(GL11.GL_BLEND);
+
+        for (int dx = -range; dx <= range; dx++) {
+            for (int dz = -range; dz <= range; dz++) {
+                Chunk chunk = player.worldObj.getChunkFromChunkCoords(cx + dx, cz + dz);
+                if (chunk == null) continue;
+
+                for (Object obj : chunk.chunkTileEntityMap.values()) {
+                    if (!(obj instanceof TileEntity)) continue;
+                    TileEntity te = (TileEntity) obj;
+                    if (te.isInvalid()) continue;
+
+                    double distSq = player.getDistanceSq(
+                        te.xCoord + 0.5, te.yCoord + 0.5, te.zCoord + 0.5);
+                    if (distSq > maxDistSq) continue;
+
+                    if (te instanceof INode && !(te instanceof TileNodeEnergized)) {
+                        INode node = (INode) te;
+                        TileNodeRenderer.renderNode(
+                            player, 64.0D, true, true, 1.0F,
+                            te.xCoord, te.yCoord, te.zCoord,
+                            partialTicks,
+                            node.getAspects(),
+                            node.getNodeType(),
+                            node.getNodeModifier());
+                    } else if (te instanceof TileNodeEnergized) {
+                        TileNodeEnergized node = (TileNodeEnergized) te;
+                        TileNodeRenderer.renderNode(
+                            player, 64.0D, true, true, 1.0F,
+                            te.xCoord, te.yCoord, te.zCoord,
+                            partialTicks,
+                            node.getAuraBase(),
+                            node.getNodeType(),
+                            node.getNodeModifier());
+                    }
+                }
+            }
+        }
+
+        GL11.glPopAttrib();
+    }
+
+    // ==================================================
+    // 【工具方法】在玩家的头盔槽 + Baubles 里找 ISpectacles
+    // ==================================================
+    private ItemStack findSpectaclesOnPlayer(EntityPlayer player) {
+        ItemStack helm = player.inventory.armorItemInSlot(3);
+        if (helm != null && helm.getItem() instanceof ISpectacles) {
+            return helm;
+        }
+
+        try {
+            InventoryBaubles baubles = PlayerHandler.getPlayerBaubles(player);
+            if (baubles != null) {
+                for (int i = 0; i < baubles.getSizeInventory(); i++) {
+                    ItemStack s = baubles.getStackInSlot(i);
+                    if (s != null && s.getItem() instanceof ISpectacles) {
+                        return s;
+                    }
+                }
+            }
+        } catch (Throwable ignored) {}
+
+        return null;
+    }
+
+    // ==================================================
+    // 【工具方法】在玩家的头盔槽 + Baubles 里找 IGoggles
+    // ==================================================
+    private ItemStack findGogglesOnPlayer(EntityPlayer player) {
+        ItemStack helm = player.inventory.armorItemInSlot(3);
+        if (helm != null && helm.getItem() instanceof IGoggles) {
+            return helm;
+        }
+
+        try {
+            InventoryBaubles baubles = PlayerHandler.getPlayerBaubles(player);
+            if (baubles != null) {
+                for (int i = 0; i < baubles.getSizeInventory(); i++) {
+                    ItemStack s = baubles.getStackInSlot(i);
+                    if (s != null && s.getItem() instanceof IGoggles) {
+                        return s;
+                    }
+                }
+            }
+        } catch (Throwable ignored) {}
+
+        return null;
+    }
+
+    // ==================================================
+    // 【绘制要素标签】从 TC4 的 RenderEventHandler 复制改造而来
+    // ==================================================
+    private void drawTagsOnContainer(double x, double y, double z,
+                                      AspectList tags, int bright,
+                                      ForgeDirection dir, float partialTicks) {
+        if (!(Minecraft.getMinecraft().renderViewEntity instanceof EntityPlayer)) return;
+        if (tags == null || tags.size() <= 0) return;
+
+        EntityPlayer player = (EntityPlayer) Minecraft.getMinecraft().renderViewEntity;
+
+        double iPX = player.prevPosX + (player.posX - player.prevPosX) * (double) partialTicks;
+        double iPY = player.prevPosY + (player.posY - player.prevPosY) * (double) partialTicks;
+        double iPZ = player.prevPosZ + (player.posZ - player.prevPosZ) * (double) partialTicks;
+
+        byte rowsize = 5;
+        int current = 0;
+        float shifty = 0.0F;
+        int left = tags.size();
+
+        Aspect[] arr = tags.getAspects();
+
+        for (Aspect tag : arr) {
+            int div = Math.min(left, rowsize);
+
+            if (current >= rowsize) {
+                current = 0;
+                shifty -= tagscale * 1.05F;
+                left -= rowsize;
+                if (left < rowsize) {
+                    div = left % rowsize;
+                }
+            }
+
+            float shift = ((float) current - (float) div / 2.0F + 0.5F) * tagscale * 4.0F;
+            shift *= tagscale;
+
+            Color color = new Color(tag.getColor());
+
+            GL11.glPushMatrix();
+            GL11.glDisable(GL11.GL_DEPTH_TEST);
+
+            GL11.glTranslated(
+                -iPX + x + 0.5D + (double) (tagscale * 2.0F * (float) dir.offsetX),
+                -iPY + y - (double) shifty + 0.5D + (double) (tagscale * 2.0F * (float) dir.offsetY),
+                -iPZ + z + 0.5D + (double) (tagscale * 2.0F * (float) dir.offsetZ));
+
+            float xd = (float) (iPX - (x + 0.5D));
+            float zd = (float) (iPZ - (z + 0.5D));
+            float rotYaw = (float) (Math.atan2((double) xd, (double) zd) * 180.0D / Math.PI);
+            GL11.glRotatef(rotYaw + 180.0F, 0.0F, 1.0F, 0.0F);
+
+            GL11.glTranslated((double) shift, 0.0D, 0.0D);
+            GL11.glRotatef(180.0F, 0.0F, 0.0F, 1.0F);
+            GL11.glScalef(tagscale, tagscale, tagscale);
+
+            boolean discovered = Thaumcraft.proxy.getPlayerKnowledge()
+                .hasDiscoveredAspect(player.getCommandSenderName(), tag);
+
+            if (!discovered) {
+                UtilsFX.renderQuadCenteredFromTexture(
+                    "textures/aspects/_unknown.png", 1.0F,
+                    (float) color.getRed() / 255.0F,
+                    (float) color.getGreen() / 255.0F,
+                    (float) color.getBlue() / 255.0F,
+                    bright, 771, 0.75F);
+            } else {
+                UtilsFX.renderQuadCenteredFromTexture(
+                    tag.getImage(), 1.0F,
+                    (float) color.getRed() / 255.0F,
+                    (float) color.getGreen() / 255.0F,
+                    (float) color.getBlue() / 255.0F,
+                    bright, 771, 0.75F);
+            }
+
+            if (tags.getAmount(tag) >= 0) {
+                String am = "" + tags.getAmount(tag);
+                GL11.glScalef(0.04F, 0.04F, 0.04F);
+                GL11.glTranslated(0.0D, 6.0D, -0.1D);
+                int sw = Minecraft.getMinecraft().fontRenderer.getStringWidth(am);
+                GL11.glEnable(GL11.GL_BLEND);
+                Minecraft.getMinecraft().fontRenderer.drawString(am, 14 - sw, 1, 1118481);
+                GL11.glTranslated(0.0D, 0.0D, -0.1D);
+                Minecraft.getMinecraft().fontRenderer.drawString(am, 13 - sw, 0, 16777215);
+            }
+
+            GL11.glEnable(GL11.GL_DEPTH_TEST);
+            GL11.glPopMatrix();
+            ++current;
+        }
+    }
+
+    // ==================================================
+    // 【玩家特殊渲染】混沌护目镜的发光眼睛
+    // ==================================================
     @SubscribeEvent
     public void renderPlayerSpecial(RenderPlayerEvent.Specials.Pre event) {
         if (!event.renderHelmet) return;
@@ -150,6 +427,9 @@ public final class RenderEventHandler {
         }
     }
 
+    // ==================================================
+    // 【HUD】建筑核心的显示
+    // ==================================================
     private void renderBuildFocusHUD(Minecraft mc, ItemStack focusStack, EntityPlayer player) {
         GL11.glClear(GL11.GL_ACCUM);
         FontRenderer fontRenderer = mc.fontRenderer;
@@ -220,21 +500,31 @@ public final class RenderEventHandler {
                 GL11.glScalef(0.5F, 0.5F, 0.5F);
 
                 if (player.capabilities.isCreativeMode) {
-                    RenderUtil.drawStringWithBorder(fontRenderer, "Infinite", 0, 32 + 16, 0xffffff, 0);
+                    RenderUtil.drawStringWithBorder(
+                        fontRenderer,
+                        Platform.translate("hud.magianaturalis.builder.infinite"),
+                        0,
+                        32 + 16,
+                        0xffffff,
+                        0);
                 } else {
                     RenderUtil.drawStringWithBorder(fontRenderer, "" + amount, 0, 32 + 16, 0xffffff, 0);
                 }
 
                 RenderUtil.drawStringWithBorder(
                     fontRenderer,
-                    "Shape: " + BuilderFocusUtil.getShape(focusStack),
+                    Platform.translate(
+                        "item.magianaturalis.builder_focus.tooltip.shape",
+                        Platform.translateEnum("enum.magianaturalis.shape.", BuilderFocusUtil.getShape(focusStack))),
                     0,
                     -2,
                     0xffffff,
                     0);
                 RenderUtil.drawStringWithBorder(
                     fontRenderer,
-                    "Size: " + BuilderFocusUtil.getSize(focusStack),
+                    Platform.translate(
+                        "item.magianaturalis.builder_focus.tooltip.size",
+                        BuilderFocusUtil.getSize(focusStack)),
                     0,
                     -1 + fontRenderer.FONT_HEIGHT,
                     0xffffff,
@@ -263,16 +553,21 @@ public final class RenderEventHandler {
                 RenderUtil.drawStringWithBorder(fontRenderer, "?", 6, 14, 0xffffff, 0);
 
                 GL11.glScalef(0.5F, 0.5F, 0.5F);
+
                 RenderUtil.drawStringWithBorder(
                     fontRenderer,
-                    "Shape: " + BuilderFocusUtil.getShape(focusStack),
+                    Platform.translate(
+                        "item.magianaturalis.builder_focus.tooltip.shape",
+                        Platform.translateEnum("enum.magianaturalis.shape.", BuilderFocusUtil.getShape(focusStack))),
                     0,
                     -2,
                     0xffffff,
                     0);
                 RenderUtil.drawStringWithBorder(
                     fontRenderer,
-                    "Size: " + BuilderFocusUtil.getSize(focusStack),
+                    Platform.translate(
+                        "item.magianaturalis.builder_focus.tooltip.size",
+                        BuilderFocusUtil.getSize(focusStack)),
                     0,
                     -1 + fontRenderer.FONT_HEIGHT,
                     0xffffff,
@@ -309,11 +604,13 @@ public final class RenderEventHandler {
         return amount;
     }
 
+    // ==================================================
+    // 【HUD】护目镜 HUD 信息
+    // ==================================================
     private void renderSpectaclesHUD(Minecraft mc, EntityPlayer player) {
         boolean meterEquiped = false;
         if (player.inventory.getCurrentItem() != null) {
-            if (player.inventory.getCurrentItem()
-                .getItem() == ConfigItems.itemThaumometer) {
+            if (player.inventory.getCurrentItem().getItem() == ConfigItems.itemThaumometer) {
                 meterEquiped = true;
             }
         }
@@ -361,9 +658,10 @@ public final class RenderEventHandler {
                     GL11.glPopMatrix();
                 } else if (tile instanceof TileOwned) {
                     TileOwned owned = (TileOwned) tile;
-                    String owner = EnumChatFormatting.DARK_PURPLE + "Owner"
-                        + EnumChatFormatting.RESET
-                        + " "
+                    String owner = EnumChatFormatting.DARK_PURPLE
+                        + Platform.translate("hud.magianaturalis.spectacles.owner")
+                        + ": "
+                        + EnumChatFormatting.WHITE
                         + owned.owner;
                     GL11.glPushMatrix();
                     GL11.glTranslatef(w / 2, h / 2, 0F);
@@ -372,9 +670,10 @@ public final class RenderEventHandler {
                     GL11.glPopMatrix();
                 } else if (tile instanceof ArcaneChestBlockEntity) {
                     ArcaneChestBlockEntity chest = (ArcaneChestBlockEntity) tile;
-                    String name = EnumChatFormatting.DARK_PURPLE + "Owner"
-                        + EnumChatFormatting.RESET
-                        + " "
+                    String name = EnumChatFormatting.DARK_PURPLE
+                        + Platform.translate("hud.magianaturalis.spectacles.owner")
+                        + ": "
+                        + EnumChatFormatting.WHITE
                         + chest.getOwnerName();
                     GL11.glPushMatrix();
                     GL11.glTranslatef(w / 2, h / 2, 0F);
@@ -384,5 +683,4 @@ public final class RenderEventHandler {
             }
         }
     }
-
 }

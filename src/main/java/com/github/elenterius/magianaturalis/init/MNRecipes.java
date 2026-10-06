@@ -536,6 +536,160 @@ public final class MNRecipes {
                 Resource.QUICKSILVER.createItem(),
                 recipe));
 
+
+        // ======================================================================
+        // 【揭示之护目镜 · 饰品版】注魔配方
+        // 
+        // 核心物品：高级揭示护目镜
+        // 外围材料：元始珍珠 + 世界盐 + 元始魔力×2 + 六大碎片
+        // 不稳定度：2（微乎其微）
+        // ======================================================================
+        aspects = new AspectList()
+            .add(Aspect.SENSES, 64)
+            .add(Aspect.AURA, 32)
+            .add(Aspect.MAGIC, 32)
+            .add(Aspect.LIGHT, 32)
+            .add(Aspect.DARKNESS, 16)
+            .add(Aspect.EXCHANGE, 16);
+        recipe = new ItemStack[] {
+            new ItemStack(ConfigItems.itemEldritchObject, 1, 3),  // 元始珍珠 ×1
+            new ItemStack(ConfigItems.itemResource, 1, 14),       // 世界盐 ×1
+            new ItemStack(ConfigItems.itemResource, 1, 15),       // 元始魔力 ×2
+            new ItemStack(ConfigItems.itemResource, 1, 15),
+            Shard.AIR.createItem(),
+            Shard.FIRE.createItem(),
+            Shard.WATER.createItem(),
+            Shard.EARTH.createItem(),
+            Shard.ORDER.createItem(),
+            Shard.ENTROPY.createItem()
+        };
+        RECIPES.put(
+            "RevealingGoggles",
+            registerInfusionRecipe(
+                MNResearch.REVEALING_GOGGLES.getId(),
+                new ItemStack(MNItems.revealingGoggles),
+                2,                                             // 不稳定度（微乎其微）
+                aspects,
+                new ItemStack(MNItems.spectacles),             // 核心：高级揭示护目镜
+                recipe));
+
+        // ======================================================================
+        // 【三张面具】注魔配方
+        // 对照原版神秘时代 MASKGRINNINGDEVIL / MASKANGRYGHOST / MASKSIPPINGFIEND
+        // 中心物品从「神秘要塞头盔」改为「凡人护身符」
+        // ======================================================================
+
+        // ---- 狞笑恶魔面具（Meta 0）：核心为凡人护身符 ----
+        aspects = new AspectList().add(Aspect.MIND, 64)
+            .add(Aspect.HEAL, 64)
+            .add(Aspect.ARMOR, 16);
+        recipe = new ItemStack[] {
+            new ItemStack(Items.dye, 1, 0),
+            new ItemStack(Items.iron_ingot),
+            new ItemStack(Items.leather),
+            new ItemStack(ConfigBlocks.blockCustomPlant, 1, 2),
+            new ItemStack(ConfigItems.itemZombieBrain),
+            new ItemStack(Items.iron_ingot)
+        };
+        RECIPES.put(
+            "MaskGrinningDevil",
+            registerInfusionRecipe(
+                MNResearch.MASK_GRINNING_DEVIL.getId(),
+                new ItemStack(MNItems.mask, 1, 0),
+                8,
+                aspects,
+                new ItemStack(ConfigItems.itemBaubleBlanks, 1, 0),
+                recipe));
+
+        // ---- 暴怒幽魂面具（Meta 1）：核心为凡人护身符 ----
+        aspects = new AspectList().add(Aspect.ENTROPY, 64)
+            .add(Aspect.DEATH, 64)
+            .add(Aspect.ARMOR, 16);
+        recipe = new ItemStack[] {
+            new ItemStack(Items.dye, 1, 15),
+            new ItemStack(Items.iron_ingot),
+            new ItemStack(Items.leather),
+            new ItemStack(Items.poisonous_potato),
+            new ItemStack(Items.skull, 1, 1),
+            new ItemStack(Items.iron_ingot)
+        };
+        RECIPES.put(
+            "MaskAngryGhost",
+            registerInfusionRecipe(
+                MNResearch.MASK_ANGRY_GHOST.getId(),
+                new ItemStack(MNItems.mask, 1, 1),
+                8,
+                aspects,
+                new ItemStack(ConfigItems.itemBaubleBlanks, 1, 0),
+                recipe));
+
+        // ---- 嗜血邪妖面具（Meta 2）：核心为凡人护身符 ----
+        aspects = new AspectList().add(Aspect.UNDEAD, 64)
+            .add(Aspect.LIFE, 64)
+            .add(Aspect.ARMOR, 16);
+        recipe = new ItemStack[] {
+            new ItemStack(Items.dye, 1, 1),
+            new ItemStack(Items.iron_ingot),
+            new ItemStack(Items.leather),
+            new ItemStack(Items.ghast_tear),
+            new ItemStack(Items.milk_bucket),
+            new ItemStack(Items.iron_ingot)
+        };
+        RECIPES.put(
+            "MaskSippingFiend",
+            registerInfusionRecipe(
+                MNResearch.MASK_SIPPING_FIEND.getId(),
+                new ItemStack(MNItems.mask, 1, 2),
+                8,
+                aspects,
+                new ItemStack(ConfigItems.itemBaubleBlanks, 1, 0),
+                recipe));
+
+
+
+        // ======================================================================
+        // 【态度面具】注魔配方
+        // 核心：凡人护身符
+        // 不引用三张面具，只用神秘时代材料
+        // 不稳定度 20（最危险）
+        // ======================================================================
+        aspects = new AspectList()
+            .add(Aspect.MIND, 64)
+            .add(Aspect.SENSES, 64)
+            .add(Aspect.SOUL, 32)
+            .add(Aspect.MAGIC, 32)
+            .add(Aspect.DARKNESS, 32);
+        recipe = new ItemStack[] {
+            new ItemStack(ConfigItems.itemEldritchObject, 1, 3),   // 元始珍珠
+            new ItemStack(ConfigItems.itemResource, 1, 14),        // 世界盐
+            new ItemStack(ConfigItems.itemResource, 1, 15),        // 元始魔力 ×2
+            new ItemStack(ConfigItems.itemResource, 1, 15),
+            new ItemStack(ConfigItems.itemZombieBrain),            // 僵尸脑（心）
+            Shard.AIR.createItem(),
+            Shard.FIRE.createItem(),
+            Shard.WATER.createItem(),
+            Shard.EARTH.createItem(),
+            Shard.ORDER.createItem(),
+            Shard.ENTROPY.createItem()
+        };
+        RECIPES.put(
+            "MaskAttitude",
+            registerInfusionRecipe(
+                MNResearch.MASK_ATTITUDE.getId(),
+                new ItemStack(MNItems.mask, 1, 3),
+                20,                                                // 最危险
+                aspects,
+                new ItemStack(ConfigItems.itemBaubleBlanks, 1, 0), // 核心：凡人护身符
+                recipe));
+
+
+        // ======================================================================
+        // 【恶毒旅行箱系列】注魔配方：链式升级
+        // 升级链：邪恶(0) → 阴险(1) → 污染(3) → 恶魔(2)
+        // 每个配方对应独立研究，核心物品为链条上一级的箱子宝宝
+        // ======================================================================
+
+        // ---- 邪恶箱子宝宝（Meta 0）：核心为原版旅行箱刷怪器 ----
         aspects = new AspectList().add(Aspect.MOTION, 16)
             .add(Aspect.SOUL, 16)
             .add(Aspect.ENTROPY, 16)
@@ -553,40 +707,7 @@ public final class MNRecipes {
                 new ItemStack(ConfigItems.itemTrunkSpawner),
                 recipe));
 
-        aspects = new AspectList().add(Aspect.TAINT, 16)
-            .add(Aspect.SOUL, 16)
-            .add(Aspect.ENTROPY, 16)
-            .add(Aspect.FLESH, 8);
-        recipe = new ItemStack[] { Resource.TAINT_TENDRIL.createItem(), new ItemStack(Items.gold_ingot),
-            Resource.TAINTED_GOO.createItem(), Resource.TAINT_TENDRIL.createItem(), new ItemStack(Items.ender_eye),
-            Resource.TAINTED_GOO.createItem() };
-        RECIPES.put(
-            "TaintedTrunk",
-            registerInfusionRecipe(
-                MNResearch.EVIL_TRUNK.getId(),
-                new ItemStack(MNItems.evilTrunkSpawner, 1, 3),
-                6,
-                aspects,
-                new ItemStack(MNItems.evilTrunkSpawner),
-                recipe));
-
-        aspects = new AspectList().add(Aspect.FIRE, 16)
-            .add(Aspect.SOUL, 16)
-            .add(Aspect.ENTROPY, 16)
-            .add(Aspect.FLESH, 8);
-        recipe = new ItemStack[] { new ItemStack(Items.blaze_rod), new ItemStack(Items.gold_ingot),
-            new ItemStack(Blocks.nether_brick), new ItemStack(Items.blaze_rod), new ItemStack(Blocks.nether_brick),
-            new ItemStack(Blocks.quartz_block) };
-        RECIPES.put(
-            "DemonicTrunk",
-            registerInfusionRecipe(
-                MNResearch.EVIL_TRUNK.getId(),
-                new ItemStack(MNItems.evilTrunkSpawner, 1, 2),
-                6,
-                aspects,
-                new ItemStack(MNItems.evilTrunkSpawner),
-                recipe));
-
+        // ---- 阴险箱子宝宝（Meta 1）：核心为邪恶箱子宝宝（Meta 0）----
         aspects = new AspectList().add(Aspect.MIND, 16)
             .add(Aspect.SOUL, 16)
             .add(Aspect.ENTROPY, 16)
@@ -597,11 +718,47 @@ public final class MNRecipes {
         RECIPES.put(
             "SinisterTrunk",
             registerInfusionRecipe(
-                MNResearch.EVIL_TRUNK.getId(),
+                MNResearch.SINISTER_TRUNK.getId(),
                 new ItemStack(MNItems.evilTrunkSpawner, 1, 1),
                 6,
                 aspects,
-                new ItemStack(MNItems.evilTrunkSpawner),
+                new ItemStack(MNItems.evilTrunkSpawner, 1, 0), // ← 核心：邪恶箱子宝宝
+                recipe));
+
+        // ---- 污染箱子宝宝（Meta 3）：核心为阴险箱子宝宝（Meta 1）----
+        aspects = new AspectList().add(Aspect.TAINT, 16)
+            .add(Aspect.SOUL, 16)
+            .add(Aspect.ENTROPY, 16)
+            .add(Aspect.FLESH, 8);
+        recipe = new ItemStack[] { Resource.TAINT_TENDRIL.createItem(), new ItemStack(Items.gold_ingot),
+            Resource.TAINTED_GOO.createItem(), Resource.TAINT_TENDRIL.createItem(), new ItemStack(Items.ender_eye),
+            Resource.TAINTED_GOO.createItem() };
+        RECIPES.put(
+            "TaintedTrunk",
+            registerInfusionRecipe(
+                MNResearch.TAINTED_TRUNK.getId(),
+                new ItemStack(MNItems.evilTrunkSpawner, 1, 3),
+                6,
+                aspects,
+                new ItemStack(MNItems.evilTrunkSpawner, 1, 1), // ← 核心：阴险箱子宝宝
+                recipe));
+
+        // ---- 恶魔箱子宝宝（Meta 2）：核心为污染箱子宝宝（Meta 3）----
+        aspects = new AspectList().add(Aspect.FIRE, 16)
+            .add(Aspect.SOUL, 16)
+            .add(Aspect.ENTROPY, 16)
+            .add(Aspect.FLESH, 8);
+        recipe = new ItemStack[] { new ItemStack(Items.blaze_rod), new ItemStack(Items.gold_ingot),
+            new ItemStack(Blocks.nether_brick), new ItemStack(Items.blaze_rod), new ItemStack(Blocks.nether_brick),
+            new ItemStack(Blocks.quartz_block) };
+        RECIPES.put(
+            "DemonicTrunk",
+            registerInfusionRecipe(
+                MNResearch.DEMONIC_TRUNK.getId(),
+                new ItemStack(MNItems.evilTrunkSpawner, 1, 2),
+                6,
+                aspects,
+                new ItemStack(MNItems.evilTrunkSpawner, 1, 3), // ← 核心：污染箱子宝宝
                 recipe));
     }
 
@@ -709,3 +866,416 @@ public final class MNRecipes {
     }
 
 }
+
+
+
+
+    // =========================================================================================
+    // =========================================================================================
+    // 【小白都能看懂：Thaumcraft 配方注册完全说明 · 对照 ThaumcraftApi 源码精修版】
+    // =========================================================================================
+    // =========================================================================================
+    //
+    // 本说明对照以下源码逐字核对：
+    //   thaumcraft/api/ThaumcraftApi.java
+    //   thaumcraft/api/ThaumcraftApiHelper.java
+    //   thaumcraft/api/crafting/ShapedArcaneRecipe.java
+    //   thaumcraft/api/crafting/ShapelessArcaneRecipe.java
+    //   thaumcraft/api/crafting/CrucibleRecipe.java
+    //   thaumcraft/api/crafting/InfusionRecipe.java
+    //   thaumcraft/api/crafting/InfusionEnchantmentRecipe.java
+    //
+    // ============================
+    // 零、配方和研究页面的关系
+    // ============================
+    // 研究节点（ResearchItem） = “告诉玩家存在这个东西”
+    // 配方（Recipe）           = “告诉玩家怎么做这个东西”
+    // 研究页面（ResearchPage） = “把配方显示在魔导手册里”
+    //
+    // 三者关系：
+    //   1. 先注册配方 → 游戏知道怎么做这个东西
+    //   2. 再注册研究节点 → 玩家解锁后能看到这个知识
+    //   3. 在研究节点的 setPages(...) 里塞 ResearchPage(配方)
+    //      → 玩家在魔导手册里看到“怎么做”
+    //
+    // 关键：研究key 和 配方key 必须完全一致，否则手册里配方不显示。
+    //
+    // ============================
+    // 一、五个注册方法（对照 ThaumcraftApi.java 逐字核对）
+    // ============================
+    //
+    // -----------------------------------------------------------------------------------------
+    // 【1】注册有序奥术配方
+    // -----------------------------------------------------------------------------------------
+    // 源码方法签名：
+    //
+    //   public static ShapedArcaneRecipe addArcaneCraftingRecipe(
+    //       String research, ItemStack result, AspectList aspects, Object ... recipe)
+    //
+    // 参数说明：
+    //   ① research：研究key，String
+    //   ② result：输出，ItemStack ⚠️ 只接受 ItemStack！
+    //   ③ aspects：魔力（vis），AspectList
+    //   ④ recipe：网格 + 字符对应表，Object...
+    //
+    // 返回：ShapedArcaneRecipe（创建出来的配方对象）
+    //
+    // 用法：
+    //
+    // ShapedArcaneRecipe recipe = ThaumcraftApi.addArcaneCraftingRecipe(
+    //     "revealing_goggles",
+    //     new ItemStack(MNItems.revealingGoggles),
+    //     new AspectList()
+    //         .add(Aspect.AIR, 10)
+    //         .add(Aspect.ORDER, 5),
+    //     "ABA",
+    //     " C ",
+    //     "   ",
+    //     'A', new ItemStack(ConfigItems.itemResource, 1, 14),
+    //     'B', new ItemStack(ConfigItems.itemResource, 1, 15),
+    //     'C', new ItemStack(Items.diamond));
+    //
+    // ⚠️ 重要：这个方法只接受 ItemStack 作为 result。
+    //    虽然 ShapedArcaneRecipe 构造函数有 Block / Item 的重载，
+    //    但 ThaumcraftApi.addArcaneCraftingRecipe 只接受 ItemStack。
+    //    如果你想传 Block 或 Item，要先 new ItemStack(block) 包一层。
+    //
+    // -----------------------------------------------------------------------------------------
+    // 【2】注册无序奥术配方
+    // -----------------------------------------------------------------------------------------
+    // 源码方法签名：
+    //
+    //   public static ShapelessArcaneRecipe addShapelessArcaneCraftingRecipe(
+    //       String research, ItemStack result, AspectList aspects, Object ... recipe)
+    //
+    // ⚠️ 方法名是 addShapelessArcaneCraftingRecipe，不是 addShapelessArcaneRecipe！
+    //    我之前写错过，这次修正。
+    //
+    // 参数说明：
+    //   ① research：研究key，String
+    //   ② result：输出，ItemStack
+    //   ③ aspects：魔力（vis），AspectList
+    //   ④ recipe：材料列表，Object...
+    //
+    // 用法：
+    //
+    // ShapelessArcaneRecipe recipe = ThaumcraftApi.addShapelessArcaneCraftingRecipe(
+    //     "revealing_goggles",
+    //     new ItemStack(MNItems.revealingGoggles),
+    //     new AspectList().add(Aspect.WATER, 20),
+    //     new ItemStack(ConfigItems.itemResource, 1, 14),
+    //     new ItemStack(ConfigItems.itemResource, 1, 15),
+    //     new ItemStack(Items.diamond));
+    //
+    // -----------------------------------------------------------------------------------------
+    // 【3】注册坩埚配方
+    // -----------------------------------------------------------------------------------------
+    // 源码方法签名：
+    //
+    //   public static CrucibleRecipe addCrucibleRecipe(
+    //       String key, ItemStack result, Object catalyst, AspectList tags)
+    //
+    // 参数说明：
+    //   ① key：研究key，String
+    //   ② result：输出，ItemStack
+    //   ③ catalyst：催化剂，Object
+    //       可以是：ItemStack / String（矿物词典名）/ ArrayList<ItemStack>
+    //   ④ tags：源质（essentia），AspectList
+    //
+    // 用法：
+    //
+    // CrucibleRecipe recipe = ThaumcraftApi.addCrucibleRecipe(
+    //     "revealing_goggles",
+    //     new ItemStack(MNItems.revealingGoggles),
+    //     new ItemStack(ConfigItems.itemResource, 1, 14),
+    //     new AspectList()
+    //         .add(Aspect.MAGIC, 4)
+    //         .add(Aspect.SENSES, 2));
+    //
+    // 矿物词典写法：
+    //
+    // ThaumcraftApi.addCrucibleRecipe(
+    //     "revealing_goggles",
+    //     new ItemStack(MNItems.revealingGoggles),
+    //     "ingotIron",   // 矿物词典名，源码内部自动转成 OreDictionary.getOres
+    //     new AspectList().add(Aspect.MAGIC, 4));
+    //
+    // -----------------------------------------------------------------------------------------
+    // 【4】注册注魔配方
+    // -----------------------------------------------------------------------------------------
+    // 源码方法签名：
+    //
+    //   public static InfusionRecipe addInfusionCraftingRecipe(
+    //       String research, Object result, int instability,
+    //       AspectList aspects, ItemStack input, ItemStack[] recipe)
+    //
+    // ⚠️ 源码内部会检查 result：
+    //      if (!(result instanceof ItemStack || result instanceof Object[])) return null;
+    //    也就是说 result 只能是 ItemStack 或 Object[]，传其他类型直接返回 null。
+    //
+    // 参数说明：
+    //   ① research：研究key，String
+    //   ② result：输出，Object（ItemStack 或 Object[]）
+    //   ③ instability：不稳定度，int（0~很大，数值越大越容易出乱子）
+    //   ④ aspects：源质（essentia），AspectList
+    //   ⑤ input：中央基座上的物品，ItemStack
+    //   ⑥ recipe：周围基座上的材料，ItemStack[]
+    //
+    // 用法：
+    //
+    // InfusionRecipe recipe = ThaumcraftApi.addInfusionCraftingRecipe(
+    //     "revealing_goggles",
+    //     new ItemStack(MNItems.revealingGoggles),
+    //     2,
+    //     new AspectList()
+    //         .add(Aspect.SENSES, 16)
+    //         .add(Aspect.AURA, 8)
+    //         .add(Aspect.MAGIC, 8),
+    //     new ItemStack(ConfigItems.itemGoggles),
+    //     new ItemStack[] {
+    //         new ItemStack(ConfigItems.itemResource, 1, 14),
+    //         new ItemStack(ConfigItems.itemResource, 1, 14),
+    //         new ItemStack(Items.diamond),
+    //         new ItemStack(Items.diamond)
+    //     });
+    //
+    // -----------------------------------------------------------------------------------------
+    // 【5】注册注魔附魔
+    // -----------------------------------------------------------------------------------------
+    // 源码方法签名：
+    //
+    //   public static InfusionEnchantmentRecipe addInfusionEnchantmentRecipe(
+    //       String research, Enchantment enchantment, int instability,
+    //       AspectList aspects, ItemStack[] recipe)
+    //
+    // ⚠️ 第三个参数是 instability（不稳定度），不是附魔等级！
+    //    附魔等级由 Enchantment 自身决定。
+    //
+    // 参数说明：
+    //   ① research：研究key，String
+    //   ② enchantment：附魔，Enchantment
+    //   ③ instability：不稳定度，int
+    //   ④ aspects：源质（essentia），AspectList
+    //   ⑤ recipe：附魔材料，ItemStack[]
+    //
+    // 用法：
+    //
+    // InfusionEnchantmentRecipe recipe = ThaumcraftApi.addInfusionEnchantmentRecipe(
+    //     "revealing_goggles",
+    //     Enchantment.sharpness,
+    //     1,
+    //     new AspectList().add(Aspect.WEAPON, 8),
+    //     new ItemStack[] {
+    //         new ItemStack(Items.flint),
+    //         new ItemStack(Items.flint)
+    //     });
+    //
+    // ============================
+    // 二、五个配方类的真实构造函数（对照 crafting 包源码）
+    // ============================
+    //
+    // -----------------------------------------------------------------------------------------
+    // 【ShapedArcaneRecipe】有序奥术合成
+    // -----------------------------------------------------------------------------------------
+    // 构造函数（三个重载）：
+    //
+    //   public ShapedArcaneRecipe(String research, Block     result, AspectList aspects, Object... recipe)
+    //   public ShapedArcaneRecipe(String research, Item      result, AspectList aspects, Object... recipe)
+    //   public ShapedArcaneRecipe(String research, ItemStack result, AspectList aspects, Object... recipe)
+    //
+    // 注意：虽然构造函数支持 Block / Item，但 ThaumcraftApi.addArcaneCraftingRecipe
+    //      只接受 ItemStack。所以你通过 API 注册时，只能用 ItemStack 版本。
+    //
+    // 源码细节：
+    //   - aspects 是魔力（vis），不是源质
+    //   - recipe 是 Object...，可以传 Object[] 或直接展开
+    //   - 网格字符串可以传 String[] 或连续多个 String
+    //   - 支持镜像合成（mirrored 默认 true），可用 setMirrored(false) 关闭
+    //   - matches() 会检查玩家是否完成了对应研究
+    //
+    // -----------------------------------------------------------------------------------------
+    // 【ShapelessArcaneRecipe】无序奥术合成
+    // -----------------------------------------------------------------------------------------
+    // 构造函数（三个重载）：
+    //
+    //   public ShapelessArcaneRecipe(String research, Block     result, AspectList aspects, Object... recipe)
+    //   public ShapelessArcaneRecipe(String research, Item      result, AspectList aspects, Object... recipe)
+    //   public ShapelessArcaneRecipe(String research, ItemStack result, AspectList aspects, Object... recipe)
+    //
+    // -----------------------------------------------------------------------------------------
+    // 【CrucibleRecipe】坩埚配方
+    // -----------------------------------------------------------------------------------------
+    // 构造函数（只有一个）：
+    //
+    //   public CrucibleRecipe(String researchKey, ItemStack result, Object cat, AspectList tags)
+    //
+    // 源码细节：
+    //   - cat 是 Object，可以是 ItemStack / String（矿物词典）/ ArrayList<ItemStack>
+    //   - tags 是源质（essentia）
+    //   - 有 hash 字段用于快速比对
+    //   - 没有 getResearch() 方法，但 key 字段就是研究key
+    //
+    // -----------------------------------------------------------------------------------------
+    // 【InfusionRecipe】注魔配方
+    // -----------------------------------------------------------------------------------------
+    // 构造函数（只有一个）：
+    //
+    //   public InfusionRecipe(String research, Object output, int inst,
+    //                         AspectList aspects2, ItemStack input, ItemStack[] recipe)
+    //
+    // 源码细节：
+    //   - output 是 Object，可以是 ItemStack 或 ItemStack[]
+    //   - inst 是不稳定度，0 最稳
+    //   - aspects2 是源质（essentia）
+    //   - input 是中央基座上的物品
+    //   - recipe 是周围基座上的材料数组
+    //   - matches() 会检查研究、中心物品、周围材料
+    //   - areItemStacksEqual() 支持矿物词典（fuzzy 匹配）
+    //
+    // -----------------------------------------------------------------------------------------
+    // 【InfusionEnchantmentRecipe】注魔附魔
+    // -----------------------------------------------------------------------------------------
+    // 构造函数（只有一个）：
+    //
+    //   public InfusionEnchantmentRecipe(String research, Enchantment input, int inst,
+    //                                    AspectList aspects2, ItemStack[] recipe)
+    //
+    // 源码细节：
+    //   - input 是 Enchantment 对象，不是 ItemStack
+    //   - inst 是不稳定度，不是附魔等级！
+    //   - recipeXP 自动计算：input.getMinEnchantability(1) / 3，最小为 1
+    //   - matches() 会检查研究、附魔兼容性、已有附魔等级
+    //   - calcInstability() 会根据中心物品已有附魔等级增加不稳定度
+    //   - calcXP() 会根据附魔等级计算经验消耗
+    //   - getEssentiaMod() 会根据其他附魔等级增加源质消耗（每级 +10%）
+    //
+    // ============================
+    // 三、研究页面怎么用配方？
+    // ============================
+    //
+    // 在 ResearchItem 的 setPages(...) 里，直接用 new ResearchPage(配方)：
+    //
+    // new ResearchPage((IRecipe) recipe)              → 原版工作台页面
+    // new ResearchPage((IArcaneRecipe) recipe)        → 奥术工作台页面
+    // new ResearchPage((CrucibleRecipe) recipe)       → 坩埚页面
+    // new ResearchPage((InfusionRecipe) recipe)       → 注魔页面
+    // new ResearchPage((InfusionEnchantmentRecipe) r) → 注魔附魔页面
+    // new ResearchPage((List) recipes)                → 多个配方页面
+    // new ResearchPage(ItemStack input)               → 冶炼页面
+    // new ResearchPage(ResourceLocation image, String caption) → 图片页面
+    //
+    // ResearchPage 的构造函数会根据你传进去的对象类型，自动判断页面类型。
+    // 所以你必须传正确的类型，不能强转。
+    //
+    // ============================
+    // 四、速查表（对照 ThaumcraftApi 源码）
+    // ============================
+    //
+    // 【注册有序奥术配方】
+    //   ThaumcraftApi.addArcaneCraftingRecipe(
+    //       String research, ItemStack result, AspectList aspects, Object... recipe)
+    //   返回：ShapedArcaneRecipe
+    //
+    // 【注册无序奥术配方】
+    //   ThaumcraftApi.addShapelessArcaneCraftingRecipe(
+    //       String research, ItemStack result, AspectList aspects, Object... recipe)
+    //   返回：ShapelessArcaneRecipe
+    //
+    // 【注册坩埚配方】
+    //   ThaumcraftApi.addCrucibleRecipe(
+    //       String key, ItemStack result, Object catalyst, AspectList tags)
+    //   返回：CrucibleRecipe
+    //
+    // 【注册注魔配方】
+    //   ThaumcraftApi.addInfusionCraftingRecipe(
+    //       String research, Object result, int instability,
+    //       AspectList aspects, ItemStack input, ItemStack[] recipe)
+    //   返回：InfusionRecipe
+    //
+    // 【注册注魔附魔】
+    //   ThaumcraftApi.addInfusionEnchantmentRecipe(
+    //       String research, Enchantment enchantment, int instability,
+    //       AspectList aspects, ItemStack[] recipe)
+    //   返回：InfusionEnchantmentRecipe
+    //
+    // ============================
+    // 五、魔力 vs 源质：别搞混
+    // ============================
+    //
+    // 奥术工作台（ShapedArcaneRecipe / ShapelessArcaneRecipe）消耗的是：
+    //   → 魔力（vis）
+    //   → 从玩家手持的法杖里扣
+    //
+    // 坩埚（CrucibleRecipe）消耗的是：
+    //   → 源质（essentia）
+    //   → 从坩埚里累积的要素里扣
+    //
+    // 注魔（InfusionRecipe / InfusionEnchantmentRecipe）消耗的是：
+    //   → 源质（essentia）
+    //   → 从附近的罐子/源质库/管道里扣
+    //
+    // 两者都是 AspectList，但语义完全不同。写错了配方会失效或者扣错资源。
+    //
+    // ============================
+    // 六、最容易犯的错
+    // ============================
+    //
+    // 1. 研究key和配方key不一致
+    //    错：register("revealing_goggles", ...)
+    //        ThaumcraftApi.addInfusionCraftingRecipe("revealing_goggles2", recipe);
+    //    对：两边都写 "revealing_goggles"
+    //    后果：配方在手册里不显示
+    //
+    // 2. 无序奥术配方方法名写错
+    //    错：ThaumcraftApi.addShapelessArcaneRecipe(...)
+    //    对：ThaumcraftApi.addShapelessArcaneCraftingRecipe(...)
+    //    注意：方法名里必须有 Crafting 这个词
+    //
+    // 3. 把 Block / Item 直接传给 addArcaneCraftingRecipe
+    //    错：ThaumcraftApi.addArcaneCraftingRecipe("key", Blocks.stone, aspects, ...)
+    //    对：ThaumcraftApi.addArcaneCraftingRecipe("key", new ItemStack(Blocks.stone), aspects, ...)
+    //    原因：API 只接受 ItemStack，不接受 Block / Item
+    //
+    // 4. 把非 ItemStack / 非 Object[] 传给 addInfusionCraftingRecipe
+    //    错：ThaumcraftApi.addInfusionCraftingRecipe("key", "some_string", ...)
+    //    对：ThaumcraftApi.addInfusionCraftingRecipe("key", new ItemStack(...), ...)
+    //    原因：源码内部会检查 result instanceof ItemStack || result instanceof Object[]
+    //
+    // 5. 把注魔附魔的第三个参数当成等级
+    //    错：new InfusionEnchantmentRecipe("key", Enchantment.sharpness, 5, ...)
+    //        // 以为 5 是等级
+    //    对：第三个参数是不稳定度，等级由 Enchantment 自身决定
+    //
+    // 6. ResearchPage 传错类型
+    //    错：new ResearchPage((IRecipe) MNRecipes.getInfusionRecipe("..."))
+    //    对：new ResearchPage(MNRecipes.getInfusionRecipe("..."))
+    //    后果：页面显示成原版工作台，或者直接报错
+    //
+    // 7. 忘了把配方放进 MNRecipes 的 Map
+    //    错：只调用 ThaumcraftApi.addXxxRecipe(...)
+    //    对：addXxxRecipe(...) + map.put("Key", recipe)
+    //    后果：游戏能合成，但手册页面显示为空
+    //
+    // 8. 魔力写成源质
+    //    奥术工作台 → 魔力（vis）
+    //    坩埚/注魔 → 源质（essentia）
+    //
+    // 9. 忘了注册原版工作台配方
+    //    ThaumcraftCraftingManager.createFakeRecipe(...) 只用于【显示】
+    //    要真的能合成，必须另外用 GameRegistry.addRecipe(...) 注册
+    //
+    // ============================
+    // 七、推荐流程
+    // ============================
+    //
+    // 1. 用 ThaumcraftApi.addXxxRecipe("key", ...) 注册配方
+    //    → 它会返回配方对象，同时把配方加入 craftingRecipes 列表
+    // 2. 把返回的配方对象放进 MNRecipes 的 Map（给研究页面用）
+    // 3. 写 ResearchItem，setPages(...) 里塞 ResearchPage(recipe)
+    // 4. 加语言文件（研究名、研究简介、页面文本）
+    // 5. 进游戏测试：能不能合成、手册里能不能看到、配方显示对不对
+    //
+    // =========================================================================================
+    // =========================================================================================
+
+    

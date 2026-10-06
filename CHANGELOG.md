@@ -1,8 +1,655 @@
-# 更新日志 / Changelog
-
+更新日志 / Changelog（v1.1.0）
 所有值得记录的版本变更都会写在这里。
 
 All notable changes to this project will be documented in this file.
+
+[v1.1.0] - 2026-10-06
+本次更新为面具学体系全面上线。三大分支——态度面具、原始面具、旧三张面具——全部就绪，搭配全新的 Mixin 渲染系统与元素代价机制。
+
+This update brings the full Mask System online. Three branches — Attitude Mask, Primal Mask, and the three legacy masks — are all complete, paired with a new Mixin-based rendering system and elemental cost mechanics.
+
+前置要求（重要）
+从本版本起，模组必须搭配以下前置才能运行：
+
+NotEnoughItems (NEI) — 1.7.10 GTNH 版本
+
+GTNHLib（格雷科技维护版共用库）
+
+UniMixins（含 MixinBooterLegacy、GTNHMixins、MixinExtras）
+
+缺少以上任一前置将无法启动。老版（非 GTNH）前置组合不受支持。
+
+Prerequisites (Important)
+
+Starting with this version, the mod requires the following:
+
+NotEnoughItems (NEI) — GTNH 1.7.10 version
+
+GTNHLib (shared library with GTNH-maintained mods)
+
+UniMixins (with MixinBooterLegacy, GTNHMixins, and MixinExtras)
+
+The mod will not start without all three. The legacy (non-GTNH) prerequisite set is not supported.
+
+新增：态度面具（meta 3）
+以《蛊真人》态度蛊为原型的四态面具。四张脸，通过按键切换，每次切换消耗心力（生命值 + 饥饿值）。
+
+四种态度：
+
+face 0 · 无态度（旁观者）
+
+敌对生物选目标概率减半（16 格内，僵尸除外）
+
+PVP：30% 概率完全取消攻击 + 攻击者反胃 III 5 秒
+
+你出手后 5 秒内态度失效
+
+切换消耗：生命 0、饥饿 0
+
+face 1 · 友善（和光同尘）
+
+8 格内敌对生物每 2 tick 脱战
+
+中立生物不主动远离
+
+被攻击时，30% 概率让攻击者停手 3 秒
+
+切换消耗：生命 2（1 心）、饥饿 1
+
+face 2 · 威严（不动如山）
+
+8 格内所有生物停止攻击 AI
+
+每 10 tick 施加挖掘疲劳 III + 虚弱 III
+
+自身攻击 +6
+
+每 60 秒触发一次，持续 10 秒
+
+切换消耗：生命 4（2 心）、饥饿 2
+
+face 3 · 隐匿（雾里看花）
+
+半透明
+
+16 格内怪物绝对追不上（每 tick 清目标）
+
+速度翻倍
+
+每秒扣六大元始各 100 vis
+
+60 秒冷却
+
+切换消耗：生命 3（1.5 心）、饥饿 1
+
+心力不足（切换后生命 < 1.5 心，或饥饿不够）→ 当场死亡
+提示语言："一个没有心的人，怎么又能戴上态度呢？"
+
+New: Attitude Mask (meta 3)
+
+A four-face mask inspired by the Gu Zhen Ren attitude gu. Four faces, switched by keybind, each switch costs heart-force (health + hunger).
+
+Four attitudes:
+
+face 0 · No Attitude (Observer)
+
+Hostile creatures have their targeting chance halved (16 blocks, zombies excluded)
+
+PVP: 30% chance to fully cancel an attack + attacker receives Confusion III for 5s
+
+The attitude lapses for 5s after you strike
+
+Switch cost: 0 HP, 0 hunger
+
+face 1 · Friendly (Blend with the Light)
+
+Hostile creatures within 8 blocks disengage every 2 ticks
+
+Neutral creatures do not flee
+
+When struck, 30% chance to make the attacker stop for 3s
+
+Switch cost: 2 HP, 1 hunger
+
+face 2 · Solemn (Still as a Mountain)
+
+All creatures within 8 blocks cease attack AI
+
+Mining Fatigue III + Weakness III applied every 10 ticks
+
+Self attack +6
+
+Triggers every 60s, lasts 10s
+
+Switch cost: 4 HP, 2 hunger
+
+face 3 · Hiding (Flowers in the Mist)
+
+Semi-transparent
+
+Monsters within 16 blocks cannot catch you (targets cleared every tick)
+
+Movement speed doubled
+
+Drains 100 vis per second from each of the six primals
+
+60s cooldown
+
+Switch cost: 3 HP, 1 hunger
+
+Heart-force insufficient (HP after switch < 1.5 hearts, or hunger too low) → instant death
+Message: "One without a heart cannot bear an attitude."
+
+新增：原始面具（meta 4）
+以六元始之根为面的七大形态面具。通过潜行 + 手持法杖右键切换，每次切换消耗对应元始的 vis。
+
+七张脸：
+
+face 0 · 元始
+
+窥秘之镜全套：节点高亮、准星信息、HUD、夜视
+
+空手右键扫描：方块 / 生物 / 节点
+
+每 6 秒回 1 血，每 10 秒回 1 饥饿
+
+副作用：扫描时 -4 饥饿、-2 血
+
+face 1 · 火
+
+攻击 +4，攻击命中点燃目标 3 秒
+
+完全免疫火焰 / 岩浆 / 着火（无伤害、无红闪、无第一人称遮罩、无第三人称模型火焰、无身上粒子）
+
+副作用：溺水伤害 ×2；泡水 / 踩雪 / 踩冰 / 下雪 → 每秒 -3 血
+
+face 2 · 风
+
+移速 +60%，完全免疫摔伤
+
+副作用：攻击力 -60%，每 2 秒 -1 饥饿
+
+face 3 · 混沌
+
+攻击命中 → 随机上一种 III 级、10 秒 debuff（中毒 / 虚弱 / 缓慢 / 失明 / 反胃 / 凋零）
+
+副作用：10% 概率自己中同一种 debuff 5 秒；完全随机，无法控制
+
+face 4 · 大地
+
+固定 40% 减伤（所有伤害 × 0.6），击退免疫
+
+副作用：移速 -60%
+
+face 5 · 秩序
+
+每 2.5 秒回 4 血，最大生命 +4
+
+副作用：每 0.5 秒 -1 饥饿；进食效果减半
+
+face 6 · 水
+
+水下呼吸，完全免疫中毒
+
+副作用：陆地移速 -10%；离水每秒 -3 血
+
+通用
+
+切换消耗：切到 6 元始之一 → 扣该元始 50 vis；切到元始脸 → 六大元始各扣 10 vis
+
+vis 不足 → 提示"元始之力不足"，不切换
+
+音效：thaumcraft:cameraticks
+
+除元始脸的夜视外，全部无 buff 图标
+
+New: Primal Mask (meta 4)
+
+A seven-form mask built upon the six primals. Switched via sneak + right-click with a wand, each switch costs the corresponding primal's vis.
+
+Seven faces:
+
+face 0 · Primal
+
+Full Goggles of Revealing package: node highlight, crosshair info, HUD, night vision
+
+Empty-hand right-click scans blocks / mobs / nodes
+
+Heals 1 HP every 6s; 1 hunger every 10s
+
+Side effect: scanning costs -4 hunger, -2 HP
+
+face 1 · Fire
+
+Attack +4; hits set the target on fire for 3s
+
+Complete immunity to fire / lava / burning (no damage, no red flash, no first-person overlay, no third-person model fire, no particles)
+
+Side effect: drowning damage ×2; in water / on snow / on ice / under snowfall → -3 HP per second
+
+face 2 · Wind
+
++60% movement speed; complete fall immunity
+
+Side effect: -60% attack damage; -1 hunger every 2s
+
+face 3 · Chaos
+
+Attacks inflict a random tier-III, 10-second debuff (Poison / Weakness / Slowness / Blindness / Nausea / Wither)
+
+Side effect: 10% chance to self-inflict the same debuff for 5s; fully random, uncontrollable
+
+face 4 · Earth
+
+Fixed 40% damage reduction (all damage × 0.6); knockback immunity
+
+Side effect: -60% movement speed
+
+face 5 · Order
+
+Heals 4 HP every 2.5s; max HP +4
+
+Side effect: -1 hunger every 0.5s; food effects halved
+
+face 6 · Water
+
+Water breathing; complete poison immunity
+
+Side effect: -10% land movement speed; -3 HP per second when out of water
+
+General
+
+Switch cost: to a primal face → 50 vis of that primal; to Primal face → 10 vis from each of the six primals
+
+Insufficient vis → "Primal force insufficient", switch cancelled
+
+Sound: thaumcraft:cameraticks
+
+All effects display no buff icons except the Primal face's night vision
+
+新增：面具学 · 旧三张面具（meta 0 / 1 / 2）
+meta 0 · 狞笑恶魔面具
+
+每 100 秒减少 1~2 点粘性扭曲
+
+meta 1 · 暴怒幽魂面具
+
+被生物攻击时，30% 概率让攻击者染上凋零 I，持续 5 秒
+
+meta 2 · 嗜血邪妖面具
+
+攻击生物时，25% 概率回血（伤害的 50%，上限 2 心）
+
+三张面具共用 Baubles 项链栏，独立于态度面具与原始面具。
+
+New: Legacy Three Masks (meta 0 / 1 / 2)
+
+meta 0 · Grinning Devil Mask
+
+Reduces sticky warp by 1–2 every 100 seconds
+
+meta 1 · Angry Ghost Mask
+
+When struck by a creature, 30% chance to inflict Wither I on the attacker for 5s
+
+meta 2 · Sipping Fiend Mask
+
+When attacking a creature, 25% chance to heal (50% of damage dealt, capped at 2 hearts)
+
+The three masks share the Baubles amulet slot, independent of the Attitude and Primal masks.
+
+技术变更
+新增 Mixin 支持：MagicaNaturalisMixinLoader 通过 IEarlyMixinLoader 主动注册
+
+新增 MixinEntity：注入 Entity.setFire，从源头阻止火脸玩家被点燃
+
+新增 MixinEntityRenderer：注入 EntityRenderer.renderWorld，每帧兜底清 fire
+
+mixins.magianaturalis.json 加入 MixinEntity / MixinEntityRenderer
+
+gradle.properties 启用 usesMixins = true 与 mixinsPackage = mixin
+
+新增 PrimalEffectHandler：七大脸的属性 / 事件 / 副作用分发
+
+新增 PrimalSwitchHandler：潜行 + 法杖右键切换原始面具
+
+新增 MaskScanHandler / MaskScanHelper：空手右键扫描（复用 TC4 ScanManager）
+
+新增 MaskHUDHandler：瞄向已扫目标显示名字 + 源质
+
+新增 MaskFXHelper / PacketAttitudeParticles：触发式粒子包
+
+ItemMask 新增 meta 4 支持，NBT 存 primal_face 0~6
+
+MaskHelper 新增 getPrimalMask / getPrimalFace
+
+Technical Changes
+
+Mixin support added: MagicaNaturalisMixinLoader self-registers via IEarlyMixinLoader
+
+Added MixinEntity: injects into Entity.setFire to stop the Fire-face player from ever being ignited at the source
+
+Added MixinEntityRenderer: injects into EntityRenderer.renderWorld as a per-frame failsafe clearing fire
+
+mixins.magianaturalis.json now includes MixinEntity / MixinEntityRenderer
+
+gradle.properties enables usesMixins = true and mixinsPackage = mixin
+
+Added PrimalEffectHandler: dispatches attributes / events / side effects for the seven faces
+
+Added PrimalSwitchHandler: sneak + wand right-click to switch the Primal mask
+
+Added MaskScanHandler / MaskScanHelper: empty-hand scan (reuses TC4 ScanManager)
+
+Added MaskHUDHandler: shows target name + aspects when aiming at a scanned target
+
+Added MaskFXHelper / PacketAttitudeParticles: trigger-based particle packets
+
+ItemMask gains meta 4 support; NBT stores primal_face 0–6
+
+MaskHelper gains getPrimalMask / getPrimalFace
+
+未来计划 / Roadmap
+下一版本将强化模组间的生态联动：
+
+植物魔法（Botania）联动：为部分面具增加与魔力（Mana）体系的交互，例如原始面具的水脸与魔力池共鸣
+
+血魔法（Blood Magic）联动：面具的心力代价可能改为与 LP（Life Points）系统挂钩；隐藏面具可能获得"以血换力"的变体
+
+格雷生态深度加强：与 GT 的能量网络、材料体系进一步对接
+
+UniMixins 深化：更多底层 Mixin，减少对事件层的依赖，提升与其他大型模组的共存稳定性
+
+The next version will strengthen cross-mod ecosystem links:
+
+Botania integration: some masks will interact with the Mana system; e.g., the Primal Water face may resonate with mana pools
+
+Blood Magic integration: the Attitude Mask's heart-force cost may become tied to the LP (Life Points) system; a hidden mask variant may offer "blood for power"
+
+Deeper GregTech ecosystem ties: further hooks into GT's energy network and material system
+
+UniMixins deepening: more low-level Mixins, less reliance on the event layer, better coexistence with other large mods
+
+本地化
+新增语言键（中英双语）：
+
+key.magianaturalis.attitude_switch — 切换态度
+
+item.magianaturalis.mask.4.name — 原始面具 / Primal Mask
+
+item.magianaturalis.mask.4.face.0 ~ .6 — 七张脸的名字
+
+msg.magianaturalis.mask.primal.switch — 原始面具切换提示
+
+msg.magianaturalis.mask.primal.no_vis — 元始之力不足
+
+msg.magianaturalis.mask.no_heart — 一个没有心的人
+
+msg.magianaturalis.mask.hiding_start / hiding_end / hiding_fail — 隐匿提示
+
+Localization
+
+New language keys (bilingual):
+
+key.magianaturalis.attitude_switch — Attitude Switch
+
+item.magianaturalis.mask.4.name — Primal Mask
+
+item.magianaturalis.mask.4.face.0 ~ .6 — names of the seven faces
+
+msg.magianaturalis.mask.primal.switch — Primal mask switch message
+
+msg.magianaturalis.mask.primal.no_vis — not enough primal vis
+
+msg.magianaturalis.mask.no_heart — one without a heart
+
+msg.magianaturalis.mask.hiding_start / hiding_end / hiding_fail — hiding messages
+
+持续更新中 / Still in progress — 2026-10-06
+
+作者 / Credits
+空太 & AI 共同完成
+
+若在游玩或开发中遇到问题，欢迎前往本仓库的 Issues 页面提交反馈。
+
+Made by KongTai & AI
+
+If you run into any issues while playing or developing, feel free to open an Issue on this repository.
+
+
+
+
+
+
+
+更新日志 / Changelog（v1.0.9）
+所有值得记录的版本变更都会写在这里。
+
+All notable changes to this project will be documented in this file.
+
+[v1.0.9] - 2026-10-06
+本次更新为全物品槽要素可视化系统，让要素容器（安瓿、灵气精华等）中封存的要素一目了然，无需再靠瓶中液体的淡色猜谜。
+
+前置要求（重要）
+从本版本起，模组必须搭配以下前置才能运行：
+
+NotEnoughItems (NEI) — 1.7.10 GTNH 版本
+
+GTNHLib（格雷科技维护版共用库）
+
+UniMixins（含 MixinBooterLegacy、GTNHMixins、MixinExtras）
+
+缺少以上任一前置将无法启动。老版（非 GTNH）前置组合不受支持。
+
+新增：物品槽要素图标
+容器 GUI 内显示：箱子、背包、熔炉、合成台等任意容器界面中，凡是存放在槽位里的要素容器，其左上角会直接显示对应要素的彩色图标
+
+目前支持：TC4 要素安瓿（Phial of Essence）、灵气精华（Wispy Essence）
+
+结晶要素（Crystal Essence） 不做显示（其本身即为纯要素形态，无需额外标注）
+
+快捷栏显示：关闭背包后，屏幕底部快捷栏中的要素容器同样显示要素图标
+
+拖拽跟随：鼠标拿起要素容器时，图标会跟随鼠标移动——无论拖到空槽、有物品的槽还是 GUI 之外
+
+悬停不遮挡：图标绘制在 Tooltip 下方，悬停查看物品信息时依然能看到图标，且不影响 Tooltip 阅读
+
+层级清晰：图标使用 GL 状态隔离（PushAttrib / PopAttrib），完全不影响原版 GUI、聊天框、文字渲染
+
+新增：总开关按键
+默认按键：O
+
+效果：一键开关所有要素图标显示（容器槽 + 快捷栏 + 拖拽跟随）
+
+聊天提示：切换时在聊天框显示当前状态，颜色随开/关变化（绿/红）
+
+音效反馈：开启时播放清脆叮声，关闭时播放闷响
+
+自动适配语言：中英文玩家看到各自语言的提示（"要素图标：已开启" / "Aspect Icons: ON"）
+
+可在控制菜单中自定义按键
+
+新增：配置项
+在 config/magianaturalis.cfg 的 aspect_overlay 分类下：
+
+scale — 图标缩放比例，0.0625 ~ 1.0，默认 0.5
+
+alpha — 图标透明度，0.0 ~ 1.0，默认 1.0
+
+position — 图标在槽内的位置，可选：
+
+TOP_LEFT / TOP_RIGHT / BOTTOM_LEFT / BOTTOM_RIGHT / CENTER
+
+默认 TOP_RIGHT
+
+研究文本
+内在规律（Intro） 节点研究文本重写
+
+前段保持原神秘使世界观叙述
+
+中段衔接"要素容器识别困难"的痛点
+
+后段介绍本模组新增的要素图标系统与总开关
+
+完整中英双语
+
+本地化
+新增语言键：
+
+key.magianaturalis.toggle_display（按键名）
+
+msg.magianaturalis.display.on / .off（开关提示）
+
+全部走 StatCollector，玩家可自行翻译
+
+中文："切换要素图标" / 英文："Toggle Aspect Icons"
+
+技术变更
+新增 client/aspect/AspectIconRenderer — 单个要素图标的 quad 渲染
+
+新增 client/aspect/ContainerSlotAspectOverlay — 容器槽位与手持物品的图标调度
+
+新增 client/aspect/HotbarSlotAspectOverlay — 快捷栏图标渲染
+
+新增 client/display/DisplayType — 显示类型的枚举（当前含 REVEAL_SLOT_ASPECTS，为后续扩展预留）
+
+新增 client/display/DisplayToggleManager — 显示开关状态管理器（含 save / load 接口）
+
+新增 client/display/DisplayToggleHandler — 按键监听 + 自注册
+
+新增 mixin/MixinGuiContainer — 两处注入点：
+
+注入点 1：drawGuiContainerForegroundLayer 调用之后，渲染槽位图标
+
+注入点 2：drawScreen 的 @At("TAIL")，渲染手持图标
+
+MagicaNaturalisMixinLoader.getMixins() 注册 MixinGuiContainer
+
+mixins.magianaturalis.json 的 mixins 数组加入 MixinGuiContainer
+
+MNConfig 新增 aspect_overlay 分类与 OverlayPosition 枚举
+
+ClientSetup 注册 HotbarSlotAspectOverlay，移除对已废弃的 ContainerSlotAspectOverlay 事件监听
+
+English
+This update introduces slot-wide aspect visualization, making the aspects stored inside essentia containers (phials, wispy essence, etc.) visible at a glance—no more guessing by the faint color of the liquid.
+
+Prerequisites (Important)
+Starting with this version, the mod requires the following:
+
+NotEnoughItems (NEI) — GTNH 1.7.10 version
+
+GTNHLib (shared library with GTNH-maintained mods)
+
+UniMixins (with MixinBooterLegacy, GTNHMixins, and MixinExtras)
+
+The mod will not start without all three. The legacy (non-GTNH) prerequisite set is not supported.
+
+New: Aspect Icons in Item Slots
+In container GUIs: any chest, inventory, furnace, crafting table, etc. — essentia containers stored in slots display the corresponding aspect's colored icon in the top-left corner
+
+Supported: TC4 Essentia Phial and Wispy Essence
+
+Crystal Essence is excluded (it is pure aspect already)
+
+In the hotbar: after closing the inventory, essentia containers in the bottom hotbar also display icons
+
+Drag follow: when you pick up an essentia container, the icon follows the cursor—whether you drag over an empty slot, an occupied slot, or outside the GUI
+
+Hover doesn't obscure: icons are drawn under the tooltip, so hovering to read item info still shows the icon without blocking the tooltip
+
+Clean layering: GL state is isolated via PushAttrib / PopAttrib, so vanilla GUI, chat, and text rendering are completely unaffected
+
+New: Master Toggle Key
+Default key: O
+
+Effect: toggles all aspect icon rendering at once (container + hotbar + drag follow)
+
+Chat feedback: toggling posts the current state in chat, colored by on/off (green/red)
+
+Sound feedback: a bright chime when enabled, a muted click when disabled
+
+Localized automatically: Chinese and English players see their own language ("要素图标：已开启" / "Aspect Icons: ON")
+
+Rebindable in the Controls menu
+
+New: Configuration
+Under the aspect_overlay category in config/magianaturalis.cfg:
+
+scale — icon scale, 0.0625 ~ 1.0, default 0.5
+
+alpha — icon opacity, 0.0 ~ 1.0, default 1.0
+
+position — icon anchor within the slot, one of:
+
+TOP_LEFT / TOP_RIGHT / BOTTOM_LEFT / BOTTOM_RIGHT / CENTER
+
+default TOP_RIGHT
+
+Research Text
+The Inner Laws (Intro) entry has been rewritten:
+
+Opening keeps the in-universe thaumaturge narration
+
+Middle connects to the pain point of identifying essentia containers
+
+Closing introduces the mod's new aspect icon system and its master toggle
+
+Fully bilingual
+
+Localization
+New language keys:
+
+key.magianaturalis.toggle_display (key name)
+
+msg.magianaturalis.display.on / .off (toggle messages)
+
+All routed through StatCollector; players may translate freely
+
+Chinese: "切换要素图标" / English: "Toggle Aspect Icons"
+
+Technical Changes
+Added client/aspect/AspectIconRenderer — quad rendering for a single aspect icon
+
+Added client/aspect/ContainerSlotAspectOverlay — dispatches container-slot and held-item icons
+
+Added client/aspect/HotbarSlotAspectOverlay — hotbar icon rendering
+
+Added client/display/DisplayType — enum of display types (REVEAL_SLOT_ASPECTS for now, extensible)
+
+Added client/display/DisplayToggleManager — toggle state manager (with save / load)
+
+Added client/display/DisplayToggleHandler — key listener + self-registration
+
+Added mixin/MixinGuiContainer — two injection points:
+
+Point 1: after drawGuiContainerForegroundLayer — renders slot icons
+
+Point 2: drawScreen's @At("TAIL") — renders held-item icon
+
+MagicaNaturalisMixinLoader.getMixins() registers MixinGuiContainer
+
+mixins.magianaturalis.json's mixins array includes MixinGuiContainer
+
+MNConfig gains the aspect_overlay category and OverlayPosition enum
+
+ClientSetup registers HotbarSlotAspectOverlay and removes the deprecated ContainerSlotAspectOverlay event listener
+
+持续更新中 / Still in progress — 2026-10-06
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## [v1.0.8] - 2026-09-25

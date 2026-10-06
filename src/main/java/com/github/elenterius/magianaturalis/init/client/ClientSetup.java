@@ -6,12 +6,14 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.common.MinecraftForge;
 
 import com.github.elenterius.magianaturalis.block.banner.CustomBannerBlockEntity;
 import com.github.elenterius.magianaturalis.block.chest.ArcaneChestBlockEntity;
 import com.github.elenterius.magianaturalis.block.geopylon.GeoPylonBlockEntity;
 import com.github.elenterius.magianaturalis.block.jar.PrisonJarBlockEntity;
 import com.github.elenterius.magianaturalis.block.table.TranscribingTableBlockEntity;
+import com.github.elenterius.magianaturalis.client.aspect.HotbarSlotAspectOverlay;
 import com.github.elenterius.magianaturalis.client.gui.ArcaneChestGui;
 import com.github.elenterius.magianaturalis.client.gui.EvilTrunkGui;
 import com.github.elenterius.magianaturalis.client.gui.GuiTranscribingTable;
@@ -24,6 +26,8 @@ import com.github.elenterius.magianaturalis.client.render.entity.trunk.EvilTrunk
 import com.github.elenterius.magianaturalis.client.render.item.HerobrinesScytheRenderer;
 import com.github.elenterius.magianaturalis.client.render.item.RenderItemEvilTrunkSpawner;
 import com.github.elenterius.magianaturalis.client.render.tile.*;
+import com.github.elenterius.magianaturalis.easteregg.EntityHerobrineWatcher;
+import com.github.elenterius.magianaturalis.easteregg.RenderHerobrineWatcher;
 import com.github.elenterius.magianaturalis.entity.EntityEvilTrunk;
 import com.github.elenterius.magianaturalis.entity.EntityZombieExtended;
 import com.github.elenterius.magianaturalis.entity.taint.EntityTaintBreeder;
@@ -43,9 +47,23 @@ public class ClientSetup extends CommonSetup {
         super.init(event);
         registerRenderer();
         RenderEventHandler.register();
-        net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(new ScytheAuraHandler()); // 【新增】
+        MinecraftForge.EVENT_BUS.register(new ScytheAuraHandler());
+        MinecraftForge.EVENT_BUS.register(new com.github.elenterius.magianaturalis.event.PrimalSwitchHandler());
+        MinecraftForge.EVENT_BUS.register(new com.github.elenterius.magianaturalis.event.MaskScanHandler());
+        MinecraftForge.EVENT_BUS.register(new com.github.elenterius.magianaturalis.client.render.MaskHUDHandler());
+
         MNKeyBindings.register();
         KeyEventHandler.register();
+        com.github.elenterius.magianaturalis.client.display.DisplayToggleHandler.register();
+
+        // 快捷栏要素图标
+        MinecraftForge.EVENT_BUS.register(new HotbarSlotAspectOverlay());
+
+
+
+        // 注意：容器 GUI 里的图标不再由事件总线驱动，
+        // 而是由 MixinGuiContainer 注入到 GuiContainer.drawScreen 里，
+        // 这样图标会压在 Tooltip 下方，且鼠标悬停时也显示。
     }
 
     public void registerRenderer() {
@@ -63,7 +81,18 @@ public class ClientSetup extends CommonSetup {
         RenderingRegistry.registerEntityRenderingHandler(EntityTaintBreeder.class, new TaintBreederRenderer());
         RenderingRegistry.registerEntityRenderingHandler(EntityEvilTrunk.class, new EvilTrunkRenderer());
         RenderingRegistry.registerEntityRenderingHandler(EntityZombieExtended.class, new RenderZombie());
-        // RenderingRegistry.registerEntityRenderingHandler(EntityTaintman.class, new RenderTaintman());
+        MNItems.NATURAL_ROBE_RENDER_INDEX = RenderingRegistry.addNewArmourRendererPrefix("natural_robe");
+        MNItems.NATURAL_WOOD_RENDER_INDEX = RenderingRegistry.addNewArmourRendererPrefix("natural_wood");
+        MNItems.GREATWOOD_RENDER_INDEX = RenderingRegistry.addNewArmourRendererPrefix("greatwood");
+        MNItems.GREATWOOD_ADVANCED_RENDER_INDEX = RenderingRegistry.addNewArmourRendererPrefix("greatwood_advanced");
+        MNItems.WATER_GOD_RENDER_INDEX = RenderingRegistry.addNewArmourRendererPrefix("water_god");
+
+        // ==================================================
+        // 【彩蛋】白瞳凝视者
+        // ==================================================
+        RenderingRegistry.registerEntityRenderingHandler(
+            EntityHerobrineWatcher.class,
+            new RenderHerobrineWatcher());
     }
 
     public void registerTileEntitySpecialRenderer(Class<? extends TileEntity> clazz,
@@ -92,8 +121,7 @@ public class ClientSetup extends CommonSetup {
     }
 
     // ======================================================================
-    // 【新增】客户端的闪电特效：用神秘时代的 FXLightningBolt 真正画闪电
-    // 这个方法覆盖了 CommonSetup 里的空方法
+    // 【客户端】闪电特效：用神秘时代的 FXLightningBolt 真正画闪电
     // ======================================================================
     @Override
     public void lightning(World world, double sx, double sy, double sz, double ex, double ey, double ez, int dur,
@@ -115,5 +143,4 @@ public class ClientSetup extends CommonSetup {
         bolt.setWidth(0.125F);
         bolt.finalizeBolt();
     }
-
 }

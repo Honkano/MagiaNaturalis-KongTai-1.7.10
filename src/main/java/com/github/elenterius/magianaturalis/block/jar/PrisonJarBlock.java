@@ -112,9 +112,15 @@ public class PrisonJarBlock extends BlockContainer {
         super.breakBlock(world, x, y, z, block, meta);
     }
 
+    // ==================================================
+    // 【修复】之前只判 nbtCacheEntity != null，
+    // 如果 entityData 是一个空 NBTTagCompound，
+    // 会掉落一个带空 NBT 的罐子，放出来是空气。
+    // 现在要求 nbtCacheEntity 里必须真的含有 "entity" 键。
+    // ==================================================
     @Override
     public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
-        if (nbtCacheEntity != null) {
+        if (nbtCacheEntity != null && nbtCacheEntity.hasKey("entity")) {
             ArrayList<ItemStack> drops = new ArrayList<ItemStack>();
             ItemStack stack = new ItemStack(this, 1, 0);
             stack.stackTagCompound = nbtCacheEntity;

@@ -6,6 +6,7 @@ import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.github.elenterius.magianaturalis.api.Aspects;
 import com.github.elenterius.magianaturalis.init.CommonSetup;
 import com.github.elenterius.magianaturalis.network.PacketHandler;
 
@@ -16,18 +17,16 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import thaumcraft.common.Thaumcraft;
 
-// 1. 直接写死所有信息，不再依赖 Tags 类
 @Mod(
     name = "Magia Naturalis",
     modid = MagiaNaturalis.MOD_ID,
     version = MagiaNaturalis.VERSION,
     acceptedMinecraftVersions = "[1.7.10]",
-    dependencies = "required-after:Thaumcraft")
+    dependencies = "required-after:Thaumcraft;required-after:NotEnoughItems")
 public class MagiaNaturalis {
 
-    // 2. 定义你自己的常量
     public static final String MOD_ID = "magianaturalis";
-    public static final String VERSION = "1.0.0"; // 如果你有特定的版本号，在这里改
+    public static final String VERSION = "1.0.0";
 
     public static final String COMMON_PROXY = "com.github.elenterius.magianaturalis.init.CommonSetup";
     public static final String CLIENT_PROXY = "com.github.elenterius.magianaturalis.init.client.ClientSetup";
@@ -44,6 +43,10 @@ public class MagiaNaturalis {
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         proxyTC4 = Thaumcraft.proxy;
+
+        // ★ 触发 Aspects 类加载，自动注册三个自创要素到 TC4
+        Aspects.init();
+
         proxy.preInit(event);
     }
 
@@ -70,11 +73,6 @@ public class MagiaNaturalis {
         return new ResourceLocation(MagiaNaturalis.MOD_ID, path);
     }
 
-    // ======================================================================
-    // 【新增】闪电桥接方法
-    // 服务端走 CommonSetup.lightning() 空方法，客户端走 ClientSetup.lightning() 画闪电
-    // 镰刀调用 MagiaNaturalis.lightning(...) 就能安全地触发特效
-    // ======================================================================
     public static void lightning(World world, double sx, double sy, double sz, double ex, double ey, double ez, int dur,
         float curve, int speed, int type) {
         proxy.lightning(world, sx, sy, sz, ex, ey, ez, dur, curve, speed, type);

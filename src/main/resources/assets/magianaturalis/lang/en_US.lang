@@ -1,4 +1,6 @@
-# MISC
+# ==================================================
+#              MISC
+# ==================================================
 itemGroup.magianaturalis=Magia Naturalis
 
 enum.magianaturalis.none=None
@@ -6,17 +8,21 @@ enum.magianaturalis.unknown=Unknown
 enum.magianaturalis.mode.uniform=Uniform
 enum.magianaturalis.shape.cube=Cube
 enum.magianaturalis.shape.plane=Plane
-enum.magianaturalis.shape.plane.extend=Plane Extend
+enum.magianaturalis.shape.plane_extend=Plane Extend
 enum.magianaturalis.shape.sphere=Sphere
 
-# KEY BINDINGS
+# ==================================================
+#              KEY BINDINGS
+# ==================================================
 key.categories.magianaturalis=Magia Naturalis
 key.magianaturalis.increase_size=Increase Area Size
 key.magianaturalis.decrease_size=Decrease Area Size
 key.magianaturalis.misc=Toggle Shape/Mode
 key.magianaturalis.pick_block=Pick Block
 
-# CHAT MSG
+# ==================================================
+#              CHAT MESSAGES
+# ==================================================
 chat.magianaturalis.key.access.door=The Arcane Door has been linked to your Soul.
 chat.magianaturalis.key.access.chest=The Arcane Chest seems to like You.
 chat.magianaturalis.key.access.misc=The Arcane Device is now bound to your Soul.
@@ -27,7 +33,11 @@ chat.magianaturalis.key.accesslist=%s was added to the Keys Access List.
 chat.magianaturalis.chest.access.denied=The Arcane Chest doesn't seem to like You.
 chat.magianaturalis.chest.resist=The Chest resists Your Attempt of Miniaturization.
 
-# Flavor Text & Tool Hint & Misc 
+chat.magianaturalis.revenant.limit=You cannot summon any more. Wait for one of them to fade.
+
+# ==================================================
+#              FLAVOR & HINTS
+# ==================================================
 flavor.magianaturalis.key.0=One to Open Them All...
 flavor.magianaturalis.key.1=One to Grant Access for Others...
 flavor.magianaturalis.banner=A Banner to mark our Presence.
@@ -36,33 +46,37 @@ hint.magianaturalis.empty=Empty
 hint.magianaturalis.chest.items=Contains Treasure
 hint.magianaturalis.chest.access=Has Access List
 
-# ITEM NAMES
+# ==================================================
+#              ITEM NAMES
+# ==================================================
 item.magianaturalis.research_log.name=Research Log
 item.magianaturalis.biome_sampler.name=Biome Report
-item.magianaturalis.alchemical_stone.1.name=Quicksilver Alchemist Stone
 item.magianaturalis.alchemical_stone.0.name=Phenomorphous Catalyst Stone
+item.magianaturalis.alchemical_stone.1.name=Quicksilver Alchemist Stone
 item.magianaturalis.dev_tool.name=Misc Dev Tool
 item.magianaturalis.biome_dev_tool.name=Biome Dev Tool
 item.magianaturalis.thaumium_key.0.name=Key of Unraveling
 item.magianaturalis.thaumium_key.1.name=Key of Endorsing
-item.magianaturalis.dark_crystal_goggles.name=Dark Crystal Goggles
+item.magianaturalis.dark_crystal_goggles.name=Chaos Goggles
 item.magianaturalis.spectacles.name=Spectacles
 item.magianaturalis.builder_focus.name=Wand Focus: Construction
 item.magianaturalis.revenant_focus.name=Wand Focus: Baby Revenant
-item.magianaturalis.evil_trunk.tainted.name=Tainted Trunk
-item.magianaturalis.evil_trunk.demonic.name=Demonic Trunk
-item.magianaturalis.evil_trunk.sinister.name=Sinister Trunk
 item.magianaturalis.evil_trunk.corrupted.name=Corrupted Trunk
+item.magianaturalis.evil_trunk.sinister.name=Sinister Trunk
+item.magianaturalis.evil_trunk.demonic.name=Demonic Trunk
+item.magianaturalis.evil_trunk.tainted.name=Tainted Trunk
 item.magianaturalis.focus_ender_pouch.name=Focus Enderpouch
 item.magianaturalis.thaumium_sickle.name=Thaumium Sickle
 item.magianaturalis.void_sickle.name=Void Sickle
 item.magianaturalis.elemental_sickle.name=Sickle of Abundance
 
-# TILE NAMES
+# ==================================================
+#              TILE NAMES
+# ==================================================
 tile.magianaturalis.transcribing_table.name=Transcribing Table
 tile.magianaturalis.arcane_chest.gw.name=Greatwood Chest
 tile.magianaturalis.arcane_chest.sw.name=Silverwood Chest
-tile.magianaturalis.prison_jar.name=Mob in a Jar
+tile.magianaturalis.prison_jar.name=Jar of Binding
 tile.magianaturalis.arcane_wood.gw_planks.name=Horizontal Greatwood Planks
 tile.magianaturalis.arcane_wood.gw_orn.name=Greatwood Ornament
 tile.magianaturalis.arcane_wood.sw_planks.0.name=Horizontal Silverwood Planks
@@ -73,99 +87,138 @@ tile.magianaturalis.arcane_wood.gw_gold_trim.name=Greatwood Gold Trim
 tile.magianaturalis.banner.name=Magia Naturalis Banner
 tile.magianaturalis.geo_pylon.name=Geo-Pylon
 
-# ENTITY NAMES
+# ==================================================
+#              ENTITY NAMES
+# ==================================================
 entity.magianaturalis.taint_breeder.name=Taint Breeder
 entity.magianaturalis.evil_trunk.name=Evil Trunk
 
-# RESEARCH
+# ==================================================
+#              RESEARCH - Category
+# ==================================================
 tc.research_category.magianaturalis=Magia Naturalis
 
-research.magianaturalis.intro.name=Inherent Law
-research.magianaturalis.intro.text=Knowing the Nature of Things in order to comprehend the Nature of Their existence
-research.magianaturalis.intro.page.1=All Thaumaturges  can manipulate the Essence of Magic we now call Vis, but few like yourself have managed to look past Corruption and Darkness. Your deep connection with natural Flux and its Primal Occurrences have lead you to understand the real Beauty of this material World.<BR>Fellow Naturalists claim to be able to manipulate the Fabrics of Life itself, Nature and Creatures. They believe to have discovered our nature of existence....
+# ============================================================
+# Research: Inner Laws
+# ============================================================
+research.magianaturalis.intro.name=Inner Laws
+research.magianaturalis.intro.text=Understand the essence of things to understand the essence of their existence.
+research.magianaturalis.intro.page.1=All thaumaturges can manipulate the essence of the magic we now call Vis, yet few have managed to escape corruption and darkness as successfully as you have. Your deep connection with the natural flow and its primal phenomena has given you an understanding of the true beauty of this material world.<BR>Other naturalists claim they can manipulate life itself, and the structure of nature and living beings. They believe they have discovered the essence of our existence...
+research.magianaturalis.intro.page.2=Unfortunately, the predecessors of Thaumcraft never designed intuitive labels for essentia containers (such as Essentia Phials, Wispy Essence, and the like). You can only vaguely distinguish what aspect is sealed within a bottle by its faint color&mdash;hardly a pleasant experience in a laboratory full of jars.<BR>Fortunately, that is now possible.<BR><BR>Press the [Toggle Aspect Icons] key (default: O) to see the aspect icon sealed within directly in the corner of the item slot; press it again to hide all of them
+research.magianaturalis.intro.page.3=<IMG>magianaturalis:textures/misc/introback/magianaturalisenus.png:0:0:255:255:0.55</IMG>
 
+# ---- Woods ----
 research.magianaturalis.carpentry.name=Woods
 research.magianaturalis.carpentry.text=Building Blocks
 research.magianaturalis.carpentry.page.1=Tired of always using the same magical Wood for building you decided to simply carve on it. A couple of etchings here, a bit of gold there, sticking together Slabs and the Result was better than anything you ever imagined.
 
+# ---- Transcribing Table ----
 research.magianaturalis.transcribing_table.name=Transcribing Table
 research.magianaturalis.transcribing_table.text=Physical transportation of knowledge
 research.magianaturalis.transcribing_table.page.1=You realized that the knowledge released by the Deconstruction Table is fleeting and hard to share. Thus, you crafted this Transcribing Table.<BR>Place an empty "Research Log" in the top-left slot and have an original Deconstruction Table nearby. This table will slowly "transcribe" and seal ambient aspects and research points into the log.<BR>A full log can hold up to 64 points of each of the 6 primal aspects. When another thaumaturge reads this filled log, they gain all the research points within. This is the best way for thaumaturges to trade and inherit knowledge.
 research.magianaturalis.transcribing_table.page.2=Note: the transcribing table must leave a gap between itself and the surrounding deconstruction tables.<BR>Otherwise, it will forever remain a wooden frame that refuses to turn.<BR><BR>Thaumaturges call this gap "the breathing room of knowledge."<BR>Others insist it is simply because the first person to build a transcribing table placed one block off by accident, and no one since has dared to question it.
 
+# ---- Research Log ----
 research.magianaturalis.research_log.name=Research Log
 research.magianaturalis.research_log.text=Collecting Knowledge for Anyone
 research.magianaturalis.research_log.page.1=This thick Tome can store Research Points as Words written down with magical Scribing Tools. If Anyone reads this Book they gain all Research Points contained within. The words disappear from the pages leaving behind a blank Research Log.
 
+# ---- Thaumium Key ----
 research.magianaturalis.arcane_keys.name=Thaumium Key
 research.magianaturalis.arcane_keys.text=One to Rule them All...
 research.magianaturalis.arcane_keys.page.1=This Key grants Access for the Bound Player to any arcane block owned by the Key Forger.
 research.magianaturalis.arcane_keys.page.2=This Key adds a list of players to the access list of the arcane blocks owned by the Bound Player or Key Forger.
 
-rresearch.magianaturalis.arcane_chest.name=Arcane Chest
+# ---- Arcane Chest ----
+research.magianaturalis.arcane_chest.name=Arcane Chest
 research.magianaturalis.arcane_chest.text=An obstinate private vault, guarding its treasures
-research.magianaturalis.arcane_chest.page.1=You grew tired of ordinary chests being destroyed by creepers or plundered by thieves. Thus, you crafted these soul-bound Arcane Chests from Greatwood or Silverwood.<BR>They are nearly immune to destruction and bind to their owner. You can add other players to the chest's access list, allowing them to open it as well.<BR>Notably, the Greatwood Chest has standard capacity, while the Silverwood Chest is significantly larger. Best of all, you can simply sneak (Shift) and right-click it with your wand to shrink it and carry it with you, without losing any stored items or the access list.
+research.magianaturalis.arcane_chest.page.1=Amidst dust-laden tomes, I uncovered the lost art of binding a soul to wood. It defies mundane destruction and knows only its master.<BR>Greatwood Chest: 54 slots. Silverwood: 77 slots. Left-click with a key to grant access (None, Access, Admin). Sneak + right-click with a wand to shrink it, items and access preserved (Owner/Admin only).<BR>Creative mode ignores all limits.
+research.magianaturalis.arcane_chest.page.2=Greatwood is cheap for early game. Silverwood holds 23 more slots for team vaults. Share: Left-click with a key. Revoke: Break and replace.<BR>Admins can shrink but not transfer ownership. Shrunk chests retain all items and access across dimensions.
 
-research.magianaturalis.dark_goggles.name=Dark Crystal Goggles
+# ---- Chaos Goggles ----
+research.magianaturalis.dark_goggles.name=Chaos Goggles
 research.magianaturalis.dark_goggles.text=I see Your glowing Red Eyes
-research.magianaturalis.dark_goggles.page.1=You have always wondered how some entities could stay unseen to your eyes. Even though you have mastered the revealing of aura nodes you can't see invisible beings. During your travels you have started to notice that spiders often appear invisible. Through the dissection of a spider body you figured out that darkness is somehow involved in cloaking the entities. Luckily you also discovered that Spider Eyes have the ability detect it.<BR>These Goggles provide peering Sight that is unaffected by Blindness and grants the player the ability to see the Shapes of Invisible Beings. Finally the times are over being surprised by the unseen.
+research.magianaturalis.dark_goggles.page.1=Dissecting spiders led you to the link between darkness and cloaking.<BR><BR>[ Features ]<BR>· Reveal Nodes: See them without a Thaumometer.<BR>· See the Unseen: Invisible creatures become visible.<BR>· Blindness Immunity: Removes Blindness while worn.<BR>· Vis Discount: 5% on all aspects; <B>Entropy</B> is higher—9% by day, 7% by night.<BR><BR>Forged from Spider Eyes and shards of chaos. Wear it, and the days of being startled by the unseen are over.
+research.magianaturalis.dark_goggles.page.2=[ Cost & Purpose ]<BR>Infusion requires Spider Eyes, iron, and chaos shards, and leaves warp upon your soul. Its greatest difference from the Spectacles is that it truly sees through invisibility.<BR><BR>[ Recommended ]<BR>· Jungle temples and abandoned mineshafts.<BR>· Duels against invisible opponents.<BR>· Rituals consuming heavy Entropy.<BR><BR>[ Warning ]<BR>Worn long enough, you will suspect something else is in the dark. It is not your imagination.
 
+# ---- Spectacles ----
 research.magianaturalis.spectacles.name=Spectacles
 research.magianaturalis.spectacles.text=Sharper Sight
-research.magianaturalis.spectacles.page.1=Assess Aura Node Types and Modifiers without a Thaumometer. Discover who owns Arcane Doors, Glass or Chests.
+research.magianaturalis.spectacles.page.1=You fitted a gold rim upon your Thaumometer lens. Secrets now reveal themselves without holding the tool.<BR><BR>[ Features ]<BR>· Reveal Nodes: See them without a Thaumometer.<BR>· HUD Readout: Shows node type/modifiers, or the owner of Arcane Doors, Glass, and Chests.<BR>· Vis Discount: A flat 6% on all aspects.<BR><BR>Wear it, and you will see at a glance who this world belongs to.
+research.magianaturalis.spectacles.page.2=[ Why You Need It ]<BR>Frees your hands—survey nodes with a wand, or build with a tool. The flat 6% discount is balanced across all aspects.<BR><BR>[ Crafting & Cost ]<BR>Built upon a Thaumometer, aided by gold and leather. No infusion, no warp.<BR><BR>It is the first pair of goggles every thaumaturge should own.
 
+# ---- Focus of Construction ----
 research.magianaturalis.construction_focus.name=Focus Of Construction
 research.magianaturalis.construction_focus.text=Grand Architecture
 research.magianaturalis.construction_focus.page.1=While the Shovel of the Earthmover already possessed a slight potential at building in a bigger manner, you have refined and expanded the shear Potential to its maximum. This Masterpiece of Focus etching has brought forth a Tool befitting a Grand Architect.
 
+# ---- Focus of the Revenant ----
 research.magianaturalis.revenant_focus.name=Focus Of the Revenant
 research.magianaturalis.revenant_focus.text=Annoying touch of death
 research.magianaturalis.revenant_focus.page.1=Your run-ins with baby zombies left you thoroughly acquainted with the annoyance of small, fast-moving foes. You have uncovered a way to summon these little rascals for a short while and sic them on your enemies.<BR>They will not touch the innocent—villagers and livestock are left alone. They fixate on the single target you point them at, and scatter the moment it falls. You can command five at a time at most; any further summons must wait for one of them to fade. They come and go in a hurry—but that is more than enough to show your enemies what it feels like to be swarmed by a pack of brats.
 
-research.magianaturalis.prison_jar.name=Entity in a Jar
-research.magianaturalis.prison_jar.text=Imprisoning life within a tiny space
-research.magianaturalis.prison_jar.page.1=You crafted this "Prison Jar" using magical glass. It can seal ordinary creatures (excluding bosses or players) within. Simply right-click a creature with an empty jar to trap it inside.<BR>The imprisoned jar will emit a faint glow. If you wish to release the creature, place the jar on the ground and right-click it with your wand to shatter the glass and set the being free.<BR>If you simply break it, it won't release the creature, but instead drop as an item containing the creature's data, allowing you to safely transport your pets or traps. Never break it with normal attacks, or the creature inside will be released.
+# ---- Jar of Binding ----
+research.magianaturalis.prison_jar.name=Jar of Binding
+research.magianaturalis.prison_jar.text=To hold a life within one's palm
+research.magianaturalis.prison_jar.page.1=From ensorcelled glass you have wrought this "Jar of Binding." Within it, common creatures may be sealed—though never a boss, and never a player. Right-click a creature with an empty jar, and it is drawn inside.<BR>The sealed jar gives off a faint glow. To free the creature, set the jar upon the ground and strike it with your wand; the glass shatters, and the creature is loosed.<BR>Break the jar by hand, and the creature will not escape—instead, the jar falls as an item bearing the creature's essence, a safe vessel for your pets and traps. Strike it with a weapon, however, and whatever lies within will break loose.
 
+# ---- Phenomorphous Stone ----
 research.magianaturalis.mutation_stone.name=Phenomorphous Stone
 research.magianaturalis.mutation_stone.text=Morphing the Visual
 research.magianaturalis.mutation_stone.page.1=Change the appearance of Blocks such as Wool, Hardened Clay, Wood, Logs and Stone Bricks. All pheno-morphable block are highlighted when looking at them simply click the block to swap it appearance. Sneak to rotate Logs & Stairs.
 
+# ---- Quicksilver Stone ----
 research.magianaturalis.quicksilver_stone.name=Quicksilver Stone
 research.magianaturalis.quicksilver_stone.text=Quickening Potion Effects
 research.magianaturalis.quicksilver_stone.page.1=Shortens and condenses the Effects of Potions at the same time. Makes the Effect Stronger, but last shorter. Needs Glowstone to operate.
 
-item.magianaturalis.evil_trunk.corrupted.name=Corrupted Trunk
-item.magianaturalis.evil_trunk.sinister.name=Sinister Trunk
-item.magianaturalis.evil_trunk.demonic.name=Demonic Trunk
-item.magianaturalis.evil_trunk.tainted.name=Tainted Trunk
-
+# ---- Vicious Traveling Trunk ----
 research.magianaturalis.evil_trunk.name=Vicious Traveling Trunk
 research.magianaturalis.evil_trunk.text=Soul-infused combat backpack
-research.magianaturalis.evil_trunk.page.1=You infused warped souls into traveling trunks, creating four distinct appearances of loyal companions. They are not just a mobile backpack with a 36-slot capacity, but also powerful combat pets with 75 health and 6 attack damage, immune to fire and drowning.<BR>They will automatically follow you and fiercely fight back when you are attacked. Non-sneaking right-click opens their inventory; feeding them with food will restore their health.<BR>To carry them, simply left-click them with a Golem Bell. The four variants (Corrupted, Sinister, Demonic, Tainted) differ only in appearance and crafting materials; their combat abilities are identical.
+research.magianaturalis.evil_trunk.page.1=You infused a warped soul into a traveling trunk, creating this loyal Corrupted Trunk.<BR>It serves as a mobile backpack with 36 slots, and as a powerful combat pet (75 HP, 6 ATK) immune to fire and drowning.<BR>It follows you and fiercely fights back when you are attacked. Non-sneaking right-click opens its inventory; feeding it restores its health.<BR>Left-click it with a Golem Bell to pick it up as an item.
 
+# ---- Sinister Trunk ----
+research.magianaturalis.sinister_trunk.name=Sinister Trunk
+research.magianaturalis.sinister_trunk.text=Soul-infused combat backpack
+research.magianaturalis.sinister_trunk.page.1=This is a variant of the Vicious Traveling Trunk. It is merely a different appearance; its combat abilities are identical to the base version.<BR>Infusing a soul into the trunk gives it this sinister form.
+
+# ---- Demonic Trunk ----
+research.magianaturalis.demonic_trunk.name=Demonic Trunk
+research.magianaturalis.demonic_trunk.text=Soul-infused combat backpack
+research.magianaturalis.demonic_trunk.page.1=This is a variant of the Vicious Traveling Trunk. It is merely a different appearance; its combat abilities are identical to the base version.<BR>Infusing a soul into the trunk gives it this demonic form.
+
+# ---- Tainted Trunk ----
+research.magianaturalis.tainted_trunk.name=Tainted Trunk
+research.magianaturalis.tainted_trunk.text=Soul-infused combat backpack
+research.magianaturalis.tainted_trunk.page.1=This is a variant of the Vicious Traveling Trunk. It is merely a different appearance; its combat abilities are identical to the base version.<BR>Infusing a soul into the trunk gives it this tainted form.
+
+# ---- Focus Ender Pouch ----
 research.magianaturalis.ender_pouch.name=Focus Ender Pouch
 research.magianaturalis.ender_pouch.text=Cross-dimensional arsenal
 research.magianaturalis.ender_pouch.page.1=This is the ultimate form of the Focus Pouch. You bound it to your Ender Chest, creating a cross-dimensional storage device.<BR>Simply right-click to access your Ender Chest anytime, anywhere. Even better, it synchronizes the Foci within, allowing you to swap wand focuses on the fly.<BR>Equip it in your Baubles (Belt) slot, and it will travel with you across all dimensions, serving as your most reliable mobile arsenal.
 
+# ---- Sickles ----
 research.magianaturalis.sickles.name=Sickles
 research.magianaturalis.sickles.text=Reaping Crops
 research.magianaturalis.sickles.page.1=Destroys Crops and Plants in a small radius of about 3x3x3 Blocks. Can harvest any Plants, Crops, Leaves, Web and other Vegetation and shear Entities such as Sheep.
 
+# ---- Sickle of Abundance ----
 research.magianaturalis.sickle_of_abundance.name=Sickle of Abundance
 research.magianaturalis.sickle_of_abundance.text=Harvest Feast
 research.magianaturalis.sickle_of_abundance.page.1=Evolution of the Thaumium Sickle allowing the Possessor to harvest plants in an even larger radius with a inherent abundance comparable to a fortune level of 2 which includes increased drop chances for Greatwood and Silverwood Saplings. All the harvested Loot floats towards the player.
 
+# ---- Geo Occultism ----
 research.magianaturalis.geo_occultism.name=Geo Occultism
 research.magianaturalis.geo_occultism.text=Transforming Regions through Obsidian Totems
 research.magianaturalis.geo_occultism.page.1=Observing and studying geographic Regions and the ancient Totems found in them you have discovered that Biomes can be transformed. The Ancients seemed to use Obsidian Totems to create artificial Geo-Poles that slowly converted the Region around them. You invented a Geo-Pylon which is attuned to a specific Region and placed on top of a 3 Block tall Obsidian Totem. Fueling it with Essentia you are able to bend the Region to your will.<BR>The max Range of the Pole seems to be a radius of 8 Blocks. A black color indicates that the Device is Idle, use your wand to activate/deactivate.
 research.magianaturalis.geo_occultism.page.2=The Geo Pylon is not a magic circle. It is closer to a very hungry patch of soil.<BR><BR>To reshape a region, you need three things:<BR>· Hold the Biome Sampler, sneak-right-click the target biome, and let it memorize the local nature.<BR>· Hold the Biome Sampler, right-click the Geo Pylon, and hand that memory over.<BR>· Hold a wand, sneak-right-click the Geo Pylon, and let it recalculate the price of the transmutation.<BR><BR>What price? Essentia. The Geo Pylon does not farm—it orders from a menu. It searches within twelve blocks for available essentia jars and siphons the aspects matching the biome's nature, one by one.
 research.magianaturalis.geo_occultism.page.3=If you change your mind, or find that an old bill is still unpaid, sneak-right-click once more.<BR>The Pylon will silently tear up the invoice and start a new one.<BR><BR>— Many a thaumaturge has fallen at this step: they forgot the sneak, and then watched an entire forest turn into a tainted marsh beside their own laboratory.<BR>Three of them, it is said, retired to grow potatoes.
 
-item.magianaturalis.alchemical_stone.1.tooltip=Of Twisting and Molding Status Effects
+# ==================================================
+#              TOOLTIPS
+# ==================================================
 item.magianaturalis.alchemical_stone.0.tooltip=Mold the Visual
-
-chat.magianaturalis.revenant.limit=You cannot summon any more. Wait for one of them to fade.
-
+item.magianaturalis.alchemical_stone.1.tooltip=Of Twisting and Molding Status Effects
 
 item.magianaturalis.builder_focus.tooltip.mode=Mode: %s
 item.magianaturalis.builder_focus.tooltip.shape=Shape: %s
@@ -175,90 +228,28 @@ item.magianaturalis.builder_focus.tooltip.hint.shape=§8Press §7[%s]§8 to chan
 item.magianaturalis.builder_focus.tooltip.hint.mode=§8Press §7[ctrl + %s]§8 to change mode
 item.magianaturalis.builder_focus.tooltip.hint.pick=§8Press §7[%s]§8 to pick block type
 
-
 # ==================================================
-#              Item Names
+#              HUD
 # ==================================================
-
-item.magianaturalis.herobrines_scythe.name=Herobrine's Scythe
-
-
-# ==================================================
-#              Research Entry
-# ==================================================
-
-research.magianaturalis.herobrines_scythe.name=Herobrine's Scythe
-research.magianaturalis.herobrines_scythe.text=It tears flesh. It feeds on war.
-
-
-# ==================================================
-#              Research Pages
-# ==================================================
-
-# ---- Page 0: Origin ----
-research.magianaturalis.herobrines_scythe.page.0=You forged the Sickle of Abundance to bow the wheat and bring in the harvest. A farmer's blessing. An echo of nature's gift. You once ran your thumb along its edge under the moon and heard it hum—soft, patient, like a lullaby sung over a field at rest.<BR>But you grew greedy. What you wanted was no longer the life of crops. It was Life itself.
-
-# ---- Page 1: Transformation ----
-research.magianaturalis.herobrines_scythe.page.1=You set it upon the Infusion Altar, inked in forbidden death-lore, sealed with void essence, carving runes that were never meant to be carved. When the violet light finally died, you could no longer hear the wheat. Only heartbeats. Thousands of them. Small, trembling, waiting beneath the blade.<BR>It no longer hungers for crops. It hungers for a different kind of harvest.
-
-# ---- Page 2: Growth ----
-research.magianaturalis.herobrines_scythe.page.2=It remembers every cut. At 30, 120, 450, and 1500 kills, it stirs through five stages in turn: First Glimpse, First Awakening, Bloodthirst, Frenzy, and the White Eye. With each awakening the edge reddens, the aura brightens, and something inside it grows quieter.<BR>At 99999 kills it becomes a true relic of the dark arts—its attack surges to 999, and there is no road back.
-
-# ---- Page 3: Binding ----
-research.magianaturalis.herobrines_scythe.page.3=The first soul to grip it is bound to it for good—their mark carved deep into the steel. Should another hand reach for it, the blood-light throws them back, and a whisper finds your ear.<BR>It knows you. It knows only you.<BR>To pass it on, you would first have to erase your own mark. No one speaks of how.
-
-# ---- Page 4: Chain ----
-research.magianaturalis.herobrines_scythe.page.4=Every scrap of torn flesh releases a small pulse of energy. It leaps from one foe to the next, and the next, until nothing is left standing. Each pulse carries the scythe's full weight.<BR>One swing. One line of blood-light. This is how it reaps.
-
-# ---- Page 5: Block & Drain ----
-research.magianaturalis.herobrines_scythe.page.5=Hold right-click and the blade becomes a blood-red ward. The damage it turns aside grows with every stage—at its final form, nothing can harm you at all.<BR>At the same time, it draws Vis from every creature and player within eight blocks, weaving crimson threads that feed your wands and amulets. It does not kill. It only takes.
-
-# ---- Page 6: Lifesteal & Warp ----
-research.magianaturalis.herobrines_scythe.page.6=It feeds on blood. The closer you are to death, the more it pours back into you—nourishing you, and itself.<BR>The price is warp on your soul, deeper with every stage. One day you will look into still water and see those pale, whitened eyes looking back.
-
-# ---- Page 7: Endgame ----
-research.magianaturalis.herobrines_scythe.page.7=When you reap your 99999th soul, it goes quiet. No more humming. No more hunger. You hold it, and feel a peace you have never known—and a hollowness that reaches all the way to the bone.<BR>You are no longer a thaumaturge. You are its master. You are its vessel. You are its next meal.
-
+hud.magianaturalis.spectacles.owner=Owner
+hud.magianaturalis.builder.infinite=Infinite
 
 # ==================================================
 #              Herobrine's Scythe
 # ==================================================
-
-# ---- Item name ----
 item.magianaturalis.herobrines_scythe.name=Herobrine's Scythe
 
-# ---- Research entry ----
 research.magianaturalis.herobrines_scythe.name=Herobrine's Scythe
 research.magianaturalis.herobrines_scythe.text=Tear the flesh. Feed the war.
 
-# ---- Research page 0: Origin ----
 research.magianaturalis.herobrines_scythe.page.0=You forged the Sickle of Abundance to bow the wheat and gather the harvest. It was a farmer's blessing, an echo of nature's gift. You remember stroking its edge beneath the moon, listening to its quiet hum—a song about harvest.<BR>But you grew greedy. You no longer wished to understand the life and death of crops. You wished to understand life itself.
-
-# ---- Research page 1: Metamorphosis ----
 research.magianaturalis.herobrines_scythe.page.1=You placed it upon the Infusion Altar, inked with death-knowledge, sealed with void-essence, carving runes that should never have been carved. The moment the altar's violet light died, the wheat-song fell silent—replaced by heartbeats. Thousands upon thousands of tiny heartbeats, trembling along its edge.<BR>It no longer craved the harvest. It craved a different kind of reaping.
-
-# ---- Research page 2: Growth ----
 research.magianaturalis.herobrines_scythe.page.2=It began to remember every strike. As the kill-count climbed through 30, 120, 450, 1500, it awakened through five stages: First Sight, First Stirring, Bloodthirst, Frenzy, Pale Eye. With each awakening, the edge blushed redder; the aura burned brighter.<BR>When the count reaches 99,999, it will complete its transformation into a cursed artifact—attack surging to 999. And you will not be able to turn back.
-
-# ---- Research page 3: Binding ----
 research.magianaturalis.herobrines_scythe.page.3=The first hand to hold it has its soul bound to the blade. A UUID is carved deep into the steel. Should another try to take it, the blood-light will cast them out—and whisper a warning into your ear.<BR>It knows you. It knows only you.<BR>If you ever wish to pass it on, you must first erase your own mark. No one has ever spoken of what that takes.
-
-# ---- Research page 4: Chain ----
 research.magianaturalis.herobrines_scythe.page.4=Every torn body releases a small pulse of energy, leaping between nearby foes—from one to the next, until nothing remains standing. The pulse strikes with the full weight of the scythe itself.<BR>One swing. A line of blood-light. This is how it reaps its harvest.
-
-# ---- Research page 5: Block & Drain ----
 research.magianaturalis.herobrines_scythe.page.5=Hold right-click, and it becomes a crimson barrier. The damage reduction grows with each tier; in its final form, it will completely negate all harm.<BR>Meanwhile, it drains Vis from every living thing within eight blocks—beast and player alike—gathering the essence into threads of blood-red light that fuel your wands and amulets. It does not kill. It only takes.<BR>But divinity is never free. Each draught leaves a scratch upon its edge. Only by feeding it—your satchel, your wand, your own durability—will it choose to stay.
-
-# ---- Research page 6: Bloodthirst & Warp ----
 research.magianaturalis.herobrines_scythe.page.6=It hungers for blood. The deeper your wounds, the more it gives back—feeding you, and feeding itself.<BR>The price: your soul is stained with warp. Higher tiers, deeper stains. One day you will see those whitened eyes in your own reflection.
-
-# ---- Research page 7: Finale ----
 research.magianaturalis.herobrines_scythe.page.7=When you finally reap the 99,999th soul, it falls silent. No longer humming. No longer hungering.<BR>You hold it, and feel a peace you have never known—and an emptiness that reaches into your bones. Your eyes changed color that day. You did not look into a mirror. But you knew.<BR>You are no longer a thaumaturge. You are its master. You are its vessel. You are its next meal.
-
-
-# ==================================================
-#              Scythe · Chat messages
-# ==================================================
 
 chat.magianaturalis.block.damage=§fHerobrine's Scythe blocked the blow! §a%s §fdamage absorbed.
 chat.magianaturalis.scythe.bind=Herobrine's Scythe has bound itself to you. None may take it.
@@ -266,21 +257,11 @@ chat.magianaturalis.scythe.levelup=Herobrine's Scythe has awakened to Stage %s: 
 chat.magianaturalis.scythe.reject=This scythe does not belong to you. You are cast out.
 chat.magianaturalis.scythe.owner.notify=Someone tried to take your Herobrine's Scythe! (Repelled by blood-light)
 
-
-# ==================================================
-#              Scythe · Tooltip (stage names)
-# ==================================================
-
 item.magianaturalis.herobrines_scythe.tier.0=First Sight
 item.magianaturalis.herobrines_scythe.tier.1=First Stirring
 item.magianaturalis.herobrines_scythe.tier.2=Bloodthirst
 item.magianaturalis.herobrines_scythe.tier.3=Frenzy
 item.magianaturalis.herobrines_scythe.tier.4=Pale Eye
-
-
-# ==================================================
-#              Scythe · Tooltip (quality names)
-# ==================================================
 
 item.magianaturalis.herobrines_scythe.quality.0=Common
 item.magianaturalis.herobrines_scythe.quality.1=Uncommon
@@ -288,11 +269,6 @@ item.magianaturalis.herobrines_scythe.quality.2=Rare
 item.magianaturalis.herobrines_scythe.quality.3=Epic
 item.magianaturalis.herobrines_scythe.quality.4=Legendary
 item.magianaturalis.herobrines_scythe.quality.5=Mythic
-
-
-# ==================================================
-#              Scythe · Tooltip (stats)
-# ==================================================
 
 item.magianaturalis.herobrines_scythe.tooltip.quality=Quality: %s
 item.magianaturalis.herobrines_scythe.tooltip.stage=Stage: %s (%s/5)
@@ -310,11 +286,183 @@ item.magianaturalis.herobrines_scythe.tooltip.maxed=It no longer whispers. It is
 item.magianaturalis.herobrines_scythe.tooltip.owner=Bound to: %s
 item.magianaturalis.herobrines_scythe.tooltip.owner.none=Unbound
 
-
-# ==================================================
-#              Scythe · Tooltip (author signature)
-# ==================================================
-
 item.magianaturalis.herobrines_scythe.tooltip.author.1=Magia Naturalis Reborn, a migration of Thaumic Bases.
 item.magianaturalis.herobrines_scythe.tooltip.author.2=The first symbolic item. Signed by KongTai.
 item.magianaturalis.herobrines_scythe.tooltip.author.3=An ordinary person who took up Magia Naturalis.
+
+# ==================================================
+#              Easter Egg · Herobrine Watcher
+# ==================================================
+chat.magianaturalis.easteregg.herobrine=You turn around. Nothing is there. But you are sure someone was standing there just now.
+chat.magianaturalis.herobrine.join=%s joined the game
+
+item.magianaturalis.natural_robe_helm.name=Nature's Pope Crown
+item.magianaturalis.natural_robe_chest.name=Nature's Pope Robe
+item.magianaturalis.natural_robe_legs.name=Nature's Pope Leggings
+item.magianaturalis.natural_robe_boots.name=Nature's Pope Boots
+
+item.magianaturalis.nature_verdict.name=Nature's Verdict
+
+item.magianaturalis.nature_wrath.name=Nature's Wrath
+item.magianaturalis.verdant_spear.name=Verdant Spear
+item.magianaturalis.tide_verdict.name=Tide's Verdict
+
+item.magianaturalis.greatwood_tablet.name=Greatwood Tablet
+item.magianaturalis.silverwood_tablet.name=Silverwood Tablet
+
+# ==================================================
+#              Revealing Goggles (Bauble Edition)
+# ==================================================
+
+item.magianaturalis.revealing_goggles.name=Goggles of Peering(Decoration)
+
+item.magianaturalis.revealing_goggles.tooltip.1=Decoration
+item.magianaturalis.revealing_goggles.tooltip.2=Equip in the Amulet slot
+item.magianaturalis.revealing_goggles.tooltip.3=Thanks to Vazkii, the author of Botania
+item.magianaturalis.revealing_goggles.tooltip.4=KongTai's second learned item
+item.magianaturalis.revealing_goggles.tooltip.5=To hell with Azanor — just kidding.
+
+research.magianaturalis.revealing_goggles.name=Bauble of Goggles
+research.magianaturalis.revealing_goggles.text=Truth, Worn Around the Neck What Azanor Never Did
+
+research.magianaturalis.revealing_goggles.page.1=You've grown tired of strapping the Goggles of Revealing to your skull every single day. It hogs your helmet slot, leaving no room for the gear that actually matters.<BR>More times than you care to admit, you've found yourself wondering: that old man in the Void — when, exactly, will he finally make these into a bauble?<BR><BR>To hell with Azanor. He won't.
+
+research.magianaturalis.revealing_goggles.page.2=So you took matters into your own hands.<BR><BR>Through the rites of Magia Naturalis, you shrank the goggles down and reshaped them, until they fit snugly in your amulet slot. Your helmet slot is finally your own again.<BR>No more agonizing over that single stubborn inch above your head.
+
+research.magianaturalis.revealing_goggles.page.3=Now you can wear your Goggles of Peering alongside any headpiece you like — a Silverwood Crown, a pair of Arcane Goggles, or one of those legendary helmets you never quite dared to use.<BR><BR>It carries every function of the advanced Goggles of Revealing, and grants near-limitless Night Vision on top. Take it off, and the blessing fades.<BR><BR>Sure, you *could* wear this and a regular pair of Goggles of Revealing at the same time. They won't fight each other — nodes and aspects will still show up just fine. You'll simply have one pair of lenses too many strapped to your face.<BR>If you're really going to do that, then pray tell: what exactly did you research this thing for?
+
+item.magianaturalis.natural_wood_helm.name=Silverwood Helmet
+item.magianaturalis.natural_wood_chest.name=Silverwood Chestplate
+item.magianaturalis.natural_wood_legs.name=Silverwood Leggings
+item.magianaturalis.natural_wood_boots.name=Silverwood Boots
+
+item.magianaturalis.greatwood_helm.name=Greatwood Helmet
+item.magianaturalis.greatwood_chest.name=Greatwood Chestplate
+item.magianaturalis.greatwood_legs.name=Greatwood Leggings
+item.magianaturalis.greatwood_boots.name=Greatwood Boots
+
+item.magianaturalis.greatwood_advanced_helm.name=Awakened Greatwood Helmet
+item.magianaturalis.greatwood_advanced_chest.name=Awakened Greatwood Chestplate
+item.magianaturalis.greatwood_advanced_legs.name=Awakened Greatwood Leggings
+item.magianaturalis.greatwood_advanced_boots.name=Awakened Greatwood Boots
+
+item.magianaturalis.water_god_helm.name=Water God Crown
+item.magianaturalis.water_god_chest.name=Water God Warplate
+item.magianaturalis.water_god_legs.name=Water God Greaves
+item.magianaturalis.water_god_boots.name=Water God Striders
+
+item.magianaturalis.mask.0.name=Grinning Devil Mask
+item.magianaturalis.mask.1.name=Angry Ghost Mask
+item.magianaturalis.mask.2.name=Sipping Fiend Mask
+
+item.magianaturalis.mask.tooltip.1=Decoration
+item.magianaturalis.mask.tooltip.2=Equip in the Amulet slot
+
+item.magianaturalis.mask.0.desc=Those who wear it always smile strangely.
+item.magianaturalis.mask.1.desc=The fury beneath the mask never dies.
+item.magianaturalis.mask.2.desc=Are you sure you want to wear this?
+
+# ==================================================
+# Mask Theory
+# ==================================================
+research.magianaturalis.mask_theory.name=Mask Theory
+research.magianaturalis.mask_theory.text=Attitude is the Mask of the Heart
+
+research.magianaturalis.mask_theory.page.1=Azanor once sought to condense "Attitude" itself into a mask. He placed it upon his face, yet it would not stay, no matter how he bound it with magic.<BR><BR>The mask laughed silently: "I see. You have no heart. Attitude is the mask of the heart. How can you wear me if you have no heart?"<BR><BR>Azanor understood—he had given his heart to the pursuit of knowledge. One without a heart cannot wear the mask of attitude.<BR><BR>In other words, for one who has a heart, attitude is itself a mask.
+
+research.magianaturalis.mask_theory.page.2=§c§l"Beneath the mask—is there a heart, or none?"<BR><BR><IMG>magianaturalis:textures/misc/eldritchajor2.png:0:0:255:255:0.5</IMG>
+
+research.magianaturalis.mask_theory.page.3=Azanor stared at the mask in his hands—the one that would not stay—and fell silent for a long while.<BR><BR>He understood at last. Attitude is never conjured from nothing. It grows from the heart. Where the heart holds something, attitude takes shape; where the heart holds nothing, attitude is but an empty shell, scattered by the faintest breath of wind.<BR><BR>And so it is in the world.<BR><BR>Before your elders, you wear deference. Before an enemy, you wear coldness. Before a true friend, you take off every mask and let the heart show. This is not hypocrisy—quite the contrary. It is the proof of having a heart. Because the heart knows who stands before it, the face reveals the fitting attitude.<BR><BR>Those who show the same face to all are not necessarily at peace. It may simply be that there is nothing within them at all.
+
+research.magianaturalis.mask_theory.page.4=One without a heart cannot wear attitude. For attitude is not worn—it is revealed.<BR><BR>Every mask in your hands is the embodiment of an attitude within. To wear it is not to hide yourself, but to let the heart show itself to the world in the most direct way.<BR><BR>Beneath the mask—is the heart.
+
+# ==================================================
+# Grinning Devil Mask
+# ==================================================
+research.magianaturalis.mask_grinning_devil.name=Grinning Devil Mask
+research.magianaturalis.mask_grinning_devil.text=A Grin Against the Grind
+research.magianaturalis.mask_grinning_devil.page.1=Wearing this mask grants you a curious ability to blunt the effects of warp. It cannot prevent warp from occurring, but it can diminish the severity of its erosion.<BR><BR>It seems that grinning in the face of life's hardships does yield its own rewards.<BR><BR>——<BR><BR>You did not make it an attachment to the Thaumium Fortress Helm. You shrank it, reshaped it, and turned it into an independent mask that can be worn in the amulet slot.<BR>From now on, you need not sacrifice an entire headpiece for the sake of a single mask. It is still a mask—only in a different form.
+
+# ==================================================
+# Angry Ghost Mask
+# ==================================================
+research.magianaturalis.mask_angry_ghost.name=Angry Ghost Mask
+research.magianaturalis.mask_angry_ghost.text=Asking For It
+research.magianaturalis.mask_angry_ghost.page.1=On the battlefield, any creature that strikes you while you wear this grim mask has a chance to suffer the withering decay.<BR><BR>Truly asking for it.<BR><BR>——<BR><BR>You did not fix it to a helmet. You made it into a mask that hangs at your chest, a bauble.<BR>Fury need not sit upon the head—it has always lived in the heart.
+
+# ==================================================
+# Sipping Fiend Mask
+# ==================================================
+research.magianaturalis.mask_sipping_fiend.name=Sipping Fiend Mask
+research.magianaturalis.mask_sipping_fiend.text=Should You Worry?
+research.magianaturalis.mask_sipping_fiend.page.1=While wearing this mask, your attacks sometimes siphon the lifeblood of other creatures to strengthen yourself.<BR><BR>The act of draining them does not, in truth, feel as strange as you might expect.<BR><BR>But you wonder—should you be worried about that?<BR><BR>——<BR><BR>You made this mask into a bauble as well. Resting against the neck, where it always belonged.<BR>The pulse at your throat speaks closer to the truth than any expression on your face.
+
+key.magianaturalis.attitude_switch=Switch Attitude
+key.categories.magianaturalis=Magia Naturalis
+
+item.magianaturalis.mask.3.name=Mask of Attitude
+item.magianaturalis.mask.3.desc=Beneath the mask—the heart.
+item.magianaturalis.mask.3.current=Current attitude:
+item.magianaturalis.mask.3.hint=Press %s to switch attitude
+item.magianaturalis.mask.3.face.0=None
+item.magianaturalis.mask.3.face.1=Friendly
+item.magianaturalis.mask.3.face.2=Awe
+item.magianaturalis.mask.3.face.3=Hidden
+
+msg.magianaturalis.mask.no_attitude_blocked=§5No Attitude: §dattack negated
+msg.magianaturalis.mask.solemn_start=§6Solemn: §eaura expanded
+msg.magianaturalis.mask.hiding_start=§5Hiding: vanish
+msg.magianaturalis.mask.hiding_end=§5Hiding: faded
+msg.magianaturalis.mask.hiding_fail=§4Not enough vis, hiding interrupted
+msg.magianaturalis.mask.hiding_no_vis=§7Not enough vis to maintain hiding
+msg.magianaturalis.mask.equipped=§7Attitude mask: %s
+msg.magianaturalis.mask.unequipped=§7Attitude mask removed
+msg.magianaturalis.mask.no_heart=§4One without a heart cannot bear an attitude.
+death.attack.mask_attitude=%1$s gave their heart to an attitude.
+
+research.magianaturalis.mask_attitude.name=Attitude Mask
+research.magianaturalis.mask_attitude.text=Attitude is the mask of the heart
+
+research.magianaturalis.mask_attitude.page.1=The last page of Azano's notes depicted a mask that would not stay on his face.<BR><BR>He finally understood — an attitude is not something conjured from nothing. It grows from the heart. Where the heart holds something, attitude takes shape; where the heart is empty, attitude is but a hollow shell.<BR><BR>Having already crafted three masks — Grinning, Angry, Sipping — what if all three were melted together, along with the heart each represents, into a single truly wearable mask?<BR><BR>He dipped the three masks into the primal spring, using his heart as a guide and his soul as fuel.<BR><BR>Three days and nights later, a new mask surfaced — carrying no attitude at all, yet carrying all attitudes at once.<BR><BR>He named it simply: Attitude.
+
+research.magianaturalis.mask_attitude.page.2=[No Attitude]§r The Observer.<BR>§rNot contending, not raging, not acting.<BR><BR>Hostile creatures no longer single you out.<BR>Strike first, and the attitude falters.<BR>Should someone insist, their blow may miss — and recoil.
+
+research.magianaturalis.mask_attitude.page.3=[Friendly]§r Blend with the light.<BR>§rLower yourself, and the world no longer guards against you.<BR><BR>Neutrals do not flee; hostility fades faster.<BR>Pursuers forget within three steps.<BR>Even when struck, attackers soften and withdraw.
+
+research.magianaturalis.mask_attitude.page.4=[Solemn]§r Still as a mountain.<BR>§rYou do not fight — yet the enemy yields first.<BR><BR>The aura halts all living things within eight paces.<BR>No attack, no pursuit.<BR>You yourself are strengthened.
+
+research.magianaturalis.mask_attitude.page.5=[Hiding]§r Flowers in the mist.<BR>§rYou are still there — others simply cannot see you clearly.<BR><BR>Your form fades; monsters' gaze slides past.<BR>Cost: primal vis from your wand.<BR>When vis runs dry, the mist disperses.
+
+# ==================================================
+# Primal Mask
+# ==================================================
+item.magianaturalis.mask.4.name=Primal Mask
+item.magianaturalis.mask.4.desc=Root of the six primals, source of all things.
+item.magianaturalis.mask.4.current=Current primal:
+item.magianaturalis.mask.4.hint=Sneak + right-click wand to switch
+item.magianaturalis.mask.4.face.0=Primal
+item.magianaturalis.mask.4.face.1=Ignis
+item.magianaturalis.mask.4.face.2=Aer
+item.magianaturalis.mask.4.face.3=Perditio
+item.magianaturalis.mask.4.face.4=Terra
+item.magianaturalis.mask.4.face.5=Ordo
+item.magianaturalis.mask.4.face.6=Aqua
+
+msg.magianaturalis.mask.primal.equipped=§7Primal Mask: §d%s
+msg.magianaturalis.mask.primal.switch=§5Primal Mask: §d%s
+msg.magianaturalis.mask.primal.no_vis=§4Your wand lacks primal vis.
+
+key.magianaturalis.toggle_display=Toggle Aspect Icons
+
+# ============================================================
+# Toggle messages
+# ============================================================
+msg.magianaturalis.display.on=Aspect Icons: ON
+msg.magianaturalis.display.off=Aspect Icons: OFF
+
+# ============================================================
+# Magia Naturalis - Custom Aspects
+# ============================================================
+tc.aspect.gaia=Gaia
+tc.aspect.natura=Natura
+tc.aspect.flora=Flora
