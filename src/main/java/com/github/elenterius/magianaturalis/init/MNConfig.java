@@ -75,21 +75,11 @@ public class MNConfig {
                 + "Example: EnderDragon");
 
         // ----- 新增：物品槽要素叠加层 -----
-        slotOverlayScale = config.getFloat(
-            "scale",
-            CATEGORY_OVERLAY,
-            slotOverlayScale,
-            MIN_SCALE,
-            MAX_SCALE,
-            "图标缩放比例，1.0 表示占满整个物品槽");
+        slotOverlayScale = config
+            .getFloat("scale", CATEGORY_OVERLAY, slotOverlayScale, MIN_SCALE, MAX_SCALE, "图标缩放比例，1.0 表示占满整个物品槽");
 
-        slotOverlayAlpha = config.getFloat(
-            "alpha",
-            CATEGORY_OVERLAY,
-            slotOverlayAlpha,
-            MIN_ALPHA,
-            MAX_ALPHA,
-            "叠加层图标的透明度");
+        slotOverlayAlpha = config
+            .getFloat("alpha", CATEGORY_OVERLAY, slotOverlayAlpha, MIN_ALPHA, MAX_ALPHA, "叠加层图标的透明度");
 
         String posName = config.getString(
             "position",
@@ -129,6 +119,7 @@ public class MNConfig {
     // ======================================================================
 
     public enum OverlayPosition {
+
         TOP_LEFT,
         TOP_RIGHT,
         BOTTOM_LEFT,

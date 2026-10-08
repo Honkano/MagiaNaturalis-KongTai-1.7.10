@@ -31,8 +31,7 @@ import thaumcraft.api.aspects.Aspect;
  * 参考 Botania 的 Manasteel 套装。
  * 用自定义模型，穿上去有植物魔法那种造型。
  */
-public class ItemGreatwoodArmor extends ItemArmor
-    implements IRepairable, IRunicArmor, IVisDiscountGear {
+public class ItemGreatwoodArmor extends ItemArmor implements IRepairable, IRunicArmor, IVisDiscountGear {
 
     public IIcon iconHelm;
     public IIcon iconChest;
@@ -53,9 +52,9 @@ public class ItemGreatwoodArmor extends ItemArmor
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister ir) {
-        iconHelm  = ir.registerIcon(MagiaNaturalis.rlString("greatwood_helm"));
+        iconHelm = ir.registerIcon(MagiaNaturalis.rlString("greatwood_helm"));
         iconChest = ir.registerIcon(MagiaNaturalis.rlString("greatwood_chest"));
-        iconLegs  = ir.registerIcon(MagiaNaturalis.rlString("greatwood_legs"));
+        iconLegs = ir.registerIcon(MagiaNaturalis.rlString("greatwood_legs"));
         iconBoots = ir.registerIcon(MagiaNaturalis.rlString("greatwood_boots"));
     }
 
@@ -113,8 +112,7 @@ public class ItemGreatwoodArmor extends ItemArmor
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean advanced) {
         if (ENABLE_VIS_DISCOUNT) {
             list.add(
-                EnumChatFormatting.DARK_PURPLE
-                    + StatCollector.translateToLocal("tc.visdiscount")
+                EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("tc.visdiscount")
                     + ": "
                     + getVisDiscount(stack, player, null)
                     + "%");

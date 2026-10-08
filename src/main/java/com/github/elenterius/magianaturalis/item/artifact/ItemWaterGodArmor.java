@@ -29,14 +29,13 @@ import thaumcraft.api.aspects.Aspect;
  * 【水神铠甲】
  *
  * 目前只做基础版：
- *   - 符文护盾 5 点
- *   - Vis 魔力减免 6%
- *   - 默认防御效果
- *   - OBJ 自定义模型
+ * - 符文护盾 5 点
+ * - Vis 魔力减免 6%
+ * - 默认防御效果
+ * - OBJ 自定义模型
  * 特殊效果之后再补。
  */
-public class ItemWaterGodArmor extends ItemArmor
-    implements IRepairable, IRunicArmor, IVisDiscountGear {
+public class ItemWaterGodArmor extends ItemArmor implements IRepairable, IRunicArmor, IVisDiscountGear {
 
     // 4 个部位的物品图标
     public IIcon iconHelm;
@@ -50,8 +49,8 @@ public class ItemWaterGodArmor extends ItemArmor
 
     // 可调数值
     private static final boolean ENABLE_VIS_DISCOUNT = true;
-    private static final int VIS_DISCOUNT = 6;   // Vis 减免 6%
-    private static final int RUNIC_CHARGE = 5;   // 符文护盾 5 点
+    private static final int VIS_DISCOUNT = 6; // Vis 减免 6%
+    private static final int RUNIC_CHARGE = 5; // 符文护盾 5 点
 
     public ItemWaterGodArmor(ArmorMaterial material, int renderIndex, int armorType) {
         super(material, renderIndex, armorType);
@@ -64,9 +63,9 @@ public class ItemWaterGodArmor extends ItemArmor
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister ir) {
-        iconHelm  = ir.registerIcon(MagiaNaturalis.rlString("water_god_helm"));
+        iconHelm = ir.registerIcon(MagiaNaturalis.rlString("water_god_helm"));
         iconChest = ir.registerIcon(MagiaNaturalis.rlString("water_god_chest"));
-        iconLegs  = ir.registerIcon(MagiaNaturalis.rlString("water_god_legs"));
+        iconLegs = ir.registerIcon(MagiaNaturalis.rlString("water_god_legs"));
         iconBoots = ir.registerIcon(MagiaNaturalis.rlString("water_god_boots"));
     }
 
@@ -143,8 +142,7 @@ public class ItemWaterGodArmor extends ItemArmor
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean advanced) {
         if (ENABLE_VIS_DISCOUNT) {
             list.add(
-                EnumChatFormatting.DARK_PURPLE
-                    + StatCollector.translateToLocal("tc.visdiscount")
+                EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("tc.visdiscount")
                     + ": "
                     + getVisDiscount(stack, player, null)
                     + "%");

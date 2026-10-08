@@ -69,7 +69,8 @@ public class ItemNatureVerdict extends ItemSword implements IRepairable, IWarpin
     public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean held) {
         super.onUpdate(stack, world, entity, slot, held);
         // 每 20 tick 自动修复 1 点耐久
-        if (stack.isItemDamaged() && entity != null && entity.ticksExisted % 20 == 0
+        if (stack.isItemDamaged() && entity != null
+            && entity.ticksExisted % 20 == 0
             && entity instanceof EntityLivingBase) {
             stack.damageItem(-1, (EntityLivingBase) entity);
         }
@@ -78,9 +79,9 @@ public class ItemNatureVerdict extends ItemSword implements IRepairable, IWarpin
     @Override
     public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
         // 攻击时给敌人施加"虚弱"和"饥饿"（保留血腥之刃的诅咒感）
-        if (!target.worldObj.isRemote
-            && (!(target instanceof EntityPlayer) || !(attacker instanceof EntityPlayer)
-                || MinecraftServer.getServer().isPVPEnabled())) {
+        if (!target.worldObj.isRemote && (!(target instanceof EntityPlayer) || !(attacker instanceof EntityPlayer)
+            || MinecraftServer.getServer()
+                .isPVPEnabled())) {
             try {
                 target.addPotionEffect(new PotionEffect(Potion.weakness.getId(), 80));
                 target.addPotionEffect(new PotionEffect(Potion.hunger.getId(), 160));

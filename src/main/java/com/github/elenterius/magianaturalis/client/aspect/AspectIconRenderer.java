@@ -13,8 +13,7 @@ import thaumcraft.api.aspects.Aspect;
 @SideOnly(Side.CLIENT)
 public final class AspectIconRenderer {
 
-    private AspectIconRenderer() {
-    }
+    private AspectIconRenderer() {}
 
     /**
      * 渲染单个要素图标。
@@ -26,9 +25,9 @@ public final class AspectIconRenderer {
         if (aspect == null || size <= 0 || alpha <= 0.0F) return;
 
         int color = aspect.getColor();
-        float red   = (color >> 16 & 255) / 255.0F;
-        float green = (color >>  8 & 255) / 255.0F;
-        float blue  = (color       & 255) / 255.0F;
+        float red = (color >> 16 & 255) / 255.0F;
+        float green = (color >> 8 & 255) / 255.0F;
+        float blue = (color & 255) / 255.0F;
 
         ResourceLocation image = aspect.getImage();
         Minecraft.getMinecraft().renderEngine.bindTexture(image);
@@ -42,10 +41,10 @@ public final class AspectIconRenderer {
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();
         tessellator.setColorRGBA_F(red, green, blue, alpha);
-        tessellator.addVertexWithUV(x,        y + size, 0.0D, 0.0D, 1.0D);
+        tessellator.addVertexWithUV(x, y + size, 0.0D, 0.0D, 1.0D);
         tessellator.addVertexWithUV(x + size, y + size, 0.0D, 1.0D, 1.0D);
-        tessellator.addVertexWithUV(x + size, y,        0.0D, 1.0D, 0.0D);
-        tessellator.addVertexWithUV(x,        y,        0.0D, 0.0D, 0.0D);
+        tessellator.addVertexWithUV(x + size, y, 0.0D, 1.0D, 0.0D);
+        tessellator.addVertexWithUV(x, y, 0.0D, 0.0D, 0.0D);
         tessellator.draw();
 
         // 只重置颜色，其他 GL 状态交给调用者的 PopAttrib 恢复

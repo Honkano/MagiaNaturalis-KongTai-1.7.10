@@ -13,10 +13,10 @@ import com.github.elenterius.magianaturalis.container.ContainerEvilTrunk;
 import com.github.elenterius.magianaturalis.container.ContainerTranscribingTable;
 import com.github.elenterius.magianaturalis.easteregg.HerobrineSpawnHandler;
 import com.github.elenterius.magianaturalis.entity.EntityEvilTrunk;
+import com.github.elenterius.magianaturalis.event.MaskEventHandler;
 import com.github.elenterius.magianaturalis.event.PlayerEventHandler;
 import com.github.elenterius.magianaturalis.event.ScytheBlockHandler;
 import com.github.elenterius.magianaturalis.event.WorldEventHandler;
-import com.github.elenterius.magianaturalis.event.MaskEventHandler;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;

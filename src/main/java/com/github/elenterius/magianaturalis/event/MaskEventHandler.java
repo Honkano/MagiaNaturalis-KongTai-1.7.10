@@ -3,13 +3,6 @@ package com.github.elenterius.magianaturalis.event;
 import java.util.List;
 import java.util.UUID;
 
-import com.github.elenterius.magianaturalis.item.baubles.ItemMask;
-import com.github.elenterius.magianaturalis.network.PacketHandler;
-import com.github.elenterius.magianaturalis.network.packet.PacketAttitudeParticles;
-import com.github.elenterius.magianaturalis.util.MaskHelper;
-
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
@@ -29,6 +22,14 @@ import net.minecraft.util.ChatComponentTranslation;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+
+import com.github.elenterius.magianaturalis.item.baubles.ItemMask;
+import com.github.elenterius.magianaturalis.network.PacketHandler;
+import com.github.elenterius.magianaturalis.network.packet.PacketAttitudeParticles;
+import com.github.elenterius.magianaturalis.util.MaskHelper;
+
+import cpw.mods.fml.common.eventhandler.EventPriority;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.common.items.wands.ItemWandCasting;
 
@@ -48,10 +49,9 @@ public class MaskEventHandler {
     // ==================================================
     // 【属性修饰符 UUID】隐匿速度 / 威严力量
     // ==================================================
-    private static final UUID HIDING_SPEED_UUID =
-        UUID.nameUUIDFromBytes("magianaturalis:hiding_speed".getBytes());
-    private static final UUID SOLEMN_STRENGTH_UUID =
-        UUID.nameUUIDFromBytes("magianaturalis:solemn_strength".getBytes());
+    private static final UUID HIDING_SPEED_UUID = UUID.nameUUIDFromBytes("magianaturalis:hiding_speed".getBytes());
+    private static final UUID SOLEMN_STRENGTH_UUID = UUID
+        .nameUUIDFromBytes("magianaturalis:solemn_strength".getBytes());
 
     // ==================================================
     // 【旧三张面具 · 保留原有数值，勿动】
@@ -73,9 +73,9 @@ public class MaskEventHandler {
         if (!MaskHelper.hasMask(player, MaskHelper.MASK_ANGRY_GHOST)) return;
         Entity source = event.source.getEntity();
         if (!(source instanceof EntityLivingBase)) return;
-        if (player.getRNG().nextFloat() < ANGRY_GHOST_CHANCE) {
-            ((EntityLivingBase) source).addPotionEffect(new PotionEffect(
-                Potion.wither.getId(), WITHER_DURATION, 0));
+        if (player.getRNG()
+            .nextFloat() < ANGRY_GHOST_CHANCE) {
+            ((EntityLivingBase) source).addPotionEffect(new PotionEffect(Potion.wither.getId(), WITHER_DURATION, 0));
         }
     }
 
@@ -85,7 +85,8 @@ public class MaskEventHandler {
         EntityPlayer player = (EntityPlayer) event.source.getEntity();
         if (player.worldObj.isRemote) return;
         if (!MaskHelper.hasMask(player, MaskHelper.MASK_SIPPING_FIEND)) return;
-        if (player.getRNG().nextFloat() < SIPPING_FIEND_CHANCE) {
+        if (player.getRNG()
+            .nextFloat() < SIPPING_FIEND_CHANCE) {
             float healAmount = Math.min(event.ammount * SIPPING_FIEND_RATIO, SIPPING_FIEND_MAX_HEAL);
             player.heal(healAmount);
         }
@@ -102,8 +103,8 @@ public class MaskEventHandler {
             int stickyWarp = thaumcraft.common.Thaumcraft.proxy.getPlayerKnowledge()
                 .getWarpSticky(player.getCommandSenderName());
             if (stickyWarp > 0) {
-                int reduction = WARP_REDUCTION_MIN + player.getRNG().nextInt(
-                    WARP_REDUCTION_MAX - WARP_REDUCTION_MIN + 1);
+                int reduction = WARP_REDUCTION_MIN + player.getRNG()
+                    .nextInt(WARP_REDUCTION_MAX - WARP_REDUCTION_MIN + 1);
                 thaumcraft.common.Thaumcraft.proxy.getPlayerKnowledge()
                     .setWarpSticky(player.getCommandSenderName(), Math.max(0, stickyWarp - reduction));
             }
@@ -114,9 +115,9 @@ public class MaskEventHandler {
     // 【态度面具 · face 索引】
     // ==================================================
     private static final int FACE_NO_ATTITUDE = 0;
-    private static final int FACE_FRIENDLY    = 1;
-    private static final int FACE_SOLEMN      = 2;
-    private static final int FACE_HIDING      = 3;
+    private static final int FACE_FRIENDLY = 1;
+    private static final int FACE_SOLEMN = 2;
+    private static final int FACE_HIDING = 3;
 
     private static final float NO_ATTITUDE_PVP_CHANCE = 0.30F;
     private static final int NO_ATTITUDE_PVP_COOLDOWN = 600;
@@ -145,16 +146,13 @@ public class MaskEventHandler {
         if (!SHOW_MESSAGES) return;
         if (player == null) return;
         if (player.worldObj == null || player.worldObj.isRemote) return;
-        player.addChatComponentMessage(new ChatComponentTranslation(
-            "msg.magianaturalis.mask." + key, args));
+        player.addChatComponentMessage(new ChatComponentTranslation("msg.magianaturalis.mask." + key, args));
     }
 
     private static void sendParticles(EntityPlayer player, int face) {
         if (!(player instanceof EntityPlayerMP)) return;
         try {
-            PacketHandler.network.sendTo(
-                new PacketAttitudeParticles.Message(face),
-                (EntityPlayerMP) player);
+            PacketHandler.network.sendTo(new PacketAttitudeParticles.Message(face), (EntityPlayerMP) player);
         } catch (Exception e) {}
     }
 
@@ -162,21 +160,22 @@ public class MaskEventHandler {
     // 【属性工具】加 / 移除修饰符
     // ==================================================
     private static void applyAttribute(EntityPlayer player, net.minecraft.entity.ai.attributes.IAttribute attr,
-                                       UUID uuid, String name, double value, int op) {
+        UUID uuid, String name, double value, int op) {
         IAttributeInstance inst = player.getEntityAttribute(attr);
         if (inst == null) return;
-        if (inst.getModifier(uuid) != null) return;  // 已存在
+        if (inst.getModifier(uuid) != null) return; // 已存在
         inst.applyModifier(new AttributeModifier(uuid, name, value, op));
     }
 
     private static void removeAttribute(EntityPlayer player, net.minecraft.entity.ai.attributes.IAttribute attr,
-                                        UUID uuid) {
+        UUID uuid) {
         IAttributeInstance inst = player.getEntityAttribute(attr);
         if (inst == null) return;
         AttributeModifier mod = inst.getModifier(uuid);
         if (mod == null) return;
         inst.removeModifier(mod);
     }
+
     // ==================================================
     // 【无态度 · PVP 攻击取消】
     // ==================================================
@@ -198,13 +197,13 @@ public class MaskEventHandler {
         long lastCd = ItemMask.getAttitudePvpCd(mask);
         if (now - lastCd < NO_ATTITUDE_PVP_COOLDOWN) return;
 
-        float r = player.getRNG().nextFloat();
+        float r = player.getRNG()
+            .nextFloat();
         if (r >= NO_ATTITUDE_PVP_CHANCE) return;
 
         event.setCanceled(true);
         ItemMask.setAttitudePvpCd(mask, now);
-        attacker.addPotionEffect(new PotionEffect(
-            Potion.confusion.getId(), NO_ATTITUDE_CONFUSION_DURATION, 2));
+        attacker.addPotionEffect(new PotionEffect(Potion.confusion.getId(), NO_ATTITUDE_CONFUSION_DURATION, 2));
 
         msg(player, "no_attitude_blocked");
         sendParticles(player, FACE_NO_ATTITUDE);
@@ -255,7 +254,8 @@ public class MaskEventHandler {
         for (EntityMob mob : mobs) {
             if (mob instanceof EntityZombie) continue;
             if (mob.getAttackTarget() != player && mob.getAITarget() != player) continue;
-            if (player.getRNG().nextFloat() < 0.5F) {
+            if (player.getRNG()
+                .nextFloat() < 0.5F) {
                 mob.setAttackTarget(null);
                 mob.setRevengeTarget(null);
                 cleared++;
@@ -278,9 +278,8 @@ public class MaskEventHandler {
 
         if (player.ticksExisted % AI_CLEAR_TICK != 0) return;
 
-        List<EntityMob> mobs = player.worldObj.getEntitiesWithinAABB(
-            EntityMob.class,
-            player.boundingBox.expand(8, 4, 8));
+        List<EntityMob> mobs = player.worldObj
+            .getEntitiesWithinAABB(EntityMob.class, player.boundingBox.expand(8, 4, 8));
         int cleared = 0;
         for (EntityMob mob : mobs) {
             boolean acted = false;
@@ -295,9 +294,8 @@ public class MaskEventHandler {
             if (acted) cleared++;
         }
 
-        List<EntityCreature> creatures = player.worldObj.getEntitiesWithinAABB(
-            EntityCreature.class,
-            player.boundingBox.expand(8, 4, 8));
+        List<EntityCreature> creatures = player.worldObj
+            .getEntitiesWithinAABB(EntityCreature.class, player.boundingBox.expand(8, 4, 8));
         for (EntityCreature creature : creatures) {
             if (creature instanceof IMob) continue;
             if (creature.getAttackTarget() == player) creature.setAttackTarget(null);
@@ -323,17 +321,18 @@ public class MaskEventHandler {
         if (!(source instanceof EntityLivingBase)) return;
         EntityLivingBase attacker = (EntityLivingBase) source;
 
-        float r = player.getRNG().nextFloat();
+        float r = player.getRNG()
+            .nextFloat();
         if (r >= FRIENDLY_STOP_CHANCE) return;
 
         long until = player.worldObj.getTotalWorldTime() + FRIENDLY_STOP_DURATION;
-        attacker.getEntityData().setLong(TAG_FRIENDLY_STOP_UNTIL, until);
+        attacker.getEntityData()
+            .setLong(TAG_FRIENDLY_STOP_UNTIL, until);
         if (attacker instanceof EntityCreature) {
             ((EntityCreature) attacker).setAttackTarget(null);
         }
         attacker.setRevengeTarget(null);
-        attacker.addPotionEffect(new PotionEffect(
-            Potion.weakness.getId(), FRIENDLY_STOP_DURATION, 0));
+        attacker.addPotionEffect(new PotionEffect(Potion.weakness.getId(), FRIENDLY_STOP_DURATION, 0));
 
         sendParticles(player, FACE_FRIENDLY);
     }
@@ -411,23 +410,22 @@ public class MaskEventHandler {
         // ---------- 玩家力量加成 ----------
         if (active) {
             // 威严展开期间：攻击力 +6（约力量 II），不显示 buff
-            applyAttribute(player,
+            applyAttribute(
+                player,
                 SharedMonsterAttributes.attackDamage,
                 SOLEMN_STRENGTH_UUID,
                 "magianaturalis:solemn_strength",
-                6.0D, 0);
+                6.0D,
+                0);
         } else {
-            removeAttribute(player,
-                SharedMonsterAttributes.attackDamage,
-                SOLEMN_STRENGTH_UUID);
+            removeAttribute(player, SharedMonsterAttributes.attackDamage, SOLEMN_STRENGTH_UUID);
             return;
         }
 
         if (player.ticksExisted % AI_CLEAR_TICK != 0) return;
 
-        List<EntityLivingBase> list = player.worldObj.getEntitiesWithinAABB(
-            EntityLivingBase.class,
-            player.boundingBox.expand(SOLEMN_RADIUS, 4, SOLEMN_RADIUS));
+        List<EntityLivingBase> list = player.worldObj
+            .getEntitiesWithinAABB(EntityLivingBase.class, player.boundingBox.expand(SOLEMN_RADIUS, 4, SOLEMN_RADIUS));
 
         for (EntityLivingBase living : list) {
             if (living == player) continue;
@@ -436,10 +434,8 @@ public class MaskEventHandler {
                 ((EntityCreature) living).setAttackTarget(null);
             }
             living.setRevengeTarget(null);
-            living.addPotionEffect(new PotionEffect(
-                Potion.digSlowdown.getId(), SOLEMN_POTION_DURATION, 2, true));
-            living.addPotionEffect(new PotionEffect(
-                Potion.weakness.getId(), SOLEMN_POTION_DURATION, 2, true));
+            living.addPotionEffect(new PotionEffect(Potion.digSlowdown.getId(), SOLEMN_POTION_DURATION, 2, true));
+            living.addPotionEffect(new PotionEffect(Potion.weakness.getId(), SOLEMN_POTION_DURATION, 2, true));
         }
     }
 
@@ -464,18 +460,15 @@ public class MaskEventHandler {
                 ItemMask.setHiding(mask, false);
                 ItemMask.setHidingCdEnd(mask, now + HIDING_INTERVAL);
                 player.setInvisible(false);
-                removeAttribute(player,
-                    SharedMonsterAttributes.movementSpeed,
-                    HIDING_SPEED_UUID);
+                removeAttribute(player, SharedMonsterAttributes.movementSpeed, HIDING_SPEED_UUID);
                 msg(player, "hiding_end");
                 return;
             }
 
             // ---------- 每 2 tick 清 16 格 mob 目标 ----------
             if (player.ticksExisted % AI_CLEAR_TICK == 0) {
-                List<EntityMob> mobs = player.worldObj.getEntitiesWithinAABB(
-                    EntityMob.class,
-                    player.boundingBox.expand(16, 8, 16));
+                List<EntityMob> mobs = player.worldObj
+                    .getEntitiesWithinAABB(EntityMob.class, player.boundingBox.expand(16, 8, 16));
                 for (EntityMob mob : mobs) {
                     if (mob.getAttackTarget() == player) mob.setAttackTarget(null);
                     if (mob.getAITarget() == player) mob.setRevengeTarget(null);
@@ -488,9 +481,7 @@ public class MaskEventHandler {
                     ItemMask.setHiding(mask, false);
                     ItemMask.setHidingCdEnd(mask, now + HIDING_INTERVAL);
                     player.setInvisible(false);
-                    removeAttribute(player,
-                        SharedMonsterAttributes.movementSpeed,
-                        HIDING_SPEED_UUID);
+                    removeAttribute(player, SharedMonsterAttributes.movementSpeed, HIDING_SPEED_UUID);
                     msg(player, "hiding_fail");
                 }
             }
@@ -499,9 +490,7 @@ public class MaskEventHandler {
 
         // ---------- 冷却中：确保无速度加成 ----------
         if (now < ItemMask.getHidingCdEnd(mask)) {
-            removeAttribute(player,
-                SharedMonsterAttributes.movementSpeed,
-                HIDING_SPEED_UUID);
+            removeAttribute(player, SharedMonsterAttributes.movementSpeed, HIDING_SPEED_UUID);
             return;
         }
 
@@ -518,11 +507,13 @@ public class MaskEventHandler {
         ItemMask.setHidingEnd(mask, now + HIDING_DURATION);
         player.setInvisible(true);
         // 速度翻倍 = 速度 V，不显示 buff
-        applyAttribute(player,
+        applyAttribute(
+            player,
             SharedMonsterAttributes.movementSpeed,
             HIDING_SPEED_UUID,
             "magianaturalis:hiding_speed",
-            1.0D, 2);
+            1.0D,
+            2);
         msg(player, "hiding_start");
         sendParticles(player, FACE_HIDING);
     }

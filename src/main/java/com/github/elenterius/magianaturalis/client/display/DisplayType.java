@@ -25,7 +25,7 @@ public enum DisplayType {
     REVEAL_NODES("reveal_nodes"),
 
     /** 物品槽内显示要素图标 */
-    REVEAL_SLOT_ASPECTS("reveal_slot_aspects");     // ← 只有最后一项用分号
+    REVEAL_SLOT_ASPECTS("reveal_slot_aspects"); // ← 只有最后一项用分号
 
     private final String key;
 

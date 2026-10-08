@@ -73,7 +73,7 @@ public final class DisplayToggleManager {
     /**
      * 一个按键控制所有显示：
      * - 只要有任何一项关着 → 全部开
-     * - 全部开着         → 全部关
+     * - 全部开着 → 全部关
      */
     public void cycleAll() {
         boolean anyOff = false;
@@ -99,7 +99,11 @@ public final class DisplayToggleManager {
 
         NBTTagCompound states = new NBTTagCompound();
         for (Map.Entry<DisplayType, Boolean> e : typeStates.entrySet()) {
-            states.setBoolean(e.getKey().getKey(), e.getValue().booleanValue());
+            states.setBoolean(
+                e.getKey()
+                    .getKey(),
+                e.getValue()
+                    .booleanValue());
         }
         tag.setTag("states", states);
         return tag;

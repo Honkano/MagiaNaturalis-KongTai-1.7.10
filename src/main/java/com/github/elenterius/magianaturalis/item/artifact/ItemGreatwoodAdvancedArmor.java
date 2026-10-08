@@ -30,13 +30,12 @@ import thaumcraft.api.aspects.Aspect;
  *
  * 参考 Botania 的 Elementium 套装。
  * 和普通版的区别：
- *   - 贴图前缀：greatwood_advanced
- *   - Vis 折扣：10%
- *   - 稀有度：rare（青色）
- *   - 可以镶嵌符文：5 个
+ * - 贴图前缀：greatwood_advanced
+ * - Vis 折扣：10%
+ * - 稀有度：rare（青色）
+ * - 可以镶嵌符文：5 个
  */
-public class ItemGreatwoodAdvancedArmor extends ItemArmor
-    implements IRepairable, IRunicArmor, IVisDiscountGear {
+public class ItemGreatwoodAdvancedArmor extends ItemArmor implements IRepairable, IRunicArmor, IVisDiscountGear {
 
     public IIcon iconHelm;
     public IIcon iconChest;
@@ -57,9 +56,9 @@ public class ItemGreatwoodAdvancedArmor extends ItemArmor
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister ir) {
-        iconHelm  = ir.registerIcon(MagiaNaturalis.rlString("greatwood_advanced_helm"));
+        iconHelm = ir.registerIcon(MagiaNaturalis.rlString("greatwood_advanced_helm"));
         iconChest = ir.registerIcon(MagiaNaturalis.rlString("greatwood_advanced_chest"));
-        iconLegs  = ir.registerIcon(MagiaNaturalis.rlString("greatwood_advanced_legs"));
+        iconLegs = ir.registerIcon(MagiaNaturalis.rlString("greatwood_advanced_legs"));
         iconBoots = ir.registerIcon(MagiaNaturalis.rlString("greatwood_advanced_boots"));
     }
 
@@ -117,8 +116,7 @@ public class ItemGreatwoodAdvancedArmor extends ItemArmor
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean advanced) {
         if (ENABLE_VIS_DISCOUNT) {
             list.add(
-                EnumChatFormatting.DARK_PURPLE
-                    + StatCollector.translateToLocal("tc.visdiscount")
+                EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("tc.visdiscount")
                     + ": "
                     + getVisDiscount(stack, player, null)
                     + "%");

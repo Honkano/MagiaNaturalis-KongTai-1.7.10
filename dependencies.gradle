@@ -35,13 +35,27 @@
  */
 dependencies {
     // 神秘时代本体 (deobf 版本)
-    compile files('libs/Thaumcraft-deobf-1.7.10-4.2.3.5.jar')
-
     compile files('libs/NotEnoughItems-2.8.144-GTNH-dev.jar')
-
     compile files('libs/CodeChickenCore-1.4.22-dev.jar')
+    compile files('libs/Extra-Botany-r1.0-22-GTNH-dev.jar')
 
+
+
+
+    devOnlyNonPublishable('com.github.GTNewHorizons:GTNHLib:0.11.52:dev')
+    devOnlyNonPublishable('com.github.GTNewHorizons:ModularUI2:2.3.92-1.7.10:dev')
     devOnlyNonPublishable('com.github.GTNewHorizons:Botania:1.13.36-GTNH:dev')
+    devOnlyNonPublishable('com.github.GTNewHorizons:Advanced-Botany:1.4.9:dev') {
+    // 把 CodeChickenLib 从整条传递链里剪掉
+    exclude group: 'com.github.GTNewHorizons', module: 'CodeChickenLib'
+}
+
+
+    devOnlyNonPublishable(rfg.deobf('curse.maven:alfheim-284811:8798931'))
+    devOnlyNonPublishable(rfg.deobf('curse.maven:asjcore-445557:8935475'))
+
+
+
 
 
 

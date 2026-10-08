@@ -13,10 +13,10 @@ import net.minecraft.item.ItemStack;
  *
  * 参考 Botania 的 ModelArmorElementium。
  * 和普通版（Manasteel）不一样，它有：
- *   - 头盔四片翅膀
- *   - 头盔顶部精灵装饰
- *   - 肩甲小翅膀
- *   - 靴子翅膀
+ * - 头盔四片翅膀
+ * - 头盔顶部精灵装饰
+ * - 肩甲小翅膀
+ * - 靴子翅膀
  * 贴图坐标和普通版完全不同。
  */
 public class ModelArmorGreatwoodAdvanced extends ModelBiped {
@@ -309,10 +309,8 @@ public class ModelArmorGreatwoodAdvanced extends ModelBiped {
             if (itemstack != null && player.getItemInUseCount() > 0) {
                 EnumAction enumaction = itemstack.getItemUseAction();
 
-                if (enumaction == EnumAction.block)
-                    heldItemRight = 3;
-                else if (enumaction == EnumAction.bow)
-                    aimedBow = true;
+                if (enumaction == EnumAction.block) heldItemRight = 3;
+                else if (enumaction == EnumAction.bow) aimedBow = true;
             }
         }
     }

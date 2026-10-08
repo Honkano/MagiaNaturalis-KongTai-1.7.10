@@ -2,28 +2,28 @@ package com.github.elenterius.magianaturalis.event;
 
 import java.util.List;
 
-import com.github.elenterius.magianaturalis.item.baubles.ItemMask;
-import com.github.elenterius.magianaturalis.util.MaskHelper;
-
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+
+import com.github.elenterius.magianaturalis.item.baubles.ItemMask;
+import com.github.elenterius.magianaturalis.util.MaskHelper;
+
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.common.items.wands.ItemWandCasting;
 
 public class PrimalSwitchHandler {
 
-    private static final Aspect[] FACE_ASPECT = {
-        null,               // 0 元始
-        Aspect.FIRE,        // 1 火
-        Aspect.AIR,         // 2 风
-        Aspect.ENTROPY,     // 3 混沌
-        Aspect.EARTH,       // 4 大地
-        Aspect.ORDER,       // 5 秩序
-        Aspect.WATER        // 6 水
+    private static final Aspect[] FACE_ASPECT = { null, // 0 元始
+        Aspect.FIRE, // 1 火
+        Aspect.AIR, // 2 风
+        Aspect.ENTROPY, // 3 混沌
+        Aspect.EARTH, // 4 大地
+        Aspect.ORDER, // 5 秩序
+        Aspect.WATER // 6 水
     };
 
     private static final int COST_SINGLE = 50;
@@ -65,8 +65,7 @@ public class PrimalSwitchHandler {
 
         if (!consumeVis(casting, held, nextFace)) {
             if (event.world.isRemote) {
-                player.addChatComponentMessage(new ChatComponentTranslation(
-                    "msg.magianaturalis.mask.primal.no_vis"));
+                player.addChatComponentMessage(new ChatComponentTranslation("msg.magianaturalis.mask.primal.no_vis"));
             }
             return;
         }
@@ -74,12 +73,10 @@ public class PrimalSwitchHandler {
         ItemMask.setPrimalFace(mask, nextFace);
 
         if (event.world.isRemote) {
-            player.worldObj.playSoundAtEntity(player, "thaumcraft:cameraticks",
-                0.3F, 1.0F);
-            String faceName = StatCollector.translateToLocal(
-                "item.magianaturalis.mask.4.face." + nextFace);
-            player.addChatComponentMessage(new ChatComponentTranslation(
-                "msg.magianaturalis.mask.primal.switch", faceName));
+            player.worldObj.playSoundAtEntity(player, "thaumcraft:cameraticks", 0.3F, 1.0F);
+            String faceName = StatCollector.translateToLocal("item.magianaturalis.mask.4.face." + nextFace);
+            player.addChatComponentMessage(
+                new ChatComponentTranslation("msg.magianaturalis.mask.primal.switch", faceName));
         }
     }
 

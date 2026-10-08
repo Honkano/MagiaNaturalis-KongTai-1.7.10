@@ -47,9 +47,9 @@ public final class MNEntities {
             "herobrine_watcher",
             id++,
             MagiaNaturalis.instance,
-            80,    // 追踪距离
-            3,     // 更新频率
-            false  // 它不动，不需要同步速度
+            80, // 追踪距离
+            3, // 更新频率
+            false // 它不动，不需要同步速度
         );
     }
 

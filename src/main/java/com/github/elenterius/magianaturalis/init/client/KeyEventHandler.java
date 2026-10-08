@@ -129,8 +129,7 @@ public final class KeyEventHandler {
 
             for (int i = 0; i < baubles.getSizeInventory(); i++) {
                 ItemStack stack = baubles.getStackInSlot(i);
-                if (stack != null
-                    && stack.getItem() instanceof ItemMask
+                if (stack != null && stack.getItem() instanceof ItemMask
                     && stack.getItemDamage() == ItemMask.META_ATTITUDE) {
 
                     // ★ 1. 客户端算好目标 face，本地立即切
@@ -139,22 +138,21 @@ public final class KeyEventHandler {
                     ItemMask.setAttitudeFace(stack, nextFace);
 
                     // ★ 2. 发包给服务端（带目标 face）
-                    PacketHandler.network.sendToServer(
-                        new PacketAttitudeSwitch.AttitudeSwitchMessage(nextFace));
+                    PacketHandler.network.sendToServer(new PacketAttitudeSwitch.AttitudeSwitchMessage(nextFace));
 
                     int face = ItemMask.getAttitudeFace(stack);
-                    String faceName = StatCollector.translateToLocal(
-                        "item.magianaturalis.mask.3.face." + face);
+                    String faceName = StatCollector.translateToLocal("item.magianaturalis.mask.3.face." + face);
 
                     // 聊天提示
-                    player.addChatComponentMessage(new ChatComponentText(
-                        "§5" + StatCollector.translateToLocal("item.magianaturalis.mask.3.current")
-                        + "§d" + faceName));
+                    player.addChatComponentMessage(
+                        new ChatComponentText(
+                            "§5" + StatCollector.translateToLocal("item.magianaturalis.mask.3.current")
+                                + "§d"
+                                + faceName));
 
                     // 翻书音效
-                    player.worldObj.playSound(
-                        player.posX, player.posY, player.posZ,
-                        "thaumcraft:page", 0.6F, 1.2F, false);
+                    player.worldObj
+                        .playSound(player.posX, player.posY, player.posZ, "thaumcraft:page", 0.6F, 1.2F, false);
 
                     return;
                 }

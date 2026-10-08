@@ -21,7 +21,7 @@ public class MagicaNaturalisMixinLoader implements IFMLLoadingPlugin, IEarlyMixi
         mixins.add("MixinEntity");
         mixins.add("MixinEntityRenderer");
         mixins.add("MixinGuiContainer");
-        mixins.add("MixinGuiResearchRecipe");   // ← 加这行
+        mixins.add("MixinGuiResearchRecipe"); // ← 加这行
         return mixins;
 
     }
@@ -42,8 +42,7 @@ public class MagicaNaturalisMixinLoader implements IFMLLoadingPlugin, IEarlyMixi
     }
 
     @Override
-    public void injectData(java.util.Map<String, Object> data) {
-    }
+    public void injectData(java.util.Map<String, Object> data) {}
 
     @Override
     public String getAccessTransformerClass() {

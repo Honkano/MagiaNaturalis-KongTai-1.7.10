@@ -21,15 +21,15 @@ public final class DisplayToggleHandler {
     public static final KeyBinding TOGGLE_DISPLAY_KEY = new KeyBinding(
         "key.magianaturalis.toggle_display",
         Keyboard.KEY_O,
-        "key.categories.magianaturalis"
-    );
+        "key.categories.magianaturalis");
 
-    private DisplayToggleHandler() {
-    }
+    private DisplayToggleHandler() {}
 
     public static void register() {
         ClientRegistry.registerKeyBinding(TOGGLE_DISPLAY_KEY);
-        FMLCommonHandler.instance().bus().register(new Handler());
+        FMLCommonHandler.instance()
+            .bus()
+            .register(new Handler());
     }
 
     @SideOnly(Side.CLIENT)
@@ -49,9 +49,7 @@ public final class DisplayToggleHandler {
             boolean anyOn = manager.isAnyEnabled();
 
             // 从语言文件读取消息，中英文自动适配
-            String key = anyOn
-                ? "msg.magianaturalis.display.on"
-                : "msg.magianaturalis.display.off";
+            String key = anyOn ? "msg.magianaturalis.display.on" : "msg.magianaturalis.display.off";
             String localized = StatCollector.translateToLocal(key);
 
             EnumChatFormatting color = anyOn ? EnumChatFormatting.GREEN : EnumChatFormatting.RED;

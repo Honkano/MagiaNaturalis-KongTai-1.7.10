@@ -47,15 +47,19 @@ public class EntityHerobrineWatcher extends EntityMob {
 
         this.tasks.taskEntries.clear();
         this.targetTasks.taskEntries.clear();
-        this.getNavigator().setCanSwim(false);
+        this.getNavigator()
+            .setCanSwim(false);
     }
 
     @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(20.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(0.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.maxHealth)
+            .setBaseValue(20.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed)
+            .setBaseValue(0.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.attackDamage)
+            .setBaseValue(0.0D);
     }
 
     @Override
@@ -145,21 +149,16 @@ public class EntityHerobrineWatcher extends EntityMob {
 
     /** 出场效果 */
     private void playIntro() {
-        MagiaNaturalis.lightning(
-            worldObj,
-            posX, posY + 25, posZ,
-            posX, posY, posZ,
-            12, 0.3F, 20, 0);
+        MagiaNaturalis.lightning(worldObj, posX, posY + 25, posZ, posX, posY, posZ, 12, 0.3F, 20, 0);
 
         // 末影人尖叫，5.0 音量
         worldObj.playSoundEffect(posX, posY, posZ, "mob.endermen.scream", 5.0F, 1.0F);
 
         // 假局域网加入消息
         if (MinecraftServer.getServer() != null) {
-            ChatComponentTranslation msg = new ChatComponentTranslation(
-                LANG_JOIN,
-                new Object[] { "Herobrine" });
-            msg.getChatStyle().setColor(EnumChatFormatting.YELLOW);
+            ChatComponentTranslation msg = new ChatComponentTranslation(LANG_JOIN, new Object[] { "Herobrine" });
+            msg.getChatStyle()
+                .setColor(EnumChatFormatting.YELLOW);
 
             MinecraftServer.getServer()
                 .getConfigurationManager()
@@ -182,8 +181,12 @@ public class EntityHerobrineWatcher extends EntityMob {
     @SuppressWarnings("unchecked")
     private boolean hasPlayerNearby() {
         AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(
-            posX - NEAR_RADIUS, posY - NEAR_RADIUS, posZ - NEAR_RADIUS,
-            posX + NEAR_RADIUS, posY + NEAR_RADIUS, posZ + NEAR_RADIUS);
+            posX - NEAR_RADIUS,
+            posY - NEAR_RADIUS,
+            posZ - NEAR_RADIUS,
+            posX + NEAR_RADIUS,
+            posY + NEAR_RADIUS,
+            posZ + NEAR_RADIUS);
 
         List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, aabb);
         return !players.isEmpty();
@@ -192,14 +195,19 @@ public class EntityHerobrineWatcher extends EntityMob {
     @SuppressWarnings("unchecked")
     private void whisperToNearbyPlayers() {
         AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(
-            posX - WHISPER_RADIUS, posY - WHISPER_RADIUS, posZ - WHISPER_RADIUS,
-            posX + WHISPER_RADIUS, posY + WHISPER_RADIUS, posZ + WHISPER_RADIUS);
+            posX - WHISPER_RADIUS,
+            posY - WHISPER_RADIUS,
+            posZ - WHISPER_RADIUS,
+            posX + WHISPER_RADIUS,
+            posY + WHISPER_RADIUS,
+            posZ + WHISPER_RADIUS);
 
         List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, aabb);
         for (EntityPlayer p : players) {
             p.addChatMessage(
                 new ChatComponentText(
-                    EnumChatFormatting.DARK_RED + "" + EnumChatFormatting.ITALIC
+                    EnumChatFormatting.DARK_RED + ""
+                        + EnumChatFormatting.ITALIC
                         + StatCollector.translateToLocal(LANG_MSG)));
         }
     }

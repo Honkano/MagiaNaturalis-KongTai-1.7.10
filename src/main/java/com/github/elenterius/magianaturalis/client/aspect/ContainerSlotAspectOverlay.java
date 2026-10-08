@@ -19,8 +19,7 @@ import thaumcraft.api.aspects.IEssentiaContainerItem;
 @SideOnly(Side.CLIENT)
 public final class ContainerSlotAspectOverlay {
 
-    private ContainerSlotAspectOverlay() {
-    }
+    private ContainerSlotAspectOverlay() {}
 
     /** 槽位图标（矩阵处于 translate(guiLeft, guiTop, 0) 状态，用相对坐标） */
     public static void renderSlotIcons(GuiContainer gui) {
@@ -68,7 +67,8 @@ public final class ContainerSlotAspectOverlay {
     }
 
     private static boolean isEnabled() {
-        return DisplayToggleManager.getInstance().isEnabled(DisplayType.REVEAL_SLOT_ASPECTS);
+        return DisplayToggleManager.getInstance()
+            .isEnabled(DisplayType.REVEAL_SLOT_ASPECTS);
     }
 
     public static Aspect getDisplayedAspectStatic(ItemStack stack) {
@@ -88,7 +88,6 @@ public final class ContainerSlotAspectOverlay {
         return index < aspects.length ? aspects[index] : null;
     }
 
-
     /** 悬停槽时，在鼠标右侧显示图标（贴 Tooltip 附近） */
     public static void renderHoveredIcon(int mouseX, int mouseY, ItemStack stack) {
         if (!isEnabled()) return;
@@ -107,6 +106,5 @@ public final class ContainerSlotAspectOverlay {
         // 使用固定 16×16 的大图标，比槽位图标更醒目
         AspectIconRenderer.renderAspect(aspect, x, y, 16, alpha);
     }
-
 
 }

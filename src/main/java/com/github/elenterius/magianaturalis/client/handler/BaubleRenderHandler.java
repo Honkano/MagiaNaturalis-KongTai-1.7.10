@@ -34,8 +34,7 @@ public class BaubleRenderHandler {
             if (stack != null && stack.getItem() instanceof IBaubleRender) {
                 GL11.glPushMatrix();
                 GL11.glColor4f(1F, 1F, 1F, 1F);
-                ((IBaubleRender) stack.getItem())
-                    .onPlayerBaubleRender(stack, event, IBaubleRender.RenderType.HEAD);
+                ((IBaubleRender) stack.getItem()).onPlayerBaubleRender(stack, event, IBaubleRender.RenderType.HEAD);
                 GL11.glPopMatrix();
             }
         }

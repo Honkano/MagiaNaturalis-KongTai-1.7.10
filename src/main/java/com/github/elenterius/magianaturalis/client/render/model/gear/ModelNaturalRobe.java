@@ -6,6 +6,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.util.MathHelper;
+
 import org.lwjgl.opengl.GL11;
 
 /**
@@ -232,7 +233,7 @@ public class ModelNaturalRobe extends ModelBiped {
         this.bipedBody.addChild(this.Mbelt);
         this.bipedBody.addChild(this.MbeltL);
         this.bipedBody.addChild(this.MbeltR);
-        if(f >= 1.0F) {
+        if (f >= 1.0F) {
             this.bipedBody.addChild(this.BeltL);
             this.bipedBody.addChild(this.BeltR);
             this.bipedBody.addChild(this.Chestplate);
@@ -287,7 +288,7 @@ public class ModelNaturalRobe extends ModelBiped {
 
     @Override
     public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
-        if(!(entity instanceof EntitySkeleton) && !(entity instanceof EntityZombie)) {
+        if (!(entity instanceof EntitySkeleton) && !(entity instanceof EntityZombie)) {
             this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
         } else {
             this.setRotationAnglesZombie(f, f1, f2, f3, f4, f5, entity);
@@ -301,7 +302,7 @@ public class ModelNaturalRobe extends ModelBiped {
         this.Cloak1.rotateAngleX = -c / 2.0F + 0.1396263F;
         this.Cloak2.rotateAngleX = -c / 2.0F + 0.3069452F;
         this.Cloak3.rotateAngleX = -c / 2.0F + 0.4465716F;
-        if(this.isChild) {
+        if (this.isChild) {
             float f6 = 2.0F;
             GL11.glPushMatrix();
             GL11.glScalef(1.5F / f6, 1.5F / f6, 1.5F / f6);
@@ -338,7 +339,8 @@ public class ModelNaturalRobe extends ModelBiped {
         model.rotateAngleZ = z;
     }
 
-    public void setRotationAnglesZombie(float p_78087_1_, float p_78087_2_, float p_78087_3_, float p_78087_4_, float p_78087_5_, float p_78087_6_, Entity p_78087_7_) {
+    public void setRotationAnglesZombie(float p_78087_1_, float p_78087_2_, float p_78087_3_, float p_78087_4_,
+        float p_78087_5_, float p_78087_6_, Entity p_78087_7_) {
         super.setRotationAngles(p_78087_1_, p_78087_2_, p_78087_3_, p_78087_4_, p_78087_5_, p_78087_6_, p_78087_7_);
         float f6 = MathHelper.sin(this.onGround * 3.1415927F);
         float f7 = MathHelper.sin((1.0F - (1.0F - this.onGround) * (1.0F - this.onGround)) * 3.1415927F);

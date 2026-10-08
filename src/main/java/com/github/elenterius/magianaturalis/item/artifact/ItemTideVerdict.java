@@ -16,8 +16,7 @@ import thaumcraft.api.IRepairable;
 
 public class ItemTideVerdict extends ItemSword implements IRepairable {
 
-    public static final ToolMaterial MATERIAL = EnumHelper
-        .addToolMaterial("MN_TIDE", 4, 1500, 8.0F, 4.0F, 20);
+    public static final ToolMaterial MATERIAL = EnumHelper.addToolMaterial("MN_TIDE", 4, 1500, 8.0F, 4.0F, 20);
 
     public IIcon icon;
 

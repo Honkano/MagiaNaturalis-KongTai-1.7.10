@@ -16,8 +16,7 @@ import thaumcraft.api.IRepairable;
 
 public class ItemVerdantSpear extends ItemSword implements IRepairable {
 
-    public static final ToolMaterial MATERIAL = EnumHelper
-        .addToolMaterial("MN_SPEAR", 4, 800, 8.0F, 3.5F, 15);
+    public static final ToolMaterial MATERIAL = EnumHelper.addToolMaterial("MN_SPEAR", 4, 800, 8.0F, 3.5F, 15);
 
     public IIcon icon;
 

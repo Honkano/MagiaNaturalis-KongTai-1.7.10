@@ -59,8 +59,6 @@ public class ClientSetup extends CommonSetup {
         // 快捷栏要素图标
         MinecraftForge.EVENT_BUS.register(new HotbarSlotAspectOverlay());
 
-
-
         // 注意：容器 GUI 里的图标不再由事件总线驱动，
         // 而是由 MixinGuiContainer 注入到 GuiContainer.drawScreen 里，
         // 这样图标会压在 Tooltip 下方，且鼠标悬停时也显示。
@@ -90,9 +88,7 @@ public class ClientSetup extends CommonSetup {
         // ==================================================
         // 【彩蛋】白瞳凝视者
         // ==================================================
-        RenderingRegistry.registerEntityRenderingHandler(
-            EntityHerobrineWatcher.class,
-            new RenderHerobrineWatcher());
+        RenderingRegistry.registerEntityRenderingHandler(EntityHerobrineWatcher.class, new RenderHerobrineWatcher());
     }
 
     public void registerTileEntitySpecialRenderer(Class<? extends TileEntity> clazz,

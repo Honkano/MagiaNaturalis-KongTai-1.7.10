@@ -1,13 +1,14 @@
 package com.github.elenterius.magianaturalis.event;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+
 import com.github.elenterius.magianaturalis.item.baubles.ItemMask;
 import com.github.elenterius.magianaturalis.util.MaskHelper;
 import com.github.elenterius.magianaturalis.util.MaskScanHelper;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 public class MaskScanHandler {
 
@@ -15,8 +16,8 @@ public class MaskScanHandler {
 
     @SubscribeEvent
     public void onRightClick(PlayerInteractEvent event) {
-        if (LOG) System.out.println("[MN][Scan] handler 触发, action=" + event.action
-            + ", isRemote=" + event.world.isRemote);
+        if (LOG)
+            System.out.println("[MN][Scan] handler 触发, action=" + event.action + ", isRemote=" + event.world.isRemote);
 
         if (!event.world.isRemote) return;
 
@@ -49,8 +50,7 @@ public class MaskScanHandler {
         if (LOG) System.out.println("[MN][Scan] tryScan 返回 " + ok);
 
         if (ok) {
-            player.worldObj.playSoundAtEntity(player, "thaumcraft:cameraticks",
-                0.3F, 1.2F);
+            player.worldObj.playSoundAtEntity(player, "thaumcraft:cameraticks", 0.3F, 1.2F);
             event.setCanceled(true);
         }
     }

@@ -19,9 +19,9 @@ import org.lwjgl.opengl.GL11;
  * 对照 ASJLib 的 AdvancedArmorModel 源码逐字复刻。
  *
  * 关键三步，少任何一步模型都不跟随玩家动作：
- *   ① 设置 isSneak / isChild / isRiding / heldItemRight 等状态字段
- *   ② 调用 setRotationAngles 计算所有部位的 rotateAngle
- *   ③ 渲染时应用 rotationPoint + rotateAngle + 180° 翻转
+ * ① 设置 isSneak / isChild / isRiding / heldItemRight 等状态字段
+ * ② 调用 setRotationAngles 计算所有部位的 rotateAngle
+ * ③ 渲染时应用 rotationPoint + rotateAngle + 180° 翻转
  */
 public class ModelArmorWaterGod extends ModelBiped {
 
@@ -33,13 +33,11 @@ public class ModelArmorWaterGod extends ModelBiped {
 
     static {
         try {
-            model = AdvancedModelLoader.loadModel(
-                new ResourceLocation("magianaturalis", "model/WaterGodArmor.obj"));
+            model = AdvancedModelLoader.loadModel(new ResourceLocation("magianaturalis", "model/WaterGodArmor.obj"));
         } catch (Exception e) {
             e.printStackTrace();
         }
-        texture = new ResourceLocation(
-            "magianaturalis", "textures/models/armor/WaterGodArmor.png");
+        texture = new ResourceLocation("magianaturalis", "textures/models/armor/WaterGodArmor.png");
     }
 
     private final int slot;
@@ -51,14 +49,13 @@ public class ModelArmorWaterGod extends ModelBiped {
     /**
      * 应用某个部位的变换。
      * 对照 AdvancedArmorModel：
-     *   translate(rotationPoint * scale)
-     *   rotateZ(rotateAngleZ * 180/π)
-     *   rotateY(rotateAngleY * 180/π)
-     *   rotateX(rotateAngleX * 180/π)
-     *   rotateX(180)  ← OBJ 的 Y 轴翻转
+     * translate(rotationPoint * scale)
+     * rotateZ(rotateAngleZ * 180/π)
+     * rotateY(rotateAngleY * 180/π)
+     * rotateX(rotateAngleX * 180/π)
+     * rotateX(180) ← OBJ 的 Y 轴翻转
      */
-    private void applyPartTransform(float px, float py, float pz,
-                                     float rx, float ry, float rz) {
+    private void applyPartTransform(float px, float py, float pz, float rx, float ry, float rz) {
         GL11.glTranslatef(px * S, py * S, pz * S);
         GL11.glRotatef(rz * DEG, 0f, 0f, 1f);
         GL11.glRotatef(ry * DEG, 0f, 1f, 0f);
@@ -67,8 +64,7 @@ public class ModelArmorWaterGod extends ModelBiped {
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2,
-                        float f3, float f4, float f5) {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         if (model == null) return;
 
         // ==================================================
@@ -80,13 +76,13 @@ public class ModelArmorWaterGod extends ModelBiped {
         if (entity instanceof EntityLivingBase) {
             EntityLivingBase living = (EntityLivingBase) entity;
 
-            this.isSneak  = living.isSneaking();
-            this.isChild  = living.isChild();
+            this.isSneak = living.isSneaking();
+            this.isChild = living.isChild();
             this.isRiding = living.isRiding();
 
             ItemStack held = living.getHeldItem();
             this.heldItemRight = held != null ? 1 : 0;
-            this.heldItemLeft  = 0;
+            this.heldItemLeft = 0;
 
             if (entity instanceof EntityPlayer) {
                 EntityPlayer player = (EntityPlayer) entity;
@@ -107,7 +103,9 @@ public class ModelArmorWaterGod extends ModelBiped {
         // ==================================================
         this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 
-        Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
+        Minecraft.getMinecraft()
+            .getTextureManager()
+            .bindTexture(texture);
 
         float objScale = 0.01f;
 

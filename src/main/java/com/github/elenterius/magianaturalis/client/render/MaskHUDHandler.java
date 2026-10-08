@@ -11,6 +11,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 
 import org.lwjgl.opengl.GL11;
 
@@ -20,7 +21,6 @@ import com.github.elenterius.magianaturalis.util.MaskHelper;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.research.ScanResult;
@@ -64,8 +64,7 @@ public class MaskHUDHandler {
 
         String name = getScanName(scan);
         AspectList aspects = ScanManager.getScanAspects(scan, player.worldObj);
-        if ((name == null || name.isEmpty())
-            && (aspects == null || aspects.size() == 0)) return;
+        if ((name == null || name.isEmpty()) && (aspects == null || aspects.size() == 0)) return;
 
         renderHUD(mc, event.resolution, name, aspects);
     }
@@ -94,8 +93,7 @@ public class MaskHUDHandler {
                 if (is == null) {
                     return new ScanResult((byte) 1, Block.getIdFromBlock(b), md, null, "");
                 } else {
-                    return new ScanResult((byte) 1, Item.getIdFromItem(is.getItem()),
-                        is.getItemDamage(), null, "");
+                    return new ScanResult((byte) 1, Item.getIdFromItem(is.getItem()), is.getItemDamage(), null, "");
                 }
             } catch (Exception e) {
                 return null;
@@ -110,21 +108,29 @@ public class MaskHUDHandler {
     private static void spawnParticles(EntityPlayer p, ScanResult scan) {
         try {
             if (scan.type == 2 && scan.entity != null) {
-                Thaumcraft.proxy.blockRunes(p.worldObj,
+                Thaumcraft.proxy.blockRunes(
+                    p.worldObj,
                     scan.entity.posX - 0.5D,
                     scan.entity.posY + scan.entity.height / 2.0D,
                     scan.entity.posZ - 0.5D,
-                    0.3F + p.worldObj.rand.nextFloat() * 0.7F, 0.0F,
                     0.3F + p.worldObj.rand.nextFloat() * 0.7F,
-                    15, 0.03F);
+                    0.0F,
+                    0.3F + p.worldObj.rand.nextFloat() * 0.7F,
+                    15,
+                    0.03F);
             } else if (scan.type == 1) {
                 MovingObjectPosition mop = EntityUtils.getMovingObjectPositionFromPlayer(p.worldObj, p, true);
                 if (mop != null && mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
-                    Thaumcraft.proxy.blockRunes(p.worldObj,
-                        mop.blockX, mop.blockY + 0.25D, mop.blockZ,
-                        0.3F + p.worldObj.rand.nextFloat() * 0.7F, 0.0F,
+                    Thaumcraft.proxy.blockRunes(
+                        p.worldObj,
+                        mop.blockX,
+                        mop.blockY + 0.25D,
+                        mop.blockZ,
                         0.3F + p.worldObj.rand.nextFloat() * 0.7F,
-                        15, 0.03F);
+                        0.0F,
+                        0.3F + p.worldObj.rand.nextFloat() * 0.7F,
+                        15,
+                        0.03F);
                 }
             }
         } catch (Exception e) {}
@@ -140,7 +146,8 @@ public class MaskHUDHandler {
                 if (stack.getItem() != null) return stack.getDisplayName();
             } else if (scan.type == 2 && scan.entity != null) {
                 if (scan.entity instanceof EntityItem) {
-                    return ((EntityItem) scan.entity).getEntityItem().getDisplayName();
+                    return ((EntityItem) scan.entity).getEntityItem()
+                        .getDisplayName();
                 }
                 return scan.entity.getCommandSenderName();
             }
@@ -151,8 +158,7 @@ public class MaskHUDHandler {
     // ==================================================
     // 【渲染 HUD】名字 + 源质，在屏幕中央上方
     // ==================================================
-    private static void renderHUD(Minecraft mc, ScaledResolution res,
-                                  String name, AspectList aspects) {
+    private static void renderHUD(Minecraft mc, ScaledResolution res, String name, AspectList aspects) {
         int midX = res.getScaledWidth() / 2;
         int midY = res.getScaledHeight() / 2;
 
@@ -185,8 +191,7 @@ public class MaskHUDHandler {
                 // 从"GUI 中心"平移到"图标位置"
                 // UtilsFX.drawTag 画的是 16×16 方块
                 GL11.glTranslatef(startX + i * spacing - 8, y, 0);
-                UtilsFX.drawTag(0, 0, aspect, aspects.getAmount(aspect),
-                    0, 0.0D, 1, 1.0F, false);
+                UtilsFX.drawTag(0, 0, aspect, aspects.getAmount(aspect), 0, 0.0D, 1, 1.0F, false);
                 GL11.glPopMatrix();
             }
         }

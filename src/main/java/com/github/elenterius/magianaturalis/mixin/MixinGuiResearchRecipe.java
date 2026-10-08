@@ -21,10 +21,14 @@ import thaumcraft.client.gui.GuiResearchRecipe;
 import thaumcraft.common.Thaumcraft;
 
 /**
- * 打开 INTRO 时，把玩家已发现的【自定义要素】动态追加为 ASPECTS 页。
- * 每 4 个一页，和原版"魔力要素"页行为一致。
+ * 打开 INTRO 时，动态追加要素页：
+ * 1. 六大原始要素（默认显示，和原版"魔力要素"页对齐）
+ * 2. 玩家已发现的自定义要素（只显示自己的，不显示 TC4 原版复合要素）
+ * 每 4 个一页，与原版行为一致。
+ *
+ * remap = false：GuiResearchRecipe 是 TC4 的 deobf 类，不需要 SRG 映射。
  */
-@Mixin(value = GuiResearchRecipe.class, priority = 1000)
+@Mixin(value = GuiResearchRecipe.class, priority = 1000, remap = false)
 public class MixinGuiResearchRecipe {
 
     @Shadow
@@ -33,17 +37,12 @@ public class MixinGuiResearchRecipe {
     @Shadow
     private int maxPages;
 
-    @Inject(
-        method = "<init>",
-        at = @At("TAIL"),
-        require = 0
-    )
-    private void magiaNaturalis$injectCustomAspects(
-            ResearchItem research, int page, double x, double y, CallbackInfo ci) {
+    @Inject(method = "<init>", at = @At("TAIL"), require = 0, remap = false)
+    private void magiaNaturalis$injectCustomAspects(ResearchItem research, int page, double x, double y,
+        CallbackInfo ci) {
 
         if (research == null) return;
-        if (!"intro".equals(research.key)
-                && !"magianaturalis:intro".equals(research.key)) {
+        if (!"intro".equals(research.key) && !"magianaturalis:intro".equals(research.key)) {
             return;
         }
 
@@ -52,12 +51,21 @@ public class MixinGuiResearchRecipe {
 
         String username = mc.thePlayer.getCommandSenderName();
 
-        // 玩家所有已发现的要素（含自定义的）
         AspectList discovered = Thaumcraft.proxy.getPlayerKnowledge()
-                .getAspectsDiscovered(username);
+            .getAspectsDiscovered(username);
 
-        // 挑出我们自己的自定义要素
         AspectList result = new AspectList();
+
+        // ---- 1. 六大原始要素：默认显示 ----
+        for (Aspect primal : Aspect.getPrimalAspects()) {
+            if (primal == null) continue;
+            int amount = discovered.getAmount(primal);
+            if (amount > 0) {
+                result.add(primal, amount);
+            }
+        }
+
+        // ---- 2. 自定义要素：只有玩家已发现的才显示 ----
         for (Aspect a : Aspects.ALL_CUSTOM) {
             if (a == null) continue;
             int amount = discovered.getAmount(a);

@@ -1,6 +1,5 @@
 package com.github.elenterius.magianaturalis.item;
 
-
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
@@ -17,10 +16,10 @@ import cpw.mods.fml.relauncher.SideOnly;
  * 【自然石板模板 · 纯外观版】
  * 
  * 特点：
- *   - 双层渲染：底座 + 覆盖层
- *   - 底座贴图由构造参数决定（每个石板不一样）
- *   - 覆盖层共用一张（静态常量）
- *   - 暂时不存能量、不染色、无耐久
+ * - 双层渲染：底座 + 覆盖层
+ * - 底座贴图由构造参数决定（每个石板不一样）
+ * - 覆盖层共用一张（静态常量）
+ * - 暂时不存能量、不染色、无耐久
  * 
  * 以后加功能时，改 getColorFromItemStack 让覆盖层按能量比例染色。
  */
@@ -38,12 +37,13 @@ public class ItemNaturalTablet extends Item {
 
     /**
      * 构造方法
+     * 
      * @param baseTextureName 底座贴图名（不带 .png），比如 "greatwood_tablet"
      */
     public ItemNaturalTablet(String baseTextureName) {
         super();
         this.baseTextureName = baseTextureName;
-        setMaxStackSize(1);                // 石板不可堆叠
+        setMaxStackSize(1); // 石板不可堆叠
         setCreativeTab(MNCreativeTabs.MAIN);
     }
 
@@ -59,7 +59,7 @@ public class ItemNaturalTablet extends Item {
 
     // ==================================================
     // 【获取图标】
-    // 
+    //
     // MC 会问："pass 0 用什么图标？pass 1 用什么图标？"
     // pass = 0 → 底座
     // pass = 1 → 覆盖层
@@ -72,7 +72,7 @@ public class ItemNaturalTablet extends Item {
 
     // ==================================================
     // 【开启双层渲染】
-    // 
+    //
     // 不返回 true 的话，MC 只会画一层（底座），
     // 覆盖层永远不会出现。
     // ==================================================
@@ -83,12 +83,12 @@ public class ItemNaturalTablet extends Item {
 
     // ==================================================
     // 【每层染色】暂时不染色，都返回白色（0xFFFFFF）
-    // 
+    //
     // 以后加能量时改这里：
-    //   if (renderPass == 1) {
-    //       float ratio = 能量 / 最大值;
-    //       return Color.HSBtoRGB(0.528F, ratio, 1F);  // 蓝色渐变
-    //   }
+    // if (renderPass == 1) {
+    // float ratio = 能量 / 最大值;
+    // return Color.HSBtoRGB(0.528F, ratio, 1F); // 蓝色渐变
+    // }
     // ==================================================
     @Override
     public int getColorFromItemStack(ItemStack stack, int renderPass) {

@@ -15,23 +15,18 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 
-
-
-import com.github.elenterius.magianaturalis.api.ISpectacles;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
-import thaumcraft.api.IGoggles;
-import thaumcraft.api.nodes.IRevealer;
-
 import org.lwjgl.opengl.GL11;
 
 import com.github.elenterius.magianaturalis.MagiaNaturalis;
+import com.github.elenterius.magianaturalis.api.ISpectacles;
 import com.github.elenterius.magianaturalis.init.MNCreativeTabs;
 import com.github.elenterius.magianaturalis.init.client.MNKeyBindings;
 
@@ -39,6 +34,8 @@ import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import thaumcraft.api.IGoggles;
+import thaumcraft.api.nodes.IRevealer;
 import vazkii.botania.api.item.IBaubleRender;
 
 /**
@@ -50,8 +47,7 @@ import vazkii.botania.api.item.IBaubleRender;
  * meta 3 = 态度面具（4 张脸，NBT 切换）
  * meta 4 = 原始面具（7 张脸，NBT 切换）
  */
-public class ItemMask extends Item
-    implements IBauble, IBaubleRender, ISpectacles, IRevealer, IGoggles {
+public class ItemMask extends Item implements IBauble, IBaubleRender, ISpectacles, IRevealer, IGoggles {
 
     public static final int MASK_COUNT = 3;
     public static final int META_ATTITUDE = 3;
@@ -176,42 +172,41 @@ public class ItemMask extends Item
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean advanced) {
         int meta = stack.getItemDamage();
 
-        list.add(EnumChatFormatting.LIGHT_PURPLE + StatCollector.translateToLocal(
-            "item.magianaturalis.mask.tooltip.1"));
-        list.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal(
-            "item.magianaturalis.mask.tooltip.2"));
+        list.add(
+            EnumChatFormatting.LIGHT_PURPLE + StatCollector.translateToLocal("item.magianaturalis.mask.tooltip.1"));
+        list.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("item.magianaturalis.mask.tooltip.2"));
 
         list.add("");
-        list.add(EnumChatFormatting.DARK_GRAY + StatCollector.translateToLocal(
-            "item.magianaturalis.mask." + meta + ".desc"));
+        list.add(
+            EnumChatFormatting.DARK_GRAY
+                + StatCollector.translateToLocal("item.magianaturalis.mask." + meta + ".desc"));
 
         // 态度面具
         if (meta == META_ATTITUDE) {
             int face = getAttitudeFace(stack);
-            String faceName = StatCollector.translateToLocal(
-                "item.magianaturalis.mask.3.face." + face);
-            list.add(EnumChatFormatting.GOLD + StatCollector.translateToLocal(
-                "item.magianaturalis.mask.3.current") + " " + faceName);
+            String faceName = StatCollector.translateToLocal("item.magianaturalis.mask.3.face." + face);
+            list.add(
+                EnumChatFormatting.GOLD + StatCollector.translateToLocal("item.magianaturalis.mask.3.current")
+                    + " "
+                    + faceName);
 
-            String keyName = GameSettings.getKeyDisplayString(
-                MNKeyBindings.ATTITUDE_SWITCH_KEY.getKeyCode());
+            String keyName = GameSettings.getKeyDisplayString(MNKeyBindings.ATTITUDE_SWITCH_KEY.getKeyCode());
 
-            list.add(EnumChatFormatting.DARK_GRAY
-                + StatCollector.translateToLocalFormatted(
-                    "item.magianaturalis.mask.3.hint", keyName));
+            list.add(
+                EnumChatFormatting.DARK_GRAY
+                    + StatCollector.translateToLocalFormatted("item.magianaturalis.mask.3.hint", keyName));
         }
 
         // 原始面具
         if (meta == META_PRIMAL) {
             int face = getPrimalFace(stack);
-            String faceName = StatCollector.translateToLocal(
-                "item.magianaturalis.mask.4.face." + face);
-            list.add(EnumChatFormatting.GOLD + StatCollector.translateToLocal(
-                "item.magianaturalis.mask.4.current") + " " + faceName);
+            String faceName = StatCollector.translateToLocal("item.magianaturalis.mask.4.face." + face);
+            list.add(
+                EnumChatFormatting.GOLD + StatCollector.translateToLocal("item.magianaturalis.mask.4.current")
+                    + " "
+                    + faceName);
 
-            list.add(EnumChatFormatting.DARK_GRAY
-                + StatCollector.translateToLocal(
-                    "item.magianaturalis.mask.4.hint"));
+            list.add(EnumChatFormatting.DARK_GRAY + StatCollector.translateToLocal("item.magianaturalis.mask.4.hint"));
         }
 
         super.addInformation(stack, player, list, advanced);
@@ -254,20 +249,22 @@ public class ItemMask extends Item
         if (meta == META_ATTITUDE) {
             if (p.worldObj.isRemote) return;
             int face = getAttitudeFace(stack);
-            p.addChatComponentMessage(new ChatComponentTranslation(
-                "msg.magianaturalis.mask.equipped",
-                StatCollector.translateToLocal("item.magianaturalis.mask.3.face." + face)));
+            p.addChatComponentMessage(
+                new ChatComponentTranslation(
+                    "msg.magianaturalis.mask.equipped",
+                    StatCollector.translateToLocal("item.magianaturalis.mask.3.face." + face)));
         } else if (meta == META_PRIMAL) {
             if (p.worldObj.isRemote) return;
             int face = getPrimalFace(stack);
-            p.addChatComponentMessage(new ChatComponentTranslation(
-                "msg.magianaturalis.mask.primal.equipped",
-                StatCollector.translateToLocal("item.magianaturalis.mask.4.face." + face)));
+            p.addChatComponentMessage(
+                new ChatComponentTranslation(
+                    "msg.magianaturalis.mask.primal.equipped",
+                    StatCollector.translateToLocal("item.magianaturalis.mask.4.face." + face)));
             // 立即给一次夜视
-            p.addPotionEffect(new PotionEffect(
-                Potion.nightVision.getId(), 6000, 0, true));
+            p.addPotionEffect(new PotionEffect(Potion.nightVision.getId(), 6000, 0, true));
         }
     }
+
     // ==================================================
     // 【卸下时】
     // ==================================================
@@ -283,8 +280,7 @@ public class ItemMask extends Item
             setHiding(stack, false);
             setHidingEnd(stack, 0L);
             if (p.worldObj.isRemote) return;
-            p.addChatComponentMessage(new ChatComponentTranslation(
-                "msg.magianaturalis.mask.unequipped"));
+            p.addChatComponentMessage(new ChatComponentTranslation("msg.magianaturalis.mask.unequipped"));
         } else if (meta == META_PRIMAL) {
             if (p.worldObj.isRemote) return;
             p.removePotionEffect(Potion.nightVision.getId());
@@ -302,14 +298,17 @@ public class ItemMask extends Item
 
         int meta = stack.getItemDamage();
         switch (meta) {
-            case 0: break;
-            case 1: break;
-            case 2: break;
-            case META_ATTITUDE: break;
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case META_ATTITUDE:
+                break;
             case META_PRIMAL: {
                 if (p.ticksExisted % 40 == 0) {
-                    p.addPotionEffect(new PotionEffect(
-                        Potion.nightVision.getId(), 6000, 0, true));
+                    p.addPotionEffect(new PotionEffect(Potion.nightVision.getId(), 6000, 0, true));
                 }
                 break;
             }
@@ -356,8 +355,12 @@ public class ItemMask extends Item
         float maxV = icon.getMaxV();
         ItemRenderer.renderItemIn2D(
             Tessellator.instance,
-            maxU, minV, minU, maxV,
-            icon.getIconWidth(), icon.getIconHeight(),
+            maxU,
+            minV,
+            minU,
+            maxV,
+            icon.getIconWidth(),
+            icon.getIconHeight(),
             1F / 16F);
     }
 
@@ -366,7 +369,8 @@ public class ItemMask extends Item
     // ==================================================
     public static int getAttitudeFace(ItemStack stack) {
         if (stack == null || !stack.hasTagCompound()) return 0;
-        int face = stack.getTagCompound().getInteger(TAG_ATTITUDE_FACE);
+        int face = stack.getTagCompound()
+            .getInteger(TAG_ATTITUDE_FACE);
         if (face < 0 || face >= 4) return 0;
         return face;
     }
@@ -378,14 +382,16 @@ public class ItemMask extends Item
         }
         int face = getAttitudeFace(stack);
         face = (face + 1) % 4;
-        stack.getTagCompound().setInteger(TAG_ATTITUDE_FACE, face);
+        stack.getTagCompound()
+            .setInteger(TAG_ATTITUDE_FACE, face);
     }
 
     public static void setAttitudeFace(ItemStack stack, int face) {
         if (stack == null) return;
         if (!stack.hasTagCompound()) stack.setTagCompound(new NBTTagCompound());
         if (face < 0 || face >= 4) face = 0;
-        stack.getTagCompound().setInteger(TAG_ATTITUDE_FACE, face);
+        stack.getTagCompound()
+            .setInteger(TAG_ATTITUDE_FACE, face);
     }
 
     // ==================================================
@@ -393,7 +399,8 @@ public class ItemMask extends Item
     // ==================================================
     public static int getPrimalFace(ItemStack stack) {
         if (stack == null || !stack.hasTagCompound()) return 0;
-        int face = stack.getTagCompound().getInteger(TAG_PRIMAL_FACE);
+        int face = stack.getTagCompound()
+            .getInteger(TAG_PRIMAL_FACE);
         if (face < 0 || face >= 7) return 0;
         return face;
     }
@@ -402,7 +409,8 @@ public class ItemMask extends Item
         if (stack == null) return;
         if (!stack.hasTagCompound()) stack.setTagCompound(new NBTTagCompound());
         if (face < 0 || face >= 7) face = 0;
-        stack.getTagCompound().setInteger(TAG_PRIMAL_FACE, face);
+        stack.getTagCompound()
+            .setInteger(TAG_PRIMAL_FACE, face);
     }
 
     public static void cyclePrimal(ItemStack stack) {
@@ -416,24 +424,28 @@ public class ItemMask extends Item
     // ==================================================
     public static long getLong(ItemStack stack, String key) {
         if (stack == null || !stack.hasTagCompound()) return 0L;
-        return stack.getTagCompound().getLong(key);
+        return stack.getTagCompound()
+            .getLong(key);
     }
 
     public static void setLong(ItemStack stack, String key, long value) {
         if (stack == null) return;
         if (!stack.hasTagCompound()) stack.setTagCompound(new NBTTagCompound());
-        stack.getTagCompound().setLong(key, value);
+        stack.getTagCompound()
+            .setLong(key, value);
     }
 
     public static boolean getBool(ItemStack stack, String key) {
         if (stack == null || !stack.hasTagCompound()) return false;
-        return stack.getTagCompound().getBoolean(key);
+        return stack.getTagCompound()
+            .getBoolean(key);
     }
 
     public static void setBool(ItemStack stack, String key, boolean value) {
         if (stack == null) return;
         if (!stack.hasTagCompound()) stack.setTagCompound(new NBTTagCompound());
-        stack.getTagCompound().setBoolean(key, value);
+        stack.getTagCompound()
+            .setBoolean(key, value);
     }
 
     // ==================================================
@@ -442,6 +454,7 @@ public class ItemMask extends Item
     public static long getAttackTime(ItemStack stack) {
         return getLong(stack, "attitude_attack_time");
     }
+
     public static void setAttackTime(ItemStack stack, long v) {
         setLong(stack, "attitude_attack_time", v);
     }
@@ -449,6 +462,7 @@ public class ItemMask extends Item
     public static long getAttitudePvpCd(ItemStack stack) {
         return getLong(stack, "attitude_pvp_cd");
     }
+
     public static void setAttitudePvpCd(ItemStack stack, long v) {
         setLong(stack, "attitude_pvp_cd", v);
     }
@@ -459,6 +473,7 @@ public class ItemMask extends Item
     public static long getSolemnNext(ItemStack stack) {
         return getLong(stack, "solemn_next");
     }
+
     public static void setSolemnNext(ItemStack stack, long v) {
         setLong(stack, "solemn_next", v);
     }
@@ -466,6 +481,7 @@ public class ItemMask extends Item
     public static long getSolemnEnd(ItemStack stack) {
         return getLong(stack, "solemn_end");
     }
+
     public static void setSolemnEnd(ItemStack stack, long v) {
         setLong(stack, "solemn_end", v);
     }
@@ -476,6 +492,7 @@ public class ItemMask extends Item
     public static boolean isHiding(ItemStack stack) {
         return getBool(stack, "hiding_active");
     }
+
     public static void setHiding(ItemStack stack, boolean v) {
         setBool(stack, "hiding_active", v);
     }
@@ -483,6 +500,7 @@ public class ItemMask extends Item
     public static long getHidingEnd(ItemStack stack) {
         return getLong(stack, "hiding_end");
     }
+
     public static void setHidingEnd(ItemStack stack, long v) {
         setLong(stack, "hiding_end", v);
     }
@@ -490,10 +508,10 @@ public class ItemMask extends Item
     public static long getHidingCdEnd(ItemStack stack) {
         return getLong(stack, "hiding_cd_end");
     }
+
     public static void setHidingCdEnd(ItemStack stack, long v) {
         setLong(stack, "hiding_cd_end", v);
     }
-
 
     // ==================================================
     // 【ISpectacles】HUD 显示
@@ -519,14 +537,13 @@ public class ItemMask extends Item
         return stack != null && stack.getItemDamage() == META_PRIMAL;
     }
 
-
-
     // ==================================================
     // 【通用 · flash】
     // ==================================================
     public static void setFlash(ItemStack stack, long now) {
         setLong(stack, "attitude_flash", now);
     }
+
     public static long getFlash(ItemStack stack) {
         return getLong(stack, "attitude_flash");
     }

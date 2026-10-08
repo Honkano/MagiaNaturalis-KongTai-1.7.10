@@ -60,10 +60,10 @@ import thaumcraft.common.tiles.TileOwned;
 @SideOnly(Side.CLIENT)
 public final class RenderEventHandler {
 
-    private static final ResourceLocation SILKTOUCH_TEXTURE =
-        new ResourceLocation("thaumcraft", "textures/foci/silktouch.png");
-    private static final ResourceLocation GLOWING_EYES_TEXTURE =
-        MagiaNaturalis.rl("textures/models/glowingEyes.png");
+    private static final ResourceLocation SILKTOUCH_TEXTURE = new ResourceLocation(
+        "thaumcraft",
+        "textures/foci/silktouch.png");
+    private static final ResourceLocation GLOWING_EYES_TEXTURE = MagiaNaturalis.rl("textures/models/glowingEyes.png");
     private static final ModelBiped OVERLAY_MODEL = new ModelBiped();
 
     /** 要素标签的淡入淡出系数 */
@@ -90,14 +90,12 @@ public final class RenderEventHandler {
 
         Minecraft mc = Minecraft.getMinecraft();
 
-        if (Minecraft.isGuiEnabled() && !mc.isGamePaused()
-            && !mc.gameSettings.showDebugInfo) {
+        if (Minecraft.isGuiEnabled() && !mc.isGamePaused() && !mc.gameSettings.showDebugInfo) {
             if (mc.renderViewEntity instanceof EntityPlayer) {
                 EntityPlayer player = (EntityPlayer) mc.renderViewEntity;
 
                 ItemStack specs = findSpectaclesOnPlayer(player);
-                if (specs != null
-                    && ((ISpectacles) specs.getItem()).drawSpectacleHUD(specs, player)) {
+                if (specs != null && ((ISpectacles) specs.getItem()).drawSpectacleHUD(specs, player)) {
                     renderSpectaclesHUD(mc, player);
                 }
 
@@ -167,9 +165,7 @@ public final class RenderEventHandler {
         if (aspects == null || aspects.size() <= 0) return;
 
         boolean spaceAbove = player.worldObj.isAirBlock(x, y + 1, z);
-        ForgeDirection dir = spaceAbove
-            ? ForgeDirection.UP
-            : ForgeDirection.getOrientation(event.target.sideHit);
+        ForgeDirection dir = spaceAbove ? ForgeDirection.UP : ForgeDirection.getOrientation(event.target.sideHit);
 
         if (tagscale < 0.3F) {
             tagscale += 0.031F - tagscale / 10.0F;
@@ -222,15 +218,20 @@ public final class RenderEventHandler {
                     TileEntity te = (TileEntity) obj;
                     if (te.isInvalid()) continue;
 
-                    double distSq = player.getDistanceSq(
-                        te.xCoord + 0.5, te.yCoord + 0.5, te.zCoord + 0.5);
+                    double distSq = player.getDistanceSq(te.xCoord + 0.5, te.yCoord + 0.5, te.zCoord + 0.5);
                     if (distSq > maxDistSq) continue;
 
                     if (te instanceof INode && !(te instanceof TileNodeEnergized)) {
                         INode node = (INode) te;
                         TileNodeRenderer.renderNode(
-                            player, 64.0D, true, true, 1.0F,
-                            te.xCoord, te.yCoord, te.zCoord,
+                            player,
+                            64.0D,
+                            true,
+                            true,
+                            1.0F,
+                            te.xCoord,
+                            te.yCoord,
+                            te.zCoord,
                             partialTicks,
                             node.getAspects(),
                             node.getNodeType(),
@@ -238,8 +239,14 @@ public final class RenderEventHandler {
                     } else if (te instanceof TileNodeEnergized) {
                         TileNodeEnergized node = (TileNodeEnergized) te;
                         TileNodeRenderer.renderNode(
-                            player, 64.0D, true, true, 1.0F,
-                            te.xCoord, te.yCoord, te.zCoord,
+                            player,
+                            64.0D,
+                            true,
+                            true,
+                            1.0F,
+                            te.xCoord,
+                            te.yCoord,
+                            te.zCoord,
                             partialTicks,
                             node.getAuraBase(),
                             node.getNodeType(),
@@ -303,9 +310,8 @@ public final class RenderEventHandler {
     // ==================================================
     // 【绘制要素标签】从 TC4 的 RenderEventHandler 复制改造而来
     // ==================================================
-    private void drawTagsOnContainer(double x, double y, double z,
-                                      AspectList tags, int bright,
-                                      ForgeDirection dir, float partialTicks) {
+    private void drawTagsOnContainer(double x, double y, double z, AspectList tags, int bright, ForgeDirection dir,
+        float partialTicks) {
         if (!(Minecraft.getMinecraft().renderViewEntity instanceof EntityPlayer)) return;
         if (tags == null || tags.size() <= 0) return;
 
@@ -361,18 +367,24 @@ public final class RenderEventHandler {
 
             if (!discovered) {
                 UtilsFX.renderQuadCenteredFromTexture(
-                    "textures/aspects/_unknown.png", 1.0F,
+                    "textures/aspects/_unknown.png",
+                    1.0F,
                     (float) color.getRed() / 255.0F,
                     (float) color.getGreen() / 255.0F,
                     (float) color.getBlue() / 255.0F,
-                    bright, 771, 0.75F);
+                    bright,
+                    771,
+                    0.75F);
             } else {
                 UtilsFX.renderQuadCenteredFromTexture(
-                    tag.getImage(), 1.0F,
+                    tag.getImage(),
+                    1.0F,
                     (float) color.getRed() / 255.0F,
                     (float) color.getGreen() / 255.0F,
                     (float) color.getBlue() / 255.0F,
-                    bright, 771, 0.75F);
+                    bright,
+                    771,
+                    0.75F);
             }
 
             if (tags.getAmount(tag) >= 0) {
@@ -610,7 +622,8 @@ public final class RenderEventHandler {
     private void renderSpectaclesHUD(Minecraft mc, EntityPlayer player) {
         boolean meterEquiped = false;
         if (player.inventory.getCurrentItem() != null) {
-            if (player.inventory.getCurrentItem().getItem() == ConfigItems.itemThaumometer) {
+            if (player.inventory.getCurrentItem()
+                .getItem() == ConfigItems.itemThaumometer) {
                 meterEquiped = true;
             }
         }
@@ -658,11 +671,8 @@ public final class RenderEventHandler {
                     GL11.glPopMatrix();
                 } else if (tile instanceof TileOwned) {
                     TileOwned owned = (TileOwned) tile;
-                    String owner = EnumChatFormatting.DARK_PURPLE
-                        + Platform.translate("hud.magianaturalis.spectacles.owner")
-                        + ": "
-                        + EnumChatFormatting.WHITE
-                        + owned.owner;
+                    String owner = EnumChatFormatting.DARK_PURPLE + Platform.translate(
+                        "hud.magianaturalis.spectacles.owner") + ": " + EnumChatFormatting.WHITE + owned.owner;
                     GL11.glPushMatrix();
                     GL11.glTranslatef(w / 2, h / 2, 0F);
                     fontRenderer
@@ -670,11 +680,8 @@ public final class RenderEventHandler {
                     GL11.glPopMatrix();
                 } else if (tile instanceof ArcaneChestBlockEntity) {
                     ArcaneChestBlockEntity chest = (ArcaneChestBlockEntity) tile;
-                    String name = EnumChatFormatting.DARK_PURPLE
-                        + Platform.translate("hud.magianaturalis.spectacles.owner")
-                        + ": "
-                        + EnumChatFormatting.WHITE
-                        + chest.getOwnerName();
+                    String name = EnumChatFormatting.DARK_PURPLE + Platform.translate(
+                        "hud.magianaturalis.spectacles.owner") + ": " + EnumChatFormatting.WHITE + chest.getOwnerName();
                     GL11.glPushMatrix();
                     GL11.glTranslatef(w / 2, h / 2, 0F);
                     fontRenderer.drawStringWithShadow(name, -(fontRenderer.getStringWidth(name) - 4) / 2, 25, 0xFFFFFF);

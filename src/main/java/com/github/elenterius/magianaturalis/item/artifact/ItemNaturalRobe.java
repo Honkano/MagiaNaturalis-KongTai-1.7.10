@@ -26,8 +26,7 @@ import thaumcraft.api.IRunicArmor;
 import thaumcraft.api.IVisDiscountGear;
 import thaumcraft.api.aspects.Aspect;
 
-public class ItemNaturalRobe extends ItemArmor
-    implements IRepairable, IRunicArmor, IVisDiscountGear {
+public class ItemNaturalRobe extends ItemArmor implements IRepairable, IRunicArmor, IVisDiscountGear {
 
     public IIcon iconHelm;
     public IIcon iconChest;
@@ -47,9 +46,9 @@ public class ItemNaturalRobe extends ItemArmor
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister ir) {
-        iconHelm  = ir.registerIcon(MagiaNaturalis.rlString("natural_robe_helm"));
+        iconHelm = ir.registerIcon(MagiaNaturalis.rlString("natural_robe_helm"));
         iconChest = ir.registerIcon(MagiaNaturalis.rlString("natural_robe_chest"));
-        iconLegs  = ir.registerIcon(MagiaNaturalis.rlString("natural_robe_legs"));
+        iconLegs = ir.registerIcon(MagiaNaturalis.rlString("natural_robe_legs"));
         iconBoots = ir.registerIcon(MagiaNaturalis.rlString("natural_robe_boots"));
     }
 
@@ -75,6 +74,7 @@ public class ItemNaturalRobe extends ItemArmor
         // 头盔/胸甲/护腿共用血腥教皇那张
         return MagiaNaturalis.rlString("textures/models/armor/natural_robe_layer_1.png");
     }
+
     @Override
     public EnumRarity getRarity(ItemStack stack) {
         return EnumRarity.epic;
@@ -99,8 +99,7 @@ public class ItemNaturalRobe extends ItemArmor
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean advanced) {
         list.add(
-            EnumChatFormatting.DARK_PURPLE
-                + StatCollector.translateToLocal("tc.visdiscount")
+            EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("tc.visdiscount")
                 + ": "
                 + getVisDiscount(stack, player, null)
                 + "%");
@@ -141,9 +140,9 @@ public class ItemNaturalRobe extends ItemArmor
             model.aimedBow = false;
             model.heldItemRight = entityLiving.getHeldItem() != null ? 1 : 0;
 
-            if (entityLiving instanceof EntityPlayer
-                && ((EntityPlayer) entityLiving).getItemInUseDuration() > 0) {
-                EnumAction action = ((EntityPlayer) entityLiving).getItemInUse().getItemUseAction();
+            if (entityLiving instanceof EntityPlayer && ((EntityPlayer) entityLiving).getItemInUseDuration() > 0) {
+                EnumAction action = ((EntityPlayer) entityLiving).getItemInUse()
+                    .getItemUseAction();
                 if (action == EnumAction.block) {
                     model.heldItemRight = 3;
                 } else if (action == EnumAction.bow) {

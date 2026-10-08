@@ -37,13 +37,12 @@ import vazkii.botania.api.item.IBaubleRender;
  * 【揭示之护目镜 · 饰品版】
  * 
  * 一个纯装饰品，戴在 Baubles 项链栏：
- *   - 会渲染眼镜到玩家头上
- *   - 会显示节点高亮
- *   - 会显示节点/箱子信息
- *   - 会赋予近乎无限的夜视效果
+ * - 会渲染眼镜到玩家头上
+ * - 会显示节点高亮
+ * - 会显示节点/箱子信息
+ * - 会赋予近乎无限的夜视效果
  */
-public class ItemRevealingGoggles extends Item
-    implements IBauble, IBaubleRender, ISpectacles, IRevealer, IGoggles {
+public class ItemRevealingGoggles extends Item implements IBauble, IBaubleRender, ISpectacles, IRevealer, IGoggles {
 
     /** 夜视效果的刷新间隔（tick） */
     private static final int NIGHTVISION_REFRESH_INTERVAL = 40;
@@ -76,7 +75,7 @@ public class ItemRevealingGoggles extends Item
 
     // ==================================================
     // 【稀有度】让物品名变成紫色
-    // 
+    //
     // EnumRarity.epic = 紫色（史诗级）
     // ==================================================
     @Override
@@ -86,29 +85,35 @@ public class ItemRevealingGoggles extends Item
 
     // ==================================================
     // 【Tooltip】鼠标悬停时显示的信息
-    // 
+    //
     // 全部走语言键，中英文自动切换
     // ==================================================
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean advanced) {
         // 第 1 段：类型和槽位
-        list.add(EnumChatFormatting.LIGHT_PURPLE + StatCollector.translateToLocal(
-            "item.magianaturalis.revealing_goggles.tooltip.1"));
-        list.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal(
-            "item.magianaturalis.revealing_goggles.tooltip.2"));
+        list.add(
+            EnumChatFormatting.LIGHT_PURPLE
+                + StatCollector.translateToLocal("item.magianaturalis.revealing_goggles.tooltip.1"));
+        list.add(
+            EnumChatFormatting.GRAY
+                + StatCollector.translateToLocal("item.magianaturalis.revealing_goggles.tooltip.2"));
 
         // 第 2 段：感谢和署名
         list.add("");
-        list.add(EnumChatFormatting.DARK_GRAY + StatCollector.translateToLocal(
-            "item.magianaturalis.revealing_goggles.tooltip.3"));
-        list.add(EnumChatFormatting.DARK_GRAY + StatCollector.translateToLocal(
-            "item.magianaturalis.revealing_goggles.tooltip.4"));
+        list.add(
+            EnumChatFormatting.DARK_GRAY
+                + StatCollector.translateToLocal("item.magianaturalis.revealing_goggles.tooltip.3"));
+        list.add(
+            EnumChatFormatting.DARK_GRAY
+                + StatCollector.translateToLocal("item.magianaturalis.revealing_goggles.tooltip.4"));
 
         // 第 3 段：吐槽
         list.add("");
-        list.add(EnumChatFormatting.DARK_GRAY + "" + EnumChatFormatting.ITALIC + StatCollector.translateToLocal(
-            "item.magianaturalis.revealing_goggles.tooltip.5"));
+        list.add(
+            EnumChatFormatting.DARK_GRAY + ""
+                + EnumChatFormatting.ITALIC
+                + StatCollector.translateToLocal("item.magianaturalis.revealing_goggles.tooltip.5"));
 
         super.addInformation(stack, player, list, advanced);
     }
@@ -118,7 +123,7 @@ public class ItemRevealingGoggles extends Item
     // ==================================================
     @Override
     public BaubleType getBaubleType(ItemStack stack) {
-        return BaubleType.AMULET;  // 项链槽
+        return BaubleType.AMULET; // 项链槽
     }
 
     @Override
@@ -133,10 +138,10 @@ public class ItemRevealingGoggles extends Item
 
     // ==================================================
     // 【夜视效果】戴上时赋予
-    // 
+    //
     // 思路：每 NIGHTVISION_REFRESH_INTERVAL tick 刷新一次，
-    //       每次赋予 NIGHTVISION_DURATION tick。
-    //       只要戴着就不会断，卸下时 onUnequipped 会清除。
+    // 每次赋予 NIGHTVISION_DURATION tick。
+    // 只要戴着就不会断，卸下时 onUnequipped 会清除。
     // ==================================================
     @Override
     public void onEquipped(ItemStack stack, EntityLivingBase player) {
@@ -226,8 +231,12 @@ public class ItemRevealingGoggles extends Item
         float maxV = icon.getMaxV();
         ItemRenderer.renderItemIn2D(
             Tessellator.instance,
-            maxU, minV, minU, maxV,
-            icon.getIconWidth(), icon.getIconHeight(),
+            maxU,
+            minV,
+            minU,
+            maxV,
+            icon.getIconWidth(),
+            icon.getIconHeight(),
             1F / 16F);
     }
 }

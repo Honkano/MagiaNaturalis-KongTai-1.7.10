@@ -36,16 +36,13 @@ public class MixinGuiContainer {
         at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/client/gui/inventory/GuiContainer;drawGuiContainerForegroundLayer(II)V",
-            shift = At.Shift.AFTER
-        )
-    )
-    private void magiaNaturalis$renderSlotAspectOverlay(
-            int mouseX, int mouseY, float partialTicks, CallbackInfo ci) {
+            shift = At.Shift.AFTER))
+    private void magiaNaturalis$renderSlotAspectOverlay(int mouseX, int mouseY, float partialTicks, CallbackInfo ci) {
 
         GuiContainer self = (GuiContainer) (Object) this;
 
         GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS);
-        GL11.glDisable(GL11.GL_DEPTH_TEST);   // ← 关深度测试
+        GL11.glDisable(GL11.GL_DEPTH_TEST); // ← 关深度测试
         try {
             ContainerSlotAspectOverlay.renderSlotIcons(self);
         } finally {
@@ -54,10 +51,10 @@ public class MixinGuiContainer {
     }
 
     @Inject(method = "drawScreen(IIF)V", at = @At("TAIL"))
-    private void magiaNaturalis$renderHeldAspectOverlay(
-            int mouseX, int mouseY, float partialTicks, CallbackInfo ci) {
+    private void magiaNaturalis$renderHeldAspectOverlay(int mouseX, int mouseY, float partialTicks, CallbackInfo ci) {
 
-        if (!DisplayToggleManager.getInstance().isEnabled(DisplayType.REVEAL_SLOT_ASPECTS)) return;
+        if (!DisplayToggleManager.getInstance()
+            .isEnabled(DisplayType.REVEAL_SLOT_ASPECTS)) return;
 
         EntityPlayer player = Minecraft.getMinecraft().thePlayer;
         if (player == null) return;
@@ -65,7 +62,7 @@ public class MixinGuiContainer {
         ItemStack held = player.inventory.getItemStack();
 
         GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS);
-        GL11.glDisable(GL11.GL_DEPTH_TEST);   // ← 关深度测试
+        GL11.glDisable(GL11.GL_DEPTH_TEST); // ← 关深度测试
         try {
             if (held != null) {
                 ContainerSlotAspectOverlay.renderHeldIcon(mouseX, mouseY);
@@ -116,14 +113,14 @@ public class MixinGuiContainer {
             tipContentY = screenH - contentHeight - 4;
         }
 
-        int tipLeft   = tipContentX - 4;
-        int tipRight  = tipContentX + contentWidth + 3;
-        int tipTop    = tipContentY - 4;
+        int tipLeft = tipContentX - 4;
+        int tipRight = tipContentX + contentWidth + 3;
+        int tipTop = tipContentY - 4;
         int tipBottom = tipContentY + contentHeight + 3;
 
-        int panelWidth  = tipRight - tipLeft;
+        int panelWidth = tipRight - tipLeft;
         int panelHeight = 22;
-        int gap         = 2;
+        int gap = 2;
 
         int panelX = tipLeft;
         int panelY = tipTop - gap - panelHeight;
@@ -135,7 +132,7 @@ public class MixinGuiContainer {
             if (panelY + panelHeight > screenH - 2) return;
         }
 
-        int bgColor   = 0xF0100010;
+        int bgColor = 0xF0100010;
         int borderTop = 0x505000FF;
         int borderBot = 0x5028007F;
 

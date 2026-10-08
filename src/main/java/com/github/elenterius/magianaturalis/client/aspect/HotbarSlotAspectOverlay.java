@@ -20,15 +20,16 @@ import thaumcraft.api.aspects.Aspect;
 @SideOnly(Side.CLIENT)
 public final class HotbarSlotAspectOverlay {
 
-    private static final int HOTBAR_WIDTH  = 182;
+    private static final int HOTBAR_WIDTH = 182;
     private static final int HOTBAR_HEIGHT = 22;
-    private static final int SLOT_INSET    = 3;
-    private static final int SLOT_STRIDE   = 20;
+    private static final int SLOT_INSET = 3;
+    private static final int SLOT_STRIDE = 20;
 
     @SubscribeEvent
     public void onRenderOverlay(RenderGameOverlayEvent.Post event) {
         if (event.type != RenderGameOverlayEvent.ElementType.HOTBAR) return;
-        if (!DisplayToggleManager.getInstance().isEnabled(DisplayType.REVEAL_SLOT_ASPECTS)) return;
+        if (!DisplayToggleManager.getInstance()
+            .isEnabled(DisplayType.REVEAL_SLOT_ASPECTS)) return;
 
         int overlaySize = MNConfig.getSlotOverlaySize();
         float alpha = MNConfig.getSlotOverlayAlpha();
@@ -44,7 +45,7 @@ public final class HotbarSlotAspectOverlay {
         int screenH = sr.getScaledHeight();
 
         int hotbarLeft = (screenW - HOTBAR_WIDTH) / 2;
-        int hotbarTop  = screenH - HOTBAR_HEIGHT;
+        int hotbarTop = screenH - HOTBAR_HEIGHT;
 
         GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS);
         try {

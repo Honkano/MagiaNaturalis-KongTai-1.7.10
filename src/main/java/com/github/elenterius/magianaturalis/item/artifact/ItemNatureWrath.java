@@ -16,8 +16,7 @@ import thaumcraft.api.IRepairable;
 
 public class ItemNatureWrath extends ItemSword implements IRepairable {
 
-    public static final ToolMaterial MATERIAL = EnumHelper
-        .addToolMaterial("MN_WRATH", 4, 1500, 6.0F, 5.0F, 15);
+    public static final ToolMaterial MATERIAL = EnumHelper.addToolMaterial("MN_WRATH", 4, 1500, 6.0F, 5.0F, 15);
 
     public IIcon icon;
 

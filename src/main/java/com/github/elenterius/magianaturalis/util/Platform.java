@@ -46,7 +46,7 @@ public final class Platform {
     // ==================================================
     // 【新增】枚举 → 翻译键 → 翻译文本
     // 例：translateEnum("enum.magianaturalis.shape.", Shape.PLANE_EXTEND)
-    //   → 找 "enum.magianaturalis.shape.plane_extend" → "平面延伸"
+    // → 找 "enum.magianaturalis.shape.plane_extend" → "平面延伸"
     // 找不到就返回枚举原名（大写），方便排查
     // ==================================================
     public static String translateEnum(String prefix, Enum<?> value) {

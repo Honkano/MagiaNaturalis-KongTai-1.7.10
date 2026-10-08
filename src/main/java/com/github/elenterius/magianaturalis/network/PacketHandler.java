@@ -1,6 +1,8 @@
 package com.github.elenterius.magianaturalis.network;
 
 import com.github.elenterius.magianaturalis.MagiaNaturalis;
+import com.github.elenterius.magianaturalis.network.packet.PacketAttitudeParticles;
+import com.github.elenterius.magianaturalis.network.packet.PacketAttitudeSwitch;
 import com.github.elenterius.magianaturalis.network.packet.PacketBiomeChange;
 import com.github.elenterius.magianaturalis.network.packet.PacketKeyInput;
 import com.github.elenterius.magianaturalis.network.packet.PacketPickedBlock;
@@ -8,9 +10,6 @@ import com.github.elenterius.magianaturalis.network.packet.PacketPickedBlock;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
-
-import com.github.elenterius.magianaturalis.network.packet.PacketAttitudeParticles;
-import com.github.elenterius.magianaturalis.network.packet.PacketAttitudeSwitch;
 
 public class PacketHandler {
 
@@ -33,7 +32,7 @@ public class PacketHandler {
             nextPacketID++,
             Side.CLIENT);
 
-                // ★ 新增
+        // ★ 新增
         network.registerMessage(
             PacketAttitudeSwitch.class,
             PacketAttitudeSwitch.AttitudeSwitchMessage.class,
@@ -43,9 +42,8 @@ public class PacketHandler {
             PacketAttitudeParticles.class,
             PacketAttitudeParticles.Message.class,
             4,
-            cpw.mods.fml.relauncher.Side.CLIENT);            
+            cpw.mods.fml.relauncher.Side.CLIENT);
 
-            
     }
 
     // private static <REQ extends IMessage, REPLY extends IMessage> void registerMessage(Class<? extends
